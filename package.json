@@ -1,0 +1,28 @@
+{
+  "name": "wengy-ven",
+  "version": "1.0.0",
+  "description": "Official telegram bot for the ng-Venezuela community",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngVenezuela/wengy-ven.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "angular"
+  ],
+  "author": "Leonardo Cabeza <info@leonardocabeza.com> (https://github.com/leocabeza)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ngVenezuela/wengy-ven/issues"
+  },
+  "homepage": "https://github.com/ngVenezuela/wengy-ven#readme",
+  "dependencies": {
+    "node-telegram-bot-api": "0.23.3",
+    "winston": "2.2.0"
+  }
+}
