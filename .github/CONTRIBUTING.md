@@ -71,8 +71,7 @@ Actualmente tenemos estás acciones disponibles:
 _Si quieres proponer un nuevo tipo de "Accion", puedes abrir un `issue`, para ello en este [enlace](https://github.com/ngVenezuela/wengy-ven/issues)_
 
 
-**_Importante: Las contribuciones que no cumpla con las recomendaciones acá expuestas no será aceptadas._**
-
+**_¡Importante!: Las contribuciones que no cumpla con las recomendaciones acá expuestas no será aceptadas._**
 
 
 
