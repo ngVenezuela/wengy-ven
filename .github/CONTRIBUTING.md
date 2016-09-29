@@ -8,16 +8,16 @@ Aquí están los lineamientos para poder contribuir.
 
 En los proyectos de ngVenezuela, tenemos 2 branches, o ramas por defecto: 
 
-- Master.
-- Develop.
+- `master`.
+- `develop`.
 
-El branch `master` es tratado como "producción" y `develop` como el de "ci", o "qa", por lo consiguiente, se deben crear branches o ramas individuales para cualquier aporte, luego en el `pull request` se debe especificar que nuestro nuevo cambio será mergeado a `develop`.
+El branch `master` es tratado como "producción" y `develop` como el de "ci", o "qa", por lo consiguiente, se deben crear branches o ramas individuales para cualquier aporte, luego en el `pull request` se debe especificar que el nuevo cambio será unirá a `develop`.
 
 ### **_IMPORTANTE_**
 ¡NUNCA! debemos hacer merge a `master` ya que estaríamos haciendo cambios a "PRODUCCION". 
 
 ## Formato de Commits
-Tenemos una estructura a seguir, para que tus contribuciones sean válidas. Los mensajes de commits _deberían_ ser de la siguiente manera: 
+Tenemos una estructura a seguir, para facilitar la validación de tus contribuciones y mantener un buen flujo de trabajo. Los mensajes de commits _deberían_ ser de la siguiente manera: 
 
 ````
 (<Accion>): <Mensaje Corto>
