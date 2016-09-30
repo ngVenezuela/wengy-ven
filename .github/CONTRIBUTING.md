@@ -4,7 +4,8 @@
 Para nosotros tú contribución es muy importante, y en pro de mantener un orden en nuestros repos hemos creado este archivo `contributing.md`, para que puedas enviar todos tus aportes. 
 Aquí están los lineamientos para poder contribuir.
 
-## Sobres el "branch" o "rama" a utilizar.
+
+## Sobre el "branch" o "rama" a utilizar.
 
 En los proyectos de ngVenezuela, tenemos 2 branches, o ramas por defecto: 
 
@@ -51,9 +52,10 @@ ValidaNovias
 Por favor asegurate que tú `pull request` cumpla los siguientes lineamientos:
 
 - Crea un `pull request` individual por cada aporte.
+- Sigue las indicaciones dadas en la plantilla de `pulls requests`.
 - Usa `title-casing` (AP style).
 - Presta mucha atención a tu ortografía.
-- Nuevas categorias o mejoras a lo que ya existe, siempre es bienvenido.
+- Nuevos aportes o mejoras a lo que ya existe, siempre es bienvenido.
 
 
 ## Acciones
