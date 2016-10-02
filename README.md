@@ -1,88 +1,68 @@
 # Wengy-ven
 
-BOT de Bienvenida a nuevos integrantes del grupo [ngVenezuela OFF-TOPIC](https://telegram.me/ngvenezuela) en Telegram. 
+BOT de Bienvenida a nuevos integrantes del grupo [ngVenezuela OFF-TOPIC](https://telegram.me/ngvenezuela) 
+en Telegram. 
 
 ## Comenzando
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Clonamos el proyecto con el comando: `git clone git@github.com:ngVenezuela/wengy-ven.git`
 
 ### Prerequisitos
 
-What things you need to install the software and how to install them
+Para poder tener un bot, es necesario crearlo, y obtener un token para el mismo, las 
+instrucciones las puedes consultar aquí: [¿Cómo creo un bot?](https://core.telegram.org/bots#3-how-do-i-create-a-bot).
+Este bot nos va a servir para hacer nuestros desarrollos y/o pruebas.
 
-```
-Give examples
-```
+Luego de creado el bot, lo agregamos a un grupo: 
+[Agregar bot a un grupo](images/add-bot-to-group.jpg)
+Y ya automáticamente quedará escuchando cualquier comando
+
+Lo otro que debemos hacer es tener instalado una versión de [NodeJS](https://nodejs.org/en/) mayor a la v6.0, debido 
+a la compatibilidad de ES6 no tiene un gran soporte en [versiones anteriores](http://node.green/). 
 
 ### Instalando
 
-A step by step series of examples that tell you have to get a development env running
+Instalamos todas las dependencias del proyecto con el comando: `npm install` 
 
-Stay what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+Por último creamos un archivo en el directorio `config/` llamado `config.js` con el formato 
+que tiene el archivo `config.sample.js`. En este nuevo archivo colocaremos nuestros token que 
+pudimos obtener durante la sección de Prerequisitos.
 
 ## Corriendo los tests
 
-Explain how to run the automated tests for this system
+Por ahora, este proyecto no tienes pruebas.
 
-### Break down into end to end tests
+## Despliegue
 
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+Para ejecutar este proyecto, debemos colocarnos sobre el directorio y correr el comando:
+`node src/index.js'
 
 ## Construido con
 
-* Dropwizard - Bla bla bla
-* Maven - Maybe
-* Atom - ergaerga
+* NodeJS 
+* API de Telegram
 
 ## Contribuyendo
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Por favor lee [CONTRIBUTING.md](.github/CONTRIBUTING.md) para los detalle de nuestro código de conducta, 
+y el proceso para enviarnos pull requests.
 
 ## Versionado
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+Utilizamos [SemVer](http://semver.org/) para el versionado.
+Para ver las versiones disponibles, mira los [tags en este repositorio](https://github.com/ngVenezuela/wengy-ven/tags). 
 
 ## Autores
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Andrés Villanueva** - *Trabajo inicial* - [Villanuevand](https://github.com/Villanuevand)
+* **Leonardo Cabeza** - *Código inicial* - [leocabeza](https://github.com/leocabeza)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+Ver también la lista de [contribuyentes](https://github.com/ngVenezuela/wengy-ven/graphs/contributors) que participaron en este proyecto.
 
 ## Licencia
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+Este proyecto está licensiado bajo la licensia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
 
-## Acknowledgments
+## Expresiones de gratitud
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
-
+* La comunidad de [ngVenezuela](https://github.com/orgs/ngVenezuela/people)
