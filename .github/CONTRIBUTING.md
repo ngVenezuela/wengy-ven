@@ -12,9 +12,13 @@ En los proyectos de ngVenezuela, tenemos 2 branches, o ramas por defecto:
 - `master`.
 - `develop`.
 
+Te recomendamos nombrar los branches o ramas de tus colaboraciones para ngVenezuela con el prefijo: `ngve-` seguido por la convención de tú preferencia. A nosotros nos agrada esta: `<prefijo ngve>-<palabra "issue">-<numero de issue>-`.
+
+Quedaría algo como esto: `ngve-issue-14-encuesta`. 
+
 El branch `master` es tratado como "producción" y `develop` como el de "ci", o "qa", por lo consiguiente, se deben crear branches o ramas individuales para cualquier aporte, luego en el `pull request` se debe especificar que el nuevo cambio será unirá a `develop`.
 
-### **_IMPORTANTE_**
+##### **_IMPORTANTE_**
 ¡NUNCA! debemos hacer merge a `master` ya que estaríamos haciendo cambios a "PRODUCCION". 
 
 ## Formato de Commits
@@ -56,6 +60,98 @@ Por favor asegurate que tú `pull request` cumpla los siguientes lineamientos:
 - Usa `title-casing` (AP style).
 - Presta mucha atención a tu ortografía.
 - Nuevos aportes o mejoras a lo que ya existe, siempre es bienvenido.
+
+#### Ejemplos 
+
+##### `PULL REQUEST` de un bug o error: Multiplicación de números, ISSUE #14
+
+* * * 
+
+>**Estoy enviando un ...**  (marque con una "x")
+
+```
+[ X ] Error reportado #14
+[ ] Solicitud de caracteristica, mejora. 
+
+```
+
+>**Comportamiento Actual** 
+
+>Se lanza un error multiplicar por cero.
+
+
+
+>**Comportamiento Esperado**
+
+>Debe manejar los casos de multiplicacion por cero.
+
+
+
+>**Reproducción del Problema**
+
+>Al ingresar a la sección "multiplicar" y realizar una operación. 
+
+
+
+>**Cual es el motivo / Caso util para cambiar el comportamiento?**
+
+>El error generado por la multiplicación con cero, lanza una excepción fatal y finaliza la apliacación.
+
+
+
+>**Por favor cuentamos sobre tu ambiente de desarrollo:**
+
+>Windows 8, IDE: Sublime text, Node 5.4.0, y todos la informacion necesaria.
+
+
+* * * 
+
+Acá dejamos otro ejemplo sobre como hacer un `PULL REQUEST`, en este caso notificaremos que estámos cubriendo una funcionalidad solicitada en un el issue número 15.
+
+* * * 
+
+##### `PULL REQUEST` de una funcionalidad: Graficar una función SENO, ISSUE #15
+
+
+>**Estoy enviando un ...**  (marque con una "x")
+
+```
+[ ] Error reportado.
+[ X ] Solicitud de caracteristica, mejora. #15
+
+```
+
+>**Comportamiento Actual** 
+
+>Todas las operaciones matematicas.
+
+
+
+>**Comportamiento Esperado**
+
+>Debe graficar un función SENO.
+
+
+
+>**Reproducción del Problema**
+
+> _NO APLICA_
+
+
+
+>**Cual es el motivo / Caso util para cambiar el comportamiento?**
+
+>Mejora de la aplicación, para ampliar el espectro de usuarios. 
+
+
+
+>**Por favor cuentamos sobre tu ambiente de desarrollo:**
+
+>_NO APLICA_
+
+* * * 
+
+Notese que en este segundo ejemplo, aparece la palabra "_NO APLICA_", está es utilizada en el caso de que algúnas de las opciones expuestas en la plantilla, no fuese coherente. 
 
 
 ## Acciones
