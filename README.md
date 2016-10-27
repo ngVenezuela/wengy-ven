@@ -61,7 +61,7 @@ Ver también la lista de [contribuyentes](https://github.com/ngVenezuela/wengy-v
 
 ## Licencia
 
-Este proyecto está licensiado bajo la licensia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está licenciado bajo la licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
 
 ## Expresiones de gratitud
 
