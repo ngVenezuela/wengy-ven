@@ -35,7 +35,7 @@ morningEvent.event
         return messages.goodMornings.mondays[randomIndex];
       } else if (weekday === 5) {
         // fridays
-        let randomIndex = generateRandom(0, messages.goodMornings.mondays.length - 1);
+        let randomIndex = generateRandom(0, messages.goodMornings.fridays.length - 1);
         return messages.goodMornings.fridays[randomIndex];
       } else {
         let randomIndex = generateRandom(0, messages.goodMornings.generic.length - 1);
