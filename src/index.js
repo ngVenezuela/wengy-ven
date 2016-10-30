@@ -6,7 +6,7 @@ const messages =  require('../config/messages');
 const morningEvent = require('./morning-event');
 
 const token = config.telegramToken;
-// const groupTestId = -165387746;
+// const groupId = -165387746; //test group
 const groupId = -1001031605415;
 const goodMorningRegExp = new RegExp('buen(os)*\\sd[ií]+as', 'iu');
 let bot = new telegramBot(token, {polling: true});
