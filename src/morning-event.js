@@ -10,21 +10,21 @@ function emitMinuteMark() {
   let vzlanMinute = getVzlanMinute();
 
   eventEmitter.emit('minuteMark', vzlanHour, vzlanMinute, getVzlanWeekday());
-  if (vzlanHour === 0) {
+  if (vzlanHour === 0 && vzlanMinute == 0) {
     eventEmitter.emit('newDay');
   }
 }
 
 function getVzlanHour(date = new Date()) {
   let vzlanTime = getVzlanTime(date);
-  let vzlanHour = vzlanTime.getUTCHours(); // 24 hours format
+  let vzlanHour = vzlanTime.getUTCHours(); // 24 hours format (0-23)
 
   return vzlanHour;
 }
 
 function getVzlanMinute(date = new Date()) {
   let vzlanTime = getVzlanTime(date);
-  let vzlanMinute = vzlanTime.getUTCMinutes();
+  let vzlanMinute = vzlanTime.getUTCMinutes(); // 0-59
 
   return vzlanMinute;
 }
