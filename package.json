@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/ngVenezuela/wengy-ven#readme",
   "dependencies": {
-    "node-telegram-bot-api": "0.23.3"
+    "node-telegram-bot-api": "0.25.0"
   },
   "devDependencies": {
     "nodemon": "1.11.0"

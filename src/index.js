@@ -13,6 +13,10 @@ let bot = new telegramBot(token, {polling: true});
 let goodMorningGivenToday = false;
 let minuteToCheck = generateRandom(0, 59);
 
+bot
+  .on('new_chat_participant', newChatParticipant)
+  .on('text', newText);
+
 morningEvent.event
   .on('minuteMark', function(vzlanHour, vzlanMinute, weekday) {
     if (morningConditions(vzlanHour, vzlanMinute)) {
@@ -29,27 +33,20 @@ morningEvent.event
     }
 
     function getMorningMsg(weekday) {
+      weekdayInLetters = 'generic';
       if (weekday === 1) {
-        // mondays
-        let randomIndex = generateRandom(0, messages.goodMornings.mondays.length - 1);
-        return messages.goodMornings.mondays[randomIndex];
+        weekdayInLetters = 'mondays';
       } else if (weekday === 5) {
-        // fridays
-        let randomIndex = generateRandom(0, messages.goodMornings.fridays.length - 1);
-        return messages.goodMornings.fridays[randomIndex];
-      } else {
-        let randomIndex = generateRandom(0, messages.goodMornings.generic.length - 1);
-        return messages.goodMornings.generic[randomIndex];
+        weekdayInLetters = 'fridays';
       }
+
+      let randomIndex = generateRandom(0, messages.goodMornings[weekdayInLetters].length - 1);
+      return messages.goodMornings[weekdayInLetters][randomIndex];
     }
   })
   .on('newDay', function() {
     goodMorningGivenToday = false;
   });
-
-bot
-  .on('new_chat_participant', newChatParticipant)
-  .on('text', newText);
 
 function newText(msg) {
   if (!goodMorningGivenToday && isGoodMorningGiven(msg.text)) {
