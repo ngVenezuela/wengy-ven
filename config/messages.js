@@ -10,10 +10,14 @@ var messages = {
     fridays: [
       'Buenos días. Recuerden que los viernes no se hacen deploy \u{1F601}',
       'Buenos días. ¡Hoy es viernes y el hardware lo sabe!',
-      'Buenos días comunidad. Feliz viernes'
+      'Buenos días comunidad. Feliz viernes',
+      'Buenos días. Hoy cualquier bug es un feature después de las 4pm'
     ],
     generic: [
       'Buenos días...¿tomaron café? \u{2615}',
+      'Buenos días. Recuerden que detrás de una persona exitosa, ' +
+      'esta una gran cantidad de café \u{2615}',
+      'Buenos días. Keep calm and drink \u{2615}',
       'Buenos días \u{1F601}\u{2615}',
       'Buenos días',
       'Buenos días a todos',
