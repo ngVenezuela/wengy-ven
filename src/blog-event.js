@@ -12,7 +12,7 @@ let articles = [];
 let lastPubDate;
 let req;
 
-setInterval(readLastPubDate, 30000);
+setInterval(readLastPubDate, 60000 * 60 * 24); // check daily
 
 module.exports = eventEmitter;
 
