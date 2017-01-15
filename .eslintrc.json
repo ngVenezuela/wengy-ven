@@ -13,8 +13,6 @@
         }
         }],
         "max-len": ["error", 100],
-        "error": {
-            "properties": "never"
-        }
+        "error": 0
     }
 }
