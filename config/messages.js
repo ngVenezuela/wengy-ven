@@ -1,8 +1,8 @@
 const messages = {
-  welcomeMsg: 'Hola #{name}, bienvenido a ngVenezuela, te invitamos a ' +
-    'seguirnos en twitter `@ngVenezuela` y a unirte a nuestro grupo ' +
-    'en Google bit.ly/ng-venezuela-google-groups Puedes colocar tus ' +
-    'preguntas ahí, también tenemos cursos, de typescript e iniciacion con Angular.',
+  welcomeMsg: 'Hola #{name}, ¡Bienvenido a ngVenezuela!. Te invitamos a ' +
+    'seguirnos en twitter como, `@ngVenezuela` y a mirar nuestra comunidad ' +
+    'en Github: https://github.com/ngvenezuela' +
+    'Además nos gustaría que respondieras esta pequeña encuesta en: http://bit.ly/ngve-encuesta',
   goodMornings: {
     mondays: [
       'Buenos días comunidad, ¡Que tengan un excelente inicio de semana! \u{1F60E}',

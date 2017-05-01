@@ -39,3 +39,6 @@ jspm_packages
 # Ignore config files
 
 config.js
+
+# Webstorm config files
+.idea
