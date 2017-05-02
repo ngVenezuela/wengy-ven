@@ -1,10 +1,20 @@
 'use strict';
 
 module.exports = {
-  vzlanHour: vzlanHour,
-  vzlanMinute: vzlanMinute,
-  vzlanWeekday: vzlanWeekday,
+  vzlanHour,
+  vzlanMinute,
+  vzlanWeekday,
+  generateRandom
 };
+
+/**
+ * Generate random Integer with values with range: min-max
+ * @param {Integer} min - Min value
+ * @param {Integer} max - Max value
+ */
+function generateRandom(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 /**
  * Get hour in Venezuela, given a date

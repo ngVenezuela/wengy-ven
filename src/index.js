@@ -5,6 +5,7 @@ const config = require('../config/config');
 const messages = require('../config/messages');
 const morningEvent = require('./morning-event');
 const blogEvent = require('./blog-event');
+const generateRandom = require('./time-utility').generateRandom;
 
 const token = config.telegramToken;
 const groupId = config.groupId;
@@ -95,8 +96,4 @@ function newChatParticipant(msg) {
 
     return messages.welcomeMsg.replace('#{name}', nameToBeShown);
   }
-}
-
-function generateRandom(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }

@@ -22,13 +22,12 @@
   },
   "homepage": "https://github.com/ngVenezuela/wengy-ven#readme",
   "dependencies": {
-    "node-telegram-bot-api": "0.25.0",
-    "feedparser": "2.0.0"
+    "feedparser": "2.0.0",
+    "node-telegram-bot-api": "0.25.0"
   },
   "devDependencies": {
     "eslint": "3.13.1",
     "eslint-config-google": "0.7.1",
-    "jsdoc": "3.4.3",
-    "nodemon": "1.11.0"
+    "jsdoc": "3.4.3"
   }
 }
