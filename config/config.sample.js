@@ -4,7 +4,7 @@ const config = {
   groupId: -1001031605415,
   // groupId: -165387746 //test group,
   goodMorningRegExp: new RegExp('buen(os)*\\sd[ií]+as', 'iu'),
-  blogFeedUrl: 'http://ngvenezuela.org.ve/blog/feeds/all.atom.xml',
+  blogFeedUrl: 'https://medium.com/feed/ngvenezuela',
 };
 
 module.exports = config;
