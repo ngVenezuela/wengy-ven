@@ -24,6 +24,7 @@
   "homepage": "https://github.com/ngVenezuela/wengy-ven#readme",
   "dependencies": {
     "feedparser": "2.0.0",
+    "node-fetch": "^1.6.3",
     "node-telegram-bot-api": "0.25.0"
   },
   "devDependencies": {

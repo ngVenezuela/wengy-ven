@@ -6,6 +6,7 @@ const messages = require('../config/messages');
 const morningEvent = require('./morning-event');
 const blogEvent = require('./blog-event');
 const generateRandom = require('./time-utility').generateRandom;
+const fetch = require('node-fetch');
 
 const token = config.telegramToken;
 const groupId = config.groupId;
@@ -97,3 +98,41 @@ function newChatParticipant(msg) {
     return messages.welcomeMsg.replace('#{name}', nameToBeShown);
   }
 }
+
+bot.onText(/\/gist (.|\n)*/g, (msg, match) => {
+  const chatId = msg.chat.id;
+
+  const filename = `${new Date().toISOString()}.js`;
+  const gist = match[0].split(' ')
+                       .filter( word => word !== '/gist' )
+                       .join(' ');
+
+  console.log(gist);
+
+  const body = {
+    'description': 'gist anonimo',
+    'public': true,
+    'files': {
+      [filename]: {
+        'content': gist
+      }
+    }
+  };
+
+  fetch('https://api.github.com/gists', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify( body )
+  })
+  .then(response => response.json())
+  .then(({html_url}) => {
+    console.log(html_url);
+
+    bot.sendMessage( chatId, html_url );
+
+  }).catch(error => {
+    console.warn(error);
+  });
+});
