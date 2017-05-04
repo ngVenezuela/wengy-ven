@@ -100,24 +100,27 @@ function newChatParticipant(msg) {
 }
 
 bot.on('text', (msg) => {
-  const chatId = msg.chat.id;
   console.log(msg);
 
-  if ( msg.entities[0].type !== 'pre' ) {
+  if ( msg.hasOwnProperty('entities') && msg.entities[0].type !== 'pre' ) {
+    console.log('It is not a <pre> tag');
     return;
   }
 
-  if ( msg.text.length <= 200 ) {
+  if ( msg.text.length >= 200 ) {
+    console.log('Gist characters limit reached');
     return;
   }
 
+  const chatId = msg.chat.id;
+  const { first_name = '', last_name = '', username = '' } = msg.chat;
   const filename = `${new Date().toISOString()}.js`;
   const gist = msg.text;
 
   console.log(gist);
 
   const body = {
-    'description': 'gist anonimo',
+    'description': `gist creador por ${first_name} ${last_name} (@${username}) para https://t.me/ngvenezuela con https://github.com/ngVenezuela/wengy-ven`,
     'public': true,
     'files': {
       [filename]: {
