@@ -99,13 +99,16 @@ function newChatParticipant(msg) {
   }
 }
 
-bot.onText(/\/gist (.|\n)*/g, (msg, match) => {
+bot.on('text', (msg) => {
   const chatId = msg.chat.id;
+  console.log(msg);
+
+  if( msg.entities[0].type !== 'pre' ) {
+    return;
+  }
 
   const filename = `${new Date().toISOString()}.js`;
-  const gist = match[0].split(' ')
-                       .filter( word => word !== '/gist' )
-                       .join(' ');
+  const gist = msg.text;
 
   console.log(gist);
 
