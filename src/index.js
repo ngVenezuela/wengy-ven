@@ -103,7 +103,11 @@ bot.on('text', (msg) => {
   const chatId = msg.chat.id;
   console.log(msg);
 
-  if( msg.entities[0].type !== 'pre' ) {
+  if ( msg.entities[0].type !== 'pre' ) {
+    return;
+  }
+
+  if ( msg.text.length <= 200 ) {
     return;
   }
 
