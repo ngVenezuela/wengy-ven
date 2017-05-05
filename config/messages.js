@@ -15,8 +15,8 @@ const messages = {
     ],
     generic: [
       'Buenos días...¿tomaron café? \u{2615}',
-      'Buenos días. Recuerden que detrás de una persona exitosa,' +
-      'esta una gran cantidad de café \u{2615}',
+      'Buenos días. Recuerden que detrás de una persona exitosa, ' +
+      'está una gran cantidad de café \u{2615}',
       'Buenos días. Keep calm and drink \u{2615}',
       'Buenos días \u{1F601}\u{2615}',
       'Buenos días',
