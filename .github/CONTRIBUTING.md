@@ -25,10 +25,13 @@ El branch `master` es tratado como "producción" y `develop` como el de "ci", o 
 Tenemos una estructura a seguir, para facilitar la validación de tus contribuciones y mantener un buen flujo de trabajo. Los mensajes de commits _deberían_ ser de la siguiente manera: 
 
 ````
+
 (<Accion>): <Mensaje Corto>
 <LINEA EN BLANCO>
 <Mensaje Explicativo>
-```
+
+````
+
  
 El Encabezado:  `(<Accion>): <Mensaje Corto>` **es obligatorio**, el resto es opcional. Las acciones disponibles, puedes encontarlas en [Acciones](#acciones), un poco más abajo.
 
@@ -39,8 +42,10 @@ _Commit Corto:_
 
 `(Agrega): Clase Utils para lectura de atributos.`
 
-_Commit Largo:_
-````
+
+_*Commit Largo:*_
+
+```
 (Agrega): Clase Utils para lectura de atributos.
 
 La clase utils,esta divida en varios métodos para diferentes usos.
@@ -60,98 +65,6 @@ Por favor asegurate que tú `pull request` cumpla los siguientes lineamientos:
 - Usa `title-casing` (AP style).
 - Presta mucha atención a tu ortografía.
 - Nuevos aportes o mejoras a lo que ya existe, siempre es bienvenido.
-
-#### Ejemplos 
-
-##### `PULL REQUEST` de un bug o error: Multiplicación de números, ISSUE #14
-
-* * * 
-
->**Estoy enviando un ...**  (marque con una "x")
-
-```
-[ X ] Error reportado #14
-[ ] Solicitud de caracteristica, mejora. 
-
-```
-
->**Comportamiento Actual** 
-
->Se lanza un error multiplicar por cero.
-
-
-
->**Comportamiento Esperado**
-
->Debe manejar los casos de multiplicacion por cero.
-
-
-
->**Reproducción del Problema**
-
->Al ingresar a la sección "multiplicar" y realizar una operación. 
-
-
-
->**Cual es el motivo / Caso util para cambiar el comportamiento?**
-
->El error generado por la multiplicación con cero, lanza una excepción fatal y finaliza la apliacación.
-
-
-
->**Por favor cuentamos sobre tu ambiente de desarrollo:**
-
->Windows 8, IDE: Sublime text, Node 5.4.0, y todos la informacion necesaria.
-
-
-* * * 
-
-Acá dejamos otro ejemplo sobre como hacer un `PULL REQUEST`, en este caso notificaremos que estámos cubriendo una funcionalidad solicitada en un el issue número 15.
-
-* * * 
-
-##### `PULL REQUEST` de una funcionalidad: Graficar una función SENO, ISSUE #15
-
-
->**Estoy enviando un ...**  (marque con una "x")
-
-```
-[ ] Error reportado.
-[ X ] Solicitud de caracteristica, mejora. #15
-
-```
-
->**Comportamiento Actual** 
-
->Todas las operaciones matematicas.
-
-
-
->**Comportamiento Esperado**
-
->Debe graficar un función SENO.
-
-
-
->**Reproducción del Problema**
-
-> _NO APLICA_
-
-
-
->**Cual es el motivo / Caso util para cambiar el comportamiento?**
-
->Mejora de la aplicación, para ampliar el espectro de usuarios. 
-
-
-
->**Por favor cuentamos sobre tu ambiente de desarrollo:**
-
->_NO APLICA_
-
-* * * 
-
-Notese que en este segundo ejemplo, aparece la palabra "_NO APLICA_", está es utilizada en el caso de que algúnas de las opciones expuestas en la plantilla, no fuese coherente. 
 
 
 ## Acciones
