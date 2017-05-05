@@ -6,6 +6,7 @@ const messages = require('../config/messages');
 const morningEvent = require('./morning-event');
 const blogEvent = require('./blog-event');
 const generateRandom = require('./time-utility').generateRandom;
+const fetch = require('node-fetch');
 
 const token = config.telegramToken;
 const groupId = config.groupId;
@@ -97,3 +98,50 @@ function newChatParticipant(msg) {
     return messages.welcomeMsg.replace('#{name}', nameToBeShown);
   }
 }
+
+bot.on('text', (msg) => {
+  if ( !msg.hasOwnProperty('entities') ) {
+    console.log('Ignoring text without entities');
+    return;
+  }
+
+  if ( msg.entities[0].type !== 'pre' ) {
+    console.log('It is not a <pre> tag');
+    return
+  };
+
+  if ( msg.text.length >= 200 ) {
+    console.log('Gist characters limit reached');
+    return;
+  }
+
+  const chatId = msg.chat.id;
+  const { first_name = '', last_name = '', username = '' } = msg.from;
+  const filename = `${new Date().toISOString()}.js`;
+  const gist = msg.text;
+
+  const body = {
+    'description': `gist creador por ${first_name} ${last_name} (@${username}) para https://t.me/ngvenezuela con https://github.com/ngVenezuela/wengy-ven`,
+    'public': true,
+    'files': {
+      [filename]: {
+        'content': gist
+      }
+    }
+  };
+
+  fetch('https://api.github.com/gists', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify( body )
+  })
+  .then(response => response.json())
+  .then(({html_url}) => {
+    bot.sendMessage( chatId, html_url );
+
+  }).catch(error => {
+    console.warn(error);
+  });
+});
