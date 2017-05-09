@@ -1,4 +1,4 @@
-const { generateRandom } = require('../src/time-utility.js');
+const {generateRandom} = require('../src/time-utility.js');
 
 describe('Time Utility', () => {
   it('generates a random number between a min and max range', () => {
@@ -6,4 +6,4 @@ describe('Time Utility', () => {
 
     expect( random >= 1 && random <= 50 ).toBe(true);
   });
-})
+});

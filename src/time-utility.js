@@ -4,13 +4,14 @@ module.exports = {
   vzlanHour,
   vzlanMinute,
   vzlanWeekday,
-  generateRandom
+  generateRandom,
 };
 
 /**
  * Generate random Integer with values with range: min-max
  * @param {Integer} min - Min value
  * @param {Integer} max - Max value
+ * @return {Integer} Random Integer value
  */
 function generateRandom(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
