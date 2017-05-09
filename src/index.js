@@ -101,47 +101,44 @@ function newChatParticipant(msg) {
 
 bot.on('text', (msg) => {
   if ( !msg.hasOwnProperty('entities') ) {
-    console.log('Ignoring text without entities');
     return;
   }
 
   if ( msg.entities[0].type !== 'pre' ) {
-    console.log('It is not a <pre> tag');
-    return
+    return;
   };
 
   if ( msg.text.length >= 200 ) {
-    console.log('Gist characters limit reached');
     return;
   }
 
   const chatId = msg.chat.id;
-  const { first_name = '', last_name = '', username = '' } = msg.from;
+  const {firstName = '', lastName = '', username = ''} = msg.from;
+  const fullName = firstName === '' && lastName === '' ? '' : `${firstName} ${lastName} `;
+  const user = username === '' ? '' : `(@${username})`;
   const filename = `${new Date().toISOString()}.js`;
   const gist = msg.text;
 
   const body = {
-    'description': `gist creador por ${first_name} ${last_name} (@${username}) para https://t.me/ngvenezuela con https://github.com/ngVenezuela/wengy-ven`,
+    'description': 'gist creado por ' + fullName + user +
+      ' para https://t.me/ngvenezuela con https://github.com/ngVenezuela/wengy-ven',
     'public': true,
     'files': {
       [filename]: {
-        'content': gist
-      }
-    }
+        'content': gist,
+      },
+    },
   };
 
   fetch('https://api.github.com/gists', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify( body )
+    body: JSON.stringify( body ),
   })
-  .then(response => response.json())
+  .then((response) => response.json())
   .then(({html_url}) => {
-    bot.sendMessage( chatId, html_url );
-
-  }).catch(error => {
-    console.warn(error);
-  });
+    bot.sendMessage(chatId, html_url);
+  }).catch(() => {});
 });
