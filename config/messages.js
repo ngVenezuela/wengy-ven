@@ -3,6 +3,7 @@ const messages = {
     'seguirnos en twitter como [@ngVenezuela](https://twitter.com/ngVenezuela) ' +
     'y a mirar nuestra comunidad en Github: https://github.com/ngvenezuela.\n\n'+
     'Además nos gustaría que respondieras esta pequeña encuesta: http://bit.ly/ngve-encuesta',
+  goodbyeMsg: '¡Nos vemos pronto #{name}! Esperamos NO verte por el grupo de React Venezuela',
   goodMornings: {
     mondays: [
       'Buenos días comunidad, ¡Que tengan un excelente inicio de semana! \u{1F60E}',
