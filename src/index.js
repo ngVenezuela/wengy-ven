@@ -17,7 +17,8 @@ let goodMorningGivenToday = false;
 let minuteToCheck = generateRandom(0, 59);
 
 bot
-  .on('new_chat_participant', newChatParticipant)
+  .on('new_chat_participant', sayHello)
+  .on('left_chat_participant', sayGoodbye)
   .on('text', newText);
 
 morningEvent
@@ -69,6 +70,11 @@ blogEvent
     });
   });
 
+function formatName(msgContext) {
+  return msgContext.username ?
+    '@' + msgContext.username : msgContext.first_name;
+}
+
 function newText(msg) {
   if (!goodMorningGivenToday && isGoodMorningGiven(msg.text)) {
     goodMorningGivenToday = true;
@@ -79,24 +85,20 @@ function newText(msg) {
   }
 }
 
-function newChatParticipant(msg) {
+function sayHello(msg) {
   bot.sendMessage(
     msg.chat.id,
-    getFullWelcomeMsg(msg),
+    messages.welcomeMsg.replace('#{name}', formatName(msg.new_chat_member)),
     {reply_to_message_id: msg.message_id, parse_mode: 'Markdown'}
   );
+}
 
-  function getFullWelcomeMsg(msg) {
-    let nameToBeShown = msg.new_chat_member.first_name;
-
-    if (msg.new_chat_member.username) {
-      nameToBeShown = '@' + msg.new_chat_member.username;
-    } else if (msg.new_chat_member.hasOwnProperty('last_name')) {
-      nameToBeShown = nameToBeShown + ' ' + msg.new_chat_member.last_name;
-    }
-
-    return messages.welcomeMsg.replace('#{name}', nameToBeShown);
-  }
+function sayGoodbye(msg) {
+  bot.sendMessage(
+    msg.chat.id,
+    messages.goodbyeMsg.replace('#{name}', formatName(msg.left_chat_member)),
+    {reply_to_message_id: msg.message_id, parse_mode: 'Markdown'}
+  );
 }
 
 bot.on('text', (msg) => {
