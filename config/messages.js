@@ -22,6 +22,7 @@ const messages = {
       'Buenos días',
       'Buenos días a todos',
       'Buenos días comunidad',
+      'Buenos días comunidad, Y como dice @frick: ¡A trabajar, vagos! Que los yates de sus jefes no se pagan solos'
     ],
   },
   newBlogPost: '*#{author}* ha agregado una nueva entrada al blog titulada: *#{title}*' +
