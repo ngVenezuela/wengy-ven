@@ -1,20 +1,15 @@
-'use strict';
-
 const FeedParser = require('feedparser');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const request = require('request');
 const fs = require('fs');
-const config = require('../config/config');
 const events = require('events');
+const config = require('./../../config/config');
 
-let feedparser = new FeedParser();
-let eventEmitter = new events.EventEmitter();
+const feedparser = new FeedParser();
+const eventEmitter = new events.EventEmitter();
 let articles = [];
 let lastPubDate;
 let req;
-
-setInterval(readLastPubDate, 60000 * 60 * 24); // check daily
-
-module.exports = eventEmitter;
 
 /**
  * Check the blog feed for entries
@@ -51,8 +46,8 @@ function makeRequest() {
  */
 function readLastPubDate() {
   try {
-    let data = fs.readFileSync('./config/last-blog-pubDate.json', 'utf8');
-    let parsed = JSON.parse(data);
+    const data = fs.readFileSync('./config/last-blog-pubDate.json', 'utf8');
+    const parsed = JSON.parse(data);
     lastPubDate = new Date(parsed.lastPubDate);
     makeRequest();
   } catch (err) {
@@ -69,7 +64,7 @@ function lookupFinished() {
     try {
       fs.writeFileSync(
         './config/last-blog-pubDate.json',
-        JSON.stringify({'lastPubDate': articles[0].pubDate}),
+        JSON.stringify({ lastPubDate: articles[0].pubDate }),
         'utf8'
       );
       lastPubDate = undefined;
@@ -79,18 +74,15 @@ function lookupFinished() {
       feedparser.emit('error', new Error('Could not save file'));
     }
   }
-};
+}
 
 /**
- * we print errors in console.
  * we capture 'lookupFinished' 'error' and
  * execute corresponding function.
  */
 feedparser.on('error', (error) => {
   if (error === 'lookupFinished') {
     lookupFinished();
-  } else {
-    console.log('error emitted: ', error);
   }
 });
 
@@ -115,8 +107,9 @@ feedparser.on('readable', () => {
   let item;
 
   if (lastPubDate !== undefined) {
+    // eslint-disable-next-line no-cond-assign
     while (item = feedparser.read()) {
-      let itemPubDate = new Date(item.pubDate);
+      const itemPubDate = new Date(item.pubDate);
       if (itemPubDate <= lastPubDate) {
         /**
          * This is the only way we can get
@@ -134,3 +127,8 @@ feedparser.on('readable', () => {
     }
   }
 });
+
+setInterval(readLastPubDate, 60000 * 60 * 24); // check daily
+
+module.exports = eventEmitter;
+
