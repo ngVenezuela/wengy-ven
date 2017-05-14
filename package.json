@@ -25,7 +25,8 @@
   "dependencies": {
     "feedparser": "^2.0.0",
     "node-fetch": "^1.6.3",
-    "node-telegram-bot-api": "^0.27.1"
+    "node-telegram-bot-api": "^0.27.1",
+    "uuid": "3.0.1"
   },
   "devDependencies": {
     "jest": "^19.0.2",
