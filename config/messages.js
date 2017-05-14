@@ -1,9 +1,12 @@
 const messages = {
-  welcomeMsg: 'Hola #{name}, ¡Bienvenid@ a ngVenezuela!. Te invitamos a '+
-    'seguirnos en twitter como [@ngVenezuela](https://twitter.com/ngVenezuela) ' +
-    'y a mirar nuestra comunidad en Github: https://github.com/ngvenezuela.\n\n'+
-    'Además nos gustaría que respondieras esta pequeña encuesta: http://bit.ly/ngve-encuesta',
-  goodbyeMsg: '¡Nos vemos pronto #{name}! Esperamos NO verte por el grupo de React Venezuela',
+  welcome: 'Hola #{name}, ¡Bienvenid@ a ngVenezuela!. Te invitamos a '.concat(
+    'seguirnos en twitter como [@ngVenezuela](https://twitter.com/ngVenezuela) ',
+    'y a mirar nuestra comunidad en Github: https://github.com/ngvenezuela.\n\n',
+    'Además nos gustaría que respondieras esta pequeña encuesta: http://bit.ly/ngve-encuesta'),
+  goodByes: [
+    '¡Nos vemos pronto #{name}! Esperamos NO verte por el grupo de React Venezuela',
+    'Goodbye, Hasta la vista, Sayonara #{name}'
+  ],
   goodMornings: {
     mondays: [
       'Buenos días comunidad, ¡Que tengan un excelente inicio de semana! \u{1F60E}',
@@ -23,11 +26,12 @@ const messages = {
       'Buenos días',
       'Buenos días a todos',
       'Buenos días comunidad',
+      'Buenos días #ngPanas',
       'Buenos días comunidad, Y como dice @frick: ¡A trabajar, vagos! Que los yates de sus jefes no se pagan solos'
     ],
   },
-  newBlogPost: '*#{author}* ha agregado una nueva entrada al blog titulada: *#{title}* '+
-    'y está disponible en: #{link}',
+  newBlogPost: '*#{author}* ha agregado una nueva entrada al blog titulada: '.concat(
+    '*#{title}* y está disponible en: #{link}'),
 };
 
 module.exports = messages;

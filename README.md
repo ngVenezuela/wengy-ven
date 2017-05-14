@@ -64,7 +64,7 @@ Te invitamos a leer el documento [CONTRIBUTING](.github/CONTRIBUTING.md) para co
 
 ## Versionado
 
-Utilizamos [SemVer](http://semver.org/) para el versionado. Para ver las versiones disponibles de nuestro BOT, mira los [Tags](https://github.com/ngVenezuela/wengy-ven/tags) en este repositorio.
+Utilizamos [SemVer](http://semver.org/lang/es/) para el versionado. Para ver las versiones disponibles de nuestro BOT, mira los [Tags](https://github.com/ngVenezuela/wengy-ven/tags) en este repositorio.
 
 ## Autores
 

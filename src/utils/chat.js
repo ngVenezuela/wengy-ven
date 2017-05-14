@@ -2,6 +2,8 @@ const fetch = require('node-fetch');
 
 const messages = require('./../../config/messages');
 const config = require('./../../config/config.js');
+const sendMessage = require('./../utils/send-message');
+const generateRandom = require('./../utils/time').generateRandom;
 
 function checkGoodMorning(goodMorningGivenToday, text) {
   return !goodMorningGivenToday && config.goodMorningRegExp.test(text);
@@ -41,13 +43,13 @@ function checkForCode(bot, msg) {
   fetch('https://api.github.com/gists', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
     },
     body: JSON.stringify(body)
   })
   .then(response => response.json())
   .then(({ html_url }) => {
-    bot.sendMessage(chatId, html_url);
+    sendMessage(bot, chatId, html_url, true, msg.message_id);
   }).catch(() => {});
 }
 
@@ -58,18 +60,30 @@ function formatName(msgContext) {
 }
 
 function sayHello(bot, msg) {
-  bot.sendMessage(
+  sendMessage(
+    bot,
     msg.chat.id,
-    messages.welcomeMsg.replace('#{name}', formatName(msg.new_chat_member)),
-    { reply_to_message_id: msg.message_id, parse_mode: 'Markdown' }
+    messages.welcome.replace(
+      '#{name}',
+      formatName(msg.new_chat_member)
+    ),
+    true,
+    msg.message_id
   );
 }
 
 function sayGoodbye(bot, msg) {
-  bot.sendMessage(
+  const randomIndex = generateRandom(0, messages.goodByes.length - 1);
+
+  sendMessage(
+    bot,
     msg.chat.id,
-    messages.goodbyeMsg.replace('#{name}', formatName(msg.left_chat_member)),
-    { reply_to_message_id: msg.message_id, parse_mode: 'Markdown' }
+    messages.goodByes[randomIndex].replace(
+      '#{name}',
+      formatName(msg.left_chat_member)
+    ),
+    true,
+    msg.message_id
   );
 }
 
