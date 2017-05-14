@@ -1,6 +1,6 @@
 {
   "name": "wengy-ven",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "Official telegram bot for the ng-Venezuela community",
   "main": "index.js",
   "scripts": {
@@ -23,14 +23,12 @@
   },
   "homepage": "https://github.com/ngVenezuela/wengy-ven#readme",
   "dependencies": {
-    "feedparser": "2.0.0",
+    "feedparser": "^2.0.0",
     "node-fetch": "^1.6.3",
-    "node-telegram-bot-api": "0.25.0"
+    "node-telegram-bot-api": "^0.27.1"
   },
   "devDependencies": {
-    "eslint": "3.13.1",
-    "eslint-config-google": "0.7.1",
     "jest": "^19.0.2",
-    "jsdoc": "3.4.3"
+    "jsdoc": "^3.4.3"
   }
 }
