@@ -1,74 +1,81 @@
 # Wengy-ven
 
-BOT de Bienvenida a nuevos integrantes del grupo [ngVenezuela OFF-TOPIC](https://telegram.me/ngvenezuela)
-en Telegram.
+> BOT de Bienvenida a nuevos integrantes del grupo [ngVenezuela](https://t.me/ngvenezuela)
+en Telegram. Desarrollado con NodeJS y el API de Telegram.
 
-## Comenzando
+## Prerequisitos
 
-Clonamos el proyecto con el comando: `git clone git@github.com:ngVenezuela/wengy-ven.git`
+Antes de comenzar a trabajar con nuestro BOT, es necesario cumplir con los siguientes requisitos:
 
-### Prerequisitos
+- [Node v6.0 o superior](https://nodejs.org/en/)
 
-Para poder tener un bot, es necesario crearlo, y obtener un token para el mismo, las
-instrucciones las puedes consultar aquí: [¿Cómo creo un bot?](https://core.telegram.org/bots#3-how-do-i-create-a-bot).
-Este bot nos va a servir para hacer nuestros desarrollos y/o pruebas.
+  Esta versión es necesaria debido a la compatibilidad de ES6, la cual no tiene gran soporte en [versiones anteriores](http://node.green/).
 
-Luego de creado el bot, lo agregamos a un grupo:
-[Agregar bot a un grupo](images/add-bot-to-group.jpg)
-Y ya automáticamente quedará escuchando cualquier comando
+- [Crear un BOT el Telegram](https://core.telegram.org/bots#3-how-do-i-create-a-bot)
 
-Lo otro que debemos hacer es tener instalado una versión de [NodeJS](https://nodejs.org/en/) mayor a la v6.0, debido
-a la compatibilidad de ES6 no tiene un gran soporte en [versiones anteriores](http://node.green/).
+  Para poder tener un bot, es necesario crearlo y así obtener un **Token** para el mismo. Este bot nos va a hacer posible nuestros desarrollos y/o pruebas.
 
-### Instalando
+- [Agregar el BOT a un grupo](https://raw.githubusercontent.com/ngVenezuela/wengy-ven/master/images/add-bot-to-group.jpg)
 
-Instalamos todas las dependencias del proyecto con el comando: `npm install`
+  Luego de haber creado el BOT, lo agregamos a un grupo para que así escuche cualquier comando.
+
+
+## Installación
+
+Para comenzar a trabajar en nuestro BOT, abrimos nuestra _terminal_ y ejecutamos los siguientes comandos:
+
+```bash
+# Clonamos el proyecto.
+$ git clone git@github.com:ngVenezuela/wengy-ven.git
+
+# Accedemos al directorio donde se clonó nuestro proyecto.
+$ cd wengy-ven
+
+# Instalamos todas las dependencias del proyecto.
+$ npm install
+```
 
 Por último creamos un archivo en el directorio `config/` llamado `config.js` con el formato
-que tiene el archivo `config.sample.js`. En este nuevo archivo colocaremos nuestros token que
-pudimos obtener durante la sección de Prerequisitos.
+que tiene el archivo `config.sample.js`. En este nuevo archivo colocaremos el [Token](https://core.telegram.org/bots#3-how-do-i-create-a-bot) que
+pudimos obtener previamente.
 
 ## Corriendo los tests
 
-Corriendo pruebas:
-```
+Para ejecutar los tests (pruebas), simplemente ejecutamos los siguientes comandos:
+
+```bash
 $ npm run test
 
 # También puedes activar el modo watch
 $ npm run test:watch
-
 ```
 
 ## Despliegue
 
-Para ejecutar este proyecto, debemos colocarnos sobre el directorio y correr el comando:
-`node src/index.js'
+Finalmente, para ejecutar nuestro BOT, nos aseguramos de estar en el directorio de nuestro proyecto y escribimos el siguiente comando en nuestra terminal:
 
-## Construido con
-
-* NodeJS
-* API de Telegram
+```bash
+$ node src/index.js
+```
 
 ## Contribuyendo
 
-Por favor lee [CONTRIBUTING.md](.github/CONTRIBUTING.md) para los detalle de nuestro código de conducta,
-y el proceso para enviarnos pull requests.
+Te invitamos a leer el documento [CONTRIBUTING](.github/CONTRIBUTING.md) para conocer todos los detalle de nuestro código de conducta y el proceso para enviarnos _Pull Requests_.
 
 ## Versionado
 
-Utilizamos [SemVer](http://semver.org/) para el versionado.
-Para ver las versiones disponibles, mira los [tags en este repositorio](https://github.com/ngVenezuela/wengy-ven/tags).
+Utilizamos [SemVer](http://semver.org/) para el versionado. Para ver las versiones disponibles de nuestro BOT, mira los [Tags](https://github.com/ngVenezuela/wengy-ven/tags) en este repositorio.
 
 ## Autores
 
 * **Andrés Villanueva** - *Trabajo inicial* - [Villanuevand](https://github.com/Villanuevand)
 * **Leonardo Cabeza** - *Código inicial* - [leocabeza](https://github.com/leocabeza)
 
-Ver también la lista de [contribuyentes](https://github.com/ngVenezuela/wengy-ven/graphs/contributors) que participaron en este proyecto.
+Y por acá puedes ver la lista completa de [contribuyentes](https://github.com/ngVenezuela/wengy-ven/graphs/contributors) que participaron en este proyecto.
 
 ## Licencia
 
-Este proyecto está licenciado bajo la licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está licenciado bajo la [Licencia MIT](https://github.com/ngVenezuela/wengy-ven/blob/master/LICENSE)
 
 ## Expresiones de gratitud
 
