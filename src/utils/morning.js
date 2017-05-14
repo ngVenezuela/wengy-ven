@@ -1,6 +1,7 @@
 const generateRandom = require('./../utils/time').generateRandom;
 const messages = require('./../../config/messages');
 const config = require('./../../config/config');
+const sendMessage = require('./../utils/send-message');
 
 function morningConditions(goodMorningGivenToday, minuteToCheck, vzlanHour, vzlanMinute) {
   return (
@@ -33,7 +34,7 @@ function getMorningMsg(weekday) {
 function giveGoodMorning(bot, goodMorningGivenToday,
   minuteToCheck, vzlanHour, vzlanMinute, weekday) {
   if (morningConditions(goodMorningGivenToday, minuteToCheck, vzlanHour, vzlanMinute)) {
-    bot.sendMessage(config.groupId, getMorningMsg(weekday));
+    sendMessage(bot, config.groupId, getMorningMsg(weekday));
     return {
       goodMorningGivenToday: true,
       minuteToCheck: generateRandom(0, 59)

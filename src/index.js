@@ -6,6 +6,7 @@ const chatUtility = require('./utils/chat');
 const blogUtility = require('./utils/blog');
 const morningUtility = require('./utils/morning');
 const generateRandom = require('./utils/time').generateRandom;
+const apiAIUtility = require('./utils/api-ai');
 
 const bot = new TelegramBot(telegramToken, { polling: true });
 let goodMorningGivenToday = false;
@@ -18,7 +19,8 @@ bot
     goodMorningGivenToday =
       chatUtility.checkGoodMorning(goodMorningGivenToday, msg.text);
   })
-  .on('text', msg => chatUtility.checkForCode(bot, msg));
+  .on('text', msg => chatUtility.checkForCode(bot, msg))
+  .on('text', msg => apiAIUtility.canBotRespondToThis(bot, msg));
 
 morningEvent
   .on('minuteMark', (vzlanHour, vzlanMinute, weekday) => {
