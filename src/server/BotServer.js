@@ -23,6 +23,8 @@ class BotServer {
       console.log(`Express server is listening on ${port}`);
     });
   }
+  
+  // reference: https://core.telegram.org/bots/api#update
 
   isTelegramMessage(msg) {
     return msg.message
