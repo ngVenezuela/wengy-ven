@@ -1,5 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
-const BotServer = require('./server/BotServer');
+const BotServer = require('./server/bot-server');
 const telegramToken = require('./../config/config').telegramToken;
 const server = require('./../config/config').server;
 const morningEvent = require('./events/morning');
@@ -11,6 +11,7 @@ const generateRandom = require('./utils/time').generateRandom;
 const apiAIUtility = require('./utils/api-ai');
 
 const bot = new TelegramBot(telegramToken);
+// eslint-disable-next-line no-unused-vars
 const botServer = new BotServer(bot, server.port);
 let goodMorningGivenToday = false;
 let minuteToCheck = generateRandom(0, 59);
@@ -34,8 +35,10 @@ morningEvent
       morningUtility.giveGoodMorning(bot, goodMorningGivenToday, minuteToCheck,
       vzlanHour, vzlanMinute, weekday);
 
-    goodMorningGivenToday = executeGoodMorningCheck.goodMorningGivenToday;
-    minuteToCheck = executeGoodMorningCheck.minuteToCheck;
+    if (executeGoodMorningCheck.goodMorningGivenToday) {
+      goodMorningGivenToday = true;
+      minuteToCheck = executeGoodMorningCheck.minuteToCheck;
+    }
   })
   .on('newDay', () => {
     goodMorningGivenToday = false;
