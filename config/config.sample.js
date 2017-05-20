@@ -15,6 +15,10 @@ const config = {
   },
   goodMorningRegExp: new RegExp('buen(os)*\\sd[ií]+as', 'iu'),
   blogFeedUrl: 'https://medium.com/feed/ngvenezuela',
+  server: {
+    url: 'MY_HTTPS_SERVER', // ej: 'https://9c386d7d.ngrok.io'
+    port: 'MY_PORT'
+  }
 };
 
 module.exports = config;
