@@ -18,7 +18,7 @@ const config = {
   server: {
     url: 'MY_HTTPS_SERVER', // ej: 'https://9c386d7d.ngrok.io'
     port: 'MY_PORT'
-  },
+  }
 };
 
 module.exports = config;
