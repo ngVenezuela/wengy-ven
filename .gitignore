@@ -45,3 +45,6 @@ config.js
 
 # JShint config file
 .jshintrc
+
+# Vscode config files
+.vscode
