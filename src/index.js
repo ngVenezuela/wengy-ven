@@ -9,6 +9,8 @@ const blogUtility = require('./utils/blog');
 const morningUtility = require('./utils/morning');
 const generateRandom = require('./utils/time').generateRandom;
 const apiAIUtility = require('./utils/api-ai');
+// Tweets
+const twitterEvent = require('./events/tweets');
 
 const bot = new TelegramBot(telegramToken);
 // eslint-disable-next-line no-unused-vars
@@ -46,3 +48,9 @@ morningEvent
 
 blogEvent
   .on('newArticles', articles => blogUtility.sendNewArticles(bot, articles));
+
+twitterEvent
+  .on('newTweet', tweet => {
+    const twitterUtility = require('./utils/tweets');
+    twitterUtility.sendNewTweet(bot, tweet);
+  });
