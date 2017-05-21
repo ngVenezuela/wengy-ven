@@ -5,6 +5,8 @@ const eventEmitter = new events.EventEmitter();
 
 
 var Twitter = require('twitter');
+// twitter account to track its tweets
+var twitterAccount = 'ngVenezuela';
 
 // New client to interact with the Twitter API
 var twitterClient = new Twitter(twitterTokens);
@@ -19,7 +21,9 @@ var twitterClient = new Twitter(twitterTokens);
  *      OR {boolean} false - If there is no last-tweetId.json file
  */
 function getLastTrackedTweetId(){
-
+  // Uncomment this line for testing purposes
+  // return 865304050505576400;
+  
   try {
     // Read the last-tweetId.json to get the last tracked tweet id 
     const data = fs.readFileSync('./config/last-tweetId.json', 'utf8');
@@ -56,7 +60,7 @@ function checkNewTweets() {
   // No last tracked tweet registered
   if (!lastTrackedTweetId) {
     twitterClient.get('statuses/user_timeline', 
-                      {screen_name: 'ngVenezuela', count: 1}, 
+                      {screen_name: twitterAccount, count: 1}, 
                       (error, tweets, response) => {
                         let lastNgTweetId = tweets[0].id;
                         updateLastTrackedTweetId(lastNgTweetId);
@@ -64,7 +68,7 @@ function checkNewTweets() {
   }else{
     // Get latest tweets since the last tracked tweet registered
     twitterClient.get('statuses/user_timeline', 
-                      {screen_name: 'BikeCoders', since_id: lastTrackedTweetId}, 
+                      {screen_name: twitterAccount, since_id: lastTrackedTweetId}, 
                       getLatestTweets);    
   }
 }
@@ -88,16 +92,18 @@ function updateLastTrackedTweetId(lastTweetId){
  * @param  {response} response  HTTP response
  */
 function getLatestTweets(error, tweets, response){
-  //eventEmitter.emit('newDay');
-  
-  /**
-   * Get the last tweets includes the last tweet already already tracked, 
-   * we need to ignore it.
-   */
-  tweets.pop();
-
   // If there is no tweets then do nothing
   if (tweets.length===0)
+    return;
+
+  /**
+   * If the last tweet id is the same that the last tracked tweet id, do nothing
+   *
+   * Note: The Twitter API has a strange behavior, when you use the parameter since_id equal to the most 
+   *       recent tweet, it brings you the same tweet... 
+   *       But, when you use since_id equal to an older tweet, it doesn't include the since_id tweet
+   */
+  if (getLastTrackedTweetId()===tweets[0].id)
     return;
 
   // Update the last tracked tweet id with the last tweet gotten 
@@ -105,7 +111,7 @@ function getLatestTweets(error, tweets, response){
   
   // Just print the tweets
   tweets.map( tweet => {
-    console.log(tweet.text, '---id: ',tweet.id);
+    eventEmitter.emit('newTweet', tweet);
   });
 }
 

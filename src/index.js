@@ -9,7 +9,9 @@ const blogUtility = require('./utils/blog');
 const morningUtility = require('./utils/morning');
 const generateRandom = require('./utils/time').generateRandom;
 const apiAIUtility = require('./utils/api-ai');
+// Tweets
 const twitterEvent = require('./events/tweets');
+const twitterUtility = require('./utils/tweets');
 
 const bot = new TelegramBot(telegramToken);
 const botServer = new BotServer(bot, server.port);
@@ -44,3 +46,8 @@ morningEvent
 
 blogEvent
   .on('newArticles', articles => blogUtility.sendNewArticles(bot, articles));
+
+twitterEvent
+  .on('newTweet', tweet => {
+    twitterUtility.sendNewTweet(bot, tweet);
+  });
