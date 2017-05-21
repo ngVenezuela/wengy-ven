@@ -42,3 +42,6 @@ config.js
 
 # Webstorm config files
 .idea
+
+# JShint config file
+.jshintrc
