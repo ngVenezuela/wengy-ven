@@ -1,6 +1,7 @@
 const config = require('./../../config/config');
 const sendMessage = require('./../utils/send-message');
 const newTweetMessage = require('./../../config/messages').newTweet;
+const hashtagMessage = require('./../../config/config').twitterFeed.hashtagMessage;
 
 /**
  * Construct and send the message to notify a new tweet in the group
@@ -20,6 +21,7 @@ function sendNewTweet(bot, tweet) {
                newTweetMessage
                 .replace('#{tweetText}', tweet.text)
                 .replace('#{tweetUrl}', tweetUrl)
+                .replace('#{hashtagMessage}', hashtagMessage)
              );
   
 }

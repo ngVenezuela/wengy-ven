@@ -1,12 +1,11 @@
-const events = require('events');
-const twitterTokens = require('./../../config/config').twitterTokens;
 const fs = require('fs');
+const events = require('events');
 const eventEmitter = new events.EventEmitter();
+const Twitter = require('twitter');
 
-
-var Twitter = require('twitter');
+const twitterTokens = require('./../../config/config').twitterFeed.auth;
 // twitter account to track its tweets
-var twitterAccount = 'ngVenezuela';
+const twitterAccount = require('./../../config/config').twitterFeed.twitterAccount;
 
 // New client to interact with the Twitter API
 var twitterClient = new Twitter(twitterTokens);
@@ -22,7 +21,7 @@ var twitterClient = new Twitter(twitterTokens);
  */
 function getLastTrackedTweetId(){
   // Uncomment this line for testing purposes
-  // return 865304050505576400;
+  return 865304050505576400;
   
   try {
     // Read the last-tweetId.json to get the last tracked tweet id 
