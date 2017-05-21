@@ -31,7 +31,7 @@ const config = {
     twitterAccount: 'ngVenezuela',
     // Desired hashtag message to mark every tweet in the telegram group
     hashtagMessage: '#ngVenezuelaTweet'
-  },
+  }
 };
 
 module.exports = config;

@@ -11,22 +11,20 @@ class BotServer {
 
     // We are receiving updates at the route below!
     app.post(`/${bot.token}`, (req, res) => {
-      if (this.isTelegramMessage(req.body)) {
+      if (BotServer.isTelegramMessage(req.body)) {
         bot.processUpdate(req.body);
       }
 
-      res.sendStatus(200);
+      res.sendStatus(200).end();
     });
 
     // Start Express Server
-    app.listen(port, () => {
-      console.log(`Express server is listening on ${port}`);
-    });
+    app.listen(port, () => {});
   }
-  
+
   // reference: https://core.telegram.org/bots/api#update
 
-  isTelegramMessage(msg) {
+  static isTelegramMessage(msg) {
     return msg.message
       || msg.edited_message
       || msg.channel_post
