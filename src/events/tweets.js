@@ -3,6 +3,24 @@ const events = require('events');
 const eventEmitter = new events.EventEmitter();
 const Twitter = require('twitter');
 
+// This element must be export before checking if the twitterFeed Object exists
+module.exports = eventEmitter;
+
+/**
+ * Check if the twitterFeed Object is set in the config file to proceed with the twitter
+ * feed functionality
+ *
+ * If the twitterFeed Object is undefined then the Twitter Feed functionality is disabled
+ */
+if (require('./../../config/config').twitterFeed === undefined){
+  let info = '-----------------------------------------------------------------------\n'
+             .concat('WARNING: twitterFeed Object not found in the /config/config.js file...\n',
+             'Twitter Feed functionality disabled\n',
+             '-----------------------------------------------------------------------');
+  console.log('\x1b[33m%s\x1b[0m', info);  //yellow
+  return;
+}
+
 const twitterTokens = require('./../../config/config').twitterFeed.auth;
 // twitter account to track its tweets
 const twitterAccount = require('./../../config/config').twitterFeed.twitterAccount;
@@ -21,7 +39,7 @@ var twitterClient = new Twitter(twitterTokens);
  */
 function getLastTrackedTweetId(){
   // Uncomment this line for testing purposes
-  return 865304050505576400;
+  // return 865304050505576400;
   
   try {
     // Read the last-tweetId.json to get the last tracked tweet id 
@@ -116,5 +134,3 @@ function getLatestTweets(error, tweets, response){
 
 // Check new tweets every 3 seconds
 setInterval(checkNewTweets, 3 * 1000);
-
-module.exports = eventEmitter;
