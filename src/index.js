@@ -9,6 +9,7 @@ const blogUtility = require('./utils/blog');
 const morningUtility = require('./utils/morning');
 const generateRandom = require('./utils/time').generateRandom;
 const apiAIUtility = require('./utils/api-ai');
+const twitterEvent = require('./events/tweets');
 
 const bot = new TelegramBot(telegramToken);
 const botServer = new BotServer(bot, server.port);
