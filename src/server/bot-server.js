@@ -3,17 +3,17 @@ const express = require('express');
 
 class BotServer {
 
-  constructor(bot, port) {
+  constructor(path, port) {
+    this.webhooks = [];
+
     const app = express();
 
     // parse the updates to JSON
     app.use(bodyParser.json());
 
     // We are receiving updates at the route below!
-    app.post(`/${bot.token}`, (req, res) => {
-      if (BotServer.isTelegramMessage(req.body)) {
-        bot.processUpdate(req.body);
-      }
+    app.post(path, (req, res) => {
+      this.webhooks.forEach(webhook => webhook.checkMessage(req.body) && webhook.proccessMessage(req.body));
 
       res.sendStatus(200).end();
     });
@@ -22,16 +22,15 @@ class BotServer {
     app.listen(port, () => {});
   }
 
-  // reference: https://core.telegram.org/bots/api#update
+  subscribe(webhook) {
+    if (!BotServer.isWebHook(webhook)) throw new Error('Invalid argument exception');
 
-  static isTelegramMessage(msg) {
-    return msg.message
-      || msg.edited_message
-      || msg.channel_post
-      || msg.edited_channel_post
-      || msg.inline_query
-      || msg.chosen_inline_result
-      || msg.callback_query;
+    this.webhooks.push(webhook);
+    return this;
+  }
+
+  static isWebHook(webhook) {
+    return webhook && webhook.checkMessage && webhook.proccessMessage;
   }
 
 }

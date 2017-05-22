@@ -1,4 +1,4 @@
-const TelegramBot = require('node-telegram-bot-api');
+const TelegramBot = require('./bot/telegram-bot');
 const BotServer = require('./server/bot-server');
 
 const telegramToken = require('./../config/config').telegramToken;
@@ -17,7 +17,9 @@ const twitterUtility = require('./utils/tweets');
 
 const bot = new TelegramBot(telegramToken);
 // eslint-disable-next-line no-unused-vars
-const botServer = new BotServer(bot, server.port);
+const botServer = new BotServer(`/${bot.token}`, server.port)
+ .subscribe(bot);
+
 let goodMorningGivenToday = false;
 let minuteToCheck = generateRandom(0, 59);
 
