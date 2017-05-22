@@ -21,15 +21,13 @@ const config = {
   },
   twitterFeed: {
     // Create these keys here: https://apps.twitter.com/
-    auth:{ 
-      consumer_key: 'CONSUMER KEY',
-      consumer_secret: 'CONSUMER SECRET',
-      access_token_key: 'ACCESS TOKEN KEY',
-      access_token_secret: 'ACCESS TOKEN SECRET'
+    auth: {
+      consumer_key: 'CONSUMER_KEY',
+      consumer_secret: 'CONSUMER_SECRET',
+      access_token_key: 'ACCESS_TOKEN_KEY',
+      access_token_secret: 'ACCESS_TOKEN_SECRET'
     },
-    // The twitter account where the feed is getting from
     twitterAccount: 'ngVenezuela',
-    // Desired hashtag message to mark every tweet in the telegram group
     hashtagMessage: '#ngVenezuelaTweet'
   }
 };
