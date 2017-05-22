@@ -1,14 +1,19 @@
 const TelegramBot = require('node-telegram-bot-api');
 const BotServer = require('./server/bot-server');
+
 const telegramToken = require('./../config/config').telegramToken;
 const server = require('./../config/config').server;
+
 const morningEvent = require('./events/morning');
 const blogEvent = require('./events/blog');
+const twitterEvent = require('./events/tweets');
+
 const chatUtility = require('./utils/chat');
 const blogUtility = require('./utils/blog');
 const morningUtility = require('./utils/morning');
 const generateRandom = require('./utils/time').generateRandom;
 const apiAIUtility = require('./utils/api-ai');
+const twitterUtility = require('./utils/tweets');
 
 const bot = new TelegramBot(telegramToken);
 // eslint-disable-next-line no-unused-vars
@@ -46,3 +51,6 @@ morningEvent
 
 blogEvent
   .on('newArticles', articles => blogUtility.sendNewArticles(bot, articles));
+
+twitterEvent
+  .on('newTweet', tweet => twitterUtility.sendNewTweet(bot, tweet));

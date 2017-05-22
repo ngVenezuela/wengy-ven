@@ -18,6 +18,17 @@ const config = {
   server: {
     url: 'MY_HTTPS_SERVER', // ej: 'https://9c386d7d.ngrok.io'
     port: 'MY_PORT'
+  },
+  twitterFeed: {
+    // Create these keys here: https://apps.twitter.com/
+    auth: {
+      consumer_key: 'CONSUMER_KEY',
+      consumer_secret: 'CONSUMER_SECRET',
+      access_token_key: 'ACCESS_TOKEN_KEY',
+      access_token_secret: 'ACCESS_TOKEN_SECRET'
+    },
+    twitterAccount: 'ngVenezuela',
+    hashtagMessage: '#ngVenezuelaTweet'
   }
 };
 
