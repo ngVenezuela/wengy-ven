@@ -36,8 +36,6 @@ const messages = {
             '#{tweetText}\n',
             '----\n',
             '[Puedes ver el Tweet aquí](#{tweetUrl})'),
-  githubRelease: '*#{name}* acaba de alcanzar la versión *#{version}*\n\n'.concat(
-    '[Puedes ver los cambios aquí](#{url})')
 };
 
 module.exports = messages;
