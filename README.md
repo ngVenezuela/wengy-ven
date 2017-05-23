@@ -20,7 +20,7 @@ Antes de comenzar a trabajar con nuestro BOT, es necesario cumplir con los sigui
   Luego de haber creado el BOT, lo agregamos a un grupo para que así escuche cualquier comando.
 
 
-## Installación
+## Instalación
 
 Para comenzar a trabajar en nuestro BOT, abrimos nuestra _terminal_ y ejecutamos los siguientes comandos:
 
