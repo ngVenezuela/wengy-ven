@@ -1,5 +1,6 @@
 const TelegramBot = require('./bot/telegram-bot');
 const BotServer = require('./server/bot-server');
+const Superfeedr = require('./events/superfeedr');
 
 const telegramToken = require('./../config/config').telegramToken;
 const server = require('./../config/config').server;
@@ -7,6 +8,7 @@ const server = require('./../config/config').server;
 const morningEvent = require('./events/morning');
 const blogEvent = require('./events/blog');
 const twitterEvent = require('./events/tweets');
+const superfeedr = new Superfeedr();
 
 const chatUtility = require('./utils/chat');
 const blogUtility = require('./utils/blog');
@@ -14,11 +16,13 @@ const morningUtility = require('./utils/morning');
 const generateRandom = require('./utils/time').generateRandom;
 const apiAIUtility = require('./utils/api-ai');
 const twitterUtility = require('./utils/tweets');
+const githubUtility = require('./utils/github-release');
 
 const bot = new TelegramBot(telegramToken);
 // eslint-disable-next-line no-unused-vars
 const botServer = new BotServer(`/${bot.token}`, server.port)
- .subscribe(bot);
+ .subscribe(bot)
+ .subscribe(superfeedr);
 
 let goodMorningGivenToday = false;
 let minuteToCheck = generateRandom(0, 59);
@@ -56,3 +60,13 @@ blogEvent
 
 twitterEvent
   .on('newTweet', tweet => twitterUtility.sendNewTweet(bot, tweet));
+
+superfeedr
+  .on('newFeed', feed =>
+    githubUtility.checkForRelease('angular/angular', feed)
+    && githubUtility.sendRelease(bot, feed, 'angular/angular', true)
+  )
+  .on('newFeed', feed =>
+    githubUtility.checkForRelease('ngVenezuela/wengy-ven', feed)
+    && githubUtility.sendRelease(bot, feed, 'ngVenezuela/wengy-ven', false)
+  );
