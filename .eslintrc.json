@@ -1,7 +1,8 @@
 {
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": "airbnb",
   "plugins": [
@@ -18,6 +19,14 @@
         "imports": "ignore",
         "exports": "ignore",
         "functions": "ignore"
+      }
+    ],
+    "class-methods-use-this": [
+      2,
+      {
+        "exceptMethods": [
+          "checkMessage"
+        ]
       }
     ]
   }

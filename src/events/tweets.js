@@ -31,10 +31,11 @@ function getLastTrackedTweetId() {
      * tweet tracked
      */
     if (err.code === 'ENOENT') {
-      fs.writeFileSync('./config/last-tweetId.json', '');
+      fs.writeFileSync('./config/last-tweetId.json', '{}');
       return false;
     }
-    throw err;
+
+    throw new Error(`Error reading file last-tweetId.json: ${err}`);
   }
 }
 
@@ -55,6 +56,11 @@ function updateLastTrackedTweetId(lastTweetId) {
  * @param  {response} response  HTTP response
  */
 function getLatestTweets(error, tweets) {
+  // If error getting tweets then do nothing
+  if (error !== null) {
+    return;
+  }
+
   // If there is no tweets then do nothing
   if (tweets.length === 0) {
     return;
@@ -63,10 +69,11 @@ function getLatestTweets(error, tweets) {
   /**
    * If the last tweet id is the same that the last tracked tweet id, do nothing
    *
-   * Note: The Twitter API has a strange behavior, when you use
-   * the parameter since_id equal to the most
+   * Note: The Twitter API has a strange behavior,
+   * when you use the parameter since_id equal to the most
    * recent tweet, it brings you the same tweet...
-   * But, when you use since_id equal to an older tweet, it doesn't include the since_id tweet
+   * But, when you use since_id equal to an older tweet,
+   * it doesn't include the since_id tweet
    */
   if (getLastTrackedTweetId() === tweets[0].id) {
     return;
@@ -74,6 +81,7 @@ function getLatestTweets(error, tweets) {
 
   // Update the last tracked tweet id with the last tweet gotten
   updateLastTrackedTweetId(tweets[0].id);
+
   tweets.map(tweet => eventEmitter.emit('newTweet', tweet));
 }
 
@@ -100,8 +108,9 @@ function checkNewTweets() {
       'statuses/user_timeline',
       { screen_name: twitterAccount, count: 1 },
       (error, tweets) => {
-        const lastNgTweetId = tweets[0].id;
-        updateLastTrackedTweetId(lastNgTweetId);
+        if (error === null && tweets.length > 0) {
+          updateLastTrackedTweetId(tweets[0].id);
+        }
       }
     );
   }

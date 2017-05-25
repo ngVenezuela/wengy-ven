@@ -13,7 +13,9 @@ class BotServer {
 
     // We are receiving updates at the route below!
     app.post(path, (req, res) => {
-      this.webhooks.forEach(webhook => webhook.checkMessage(req.body) && webhook.proccessMessage(req.body));
+      this.webhooks.forEach(webhook =>
+        webhook.checkMessage(req.body) && webhook.proccessMessage(req.body)
+      );
 
       res.sendStatus(200).end();
     });
@@ -23,10 +25,12 @@ class BotServer {
   }
 
   subscribe(webhook) {
-    if (!BotServer.isWebHook(webhook)) throw new Error('Invalid argument exception');
+    if (BotServer.isWebHook(webhook)) {
+      this.webhooks.push(webhook);
+      return this;
+    }
 
-    this.webhooks.push(webhook);
-    return this;
+    throw new Error('Invalid argument exception');
   }
 
   static isWebHook(webhook) {

@@ -1,6 +1,5 @@
 const TelegramBot = require('./bot/telegram-bot');
 const BotServer = require('./server/bot-server');
-const Superfeedr = require('./events/superfeedr');
 
 const telegramToken = require('./../config/config').telegramToken;
 const server = require('./../config/config').server;
@@ -8,7 +7,7 @@ const server = require('./../config/config').server;
 const morningEvent = require('./events/morning');
 const blogEvent = require('./events/blog');
 const twitterEvent = require('./events/tweets');
-const superfeedr = new Superfeedr();
+const Superfeedr = require('./events/superfeedr');
 
 const chatUtility = require('./utils/chat');
 const blogUtility = require('./utils/blog');
@@ -18,7 +17,12 @@ const apiAIUtility = require('./utils/api-ai');
 const twitterUtility = require('./utils/tweets');
 const githubUtility = require('./utils/github-release');
 
+const superfeedr = new Superfeedr();
 const bot = new TelegramBot(telegramToken);
+
+// This informs the Telegram servers of the new webhook.
+bot.setWebHook(`${server.url}/${telegramToken}`);
+
 // eslint-disable-next-line no-unused-vars
 const botServer = new BotServer(`/${bot.token}`, server.port)
  .subscribe(bot)
@@ -26,9 +30,6 @@ const botServer = new BotServer(`/${bot.token}`, server.port)
 
 let goodMorningGivenToday = false;
 let minuteToCheck = generateRandom(0, 59);
-
-// This informs the Telegram servers of the new webhook.
-bot.setWebHook(`${server.url}/${telegramToken}`);
 
 bot
   .on('new_chat_participant', msg => chatUtility.sayHello(bot, msg))
