@@ -3,12 +3,16 @@ const events = require('events');
 const Twitter = require('twitter');
 
 const eventEmitter = new events.EventEmitter();
-const twitterFeed = require('./../../config/config').twitterFeed;
+const twitterConfig = require('./../../config/config').integrations.twitter;
 
-const twitterTokens = twitterFeed.auth;
-const twitterAccount = twitterFeed.twitterAccount;
-const twitterClient = new Twitter(twitterTokens);
-
+const twitterTokens = twitterConfig.auth;
+const twitterAccount = twitterConfig.account;
+const twitterClient = new Twitter({
+  consumer_key: twitterTokens.consumerKey,
+  consumer_secret: twitterTokens.consumerSecret,
+  access_token_key: twitterTokens.accessTokenKey,
+  access_token_secret: twitterTokens.accessTokenSecret
+});
 
 /**
  * Get the last tracked tweet id registered int the file: last-tweetId.json.
@@ -116,7 +120,7 @@ function checkNewTweets() {
   }
 }
 
-if (twitterFeed) {
+if (twitterConfig) {
   setInterval(checkNewTweets, 60 * 1000); // 60 seconds
 }
 

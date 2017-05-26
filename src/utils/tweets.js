@@ -1,7 +1,7 @@
 const config = require('./../../config/config');
 const sendMessage = require('./../utils/send-message');
 const newTweetMessage = require('./../../config/messages').newTweet;
-const hashtagMessage = require('./../../config/config').twitterFeed.hashtagMessage;
+const hashtagMessage = require('./../../config/config').integrations.twitter.hashtagMessage;
 
 /**
  * Construct and send the message to notify a new tweet in the group

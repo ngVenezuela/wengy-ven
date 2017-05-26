@@ -16,6 +16,7 @@ const generateRandom = require('./utils/time').generateRandom;
 const apiAIUtility = require('./utils/api-ai');
 const twitterUtility = require('./utils/tweets');
 const githubUtility = require('./utils/github-release');
+const devOnlyUtility = require('./utils/dev-only');
 
 const superfeedr = new Superfeedr();
 const bot = new TelegramBot(telegramToken);
@@ -30,6 +31,9 @@ const botServer = new BotServer(`/${bot.token}`, server.port)
 
 let goodMorningGivenToday = false;
 let minuteToCheck = generateRandom(0, 59);
+
+bot
+  .onText(/\/groupId/, (msg, match) => devOnlyUtility(bot, msg, match));
 
 bot
   .on('new_chat_participant', msg => chatUtility.sayHello(bot, msg))
