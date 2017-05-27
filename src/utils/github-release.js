@@ -12,7 +12,7 @@ const sendRelease = (bot, release, repository, changelogExist) => {
 
   const name = repository.match(/[\w.-]+$/gi)[0];
 
-  release.items.forEach(item => {
+  release.items.forEach((item) => {
     const tag = item.id.match(/[\w.-]+$/gi)[0];
 
     sendMessage(

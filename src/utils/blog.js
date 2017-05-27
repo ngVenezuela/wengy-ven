@@ -1,16 +1,21 @@
 const groupId = require('./../../config/config').groupId;
+const blogFeedUrl = require('./../../config/config').blogFeedUrl;
 const newBlogPostMessage = require('./../../config/messages').newBlogPost;
 const sendMessage = require('./../utils/send-message');
 
-function sendNewArticles(bot, articles) {
-  articles.forEach((article) => {
+function checkForBlogEntry(feed) {
+  return feed.status.feed === blogFeedUrl;
+}
+
+function sendNewBlogEntries(bot, feed) {
+  feed.items.forEach((article) => {
     setTimeout(() => {
       sendMessage(
         bot,
         groupId,
         newBlogPostMessage
-          .replace('#{author}', article.author)
-          .replace('#{link}', article.link)
+          .replace('#{author}', article.actor.displayName)
+          .replace('#{link}', article.permalinkUrl)
           .replace('#{title}', article.title)
       );
     });
@@ -18,5 +23,6 @@ function sendNewArticles(bot, articles) {
 }
 
 module.exports = {
-  sendNewArticles
+  checkForBlogEntry,
+  sendNewBlogEntries
 };

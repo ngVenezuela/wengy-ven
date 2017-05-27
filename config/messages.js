@@ -19,15 +19,16 @@ const messages = {
     ],
     generic: [
       'Buenos días...¿tomaron café? \u{2615}',
-      'Buenos días. Recuerden que detrás de una persona exitosa, ' +
-      'está una gran cantidad de café \u{2615}',
+      'Buenos días. Recuerden que detrás de una persona exitosa '.concat(
+      'está una gran cantidad de café \u{2615}'),
       'Buenos días. Keep calm and drink \u{2615}',
       'Buenos días \u{1F601}\u{2615}',
       'Buenos días',
       'Buenos días a todos',
       'Buenos días comunidad',
       'Buenos días #ngPanas',
-      'Buenos días comunidad, Y como dice @frick: ¡A trabajar, vagos! Que los yates de sus jefes no se pagan solos'
+      'Buenos días comunidad, Y como dice @cesarfrick: ¡A trabajar, '.concat(
+        'vagos! Que los yates de sus jefes no se pagan solos')
     ],
   },
   newBlogPost: '*#{author}* ha agregado una nueva entrada al blog titulada: '.concat(

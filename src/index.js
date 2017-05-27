@@ -5,7 +5,6 @@ const telegramToken = require('./../config/config').telegramToken;
 const server = require('./../config/config').server;
 
 const morningEvent = require('./events/morning');
-const blogEvent = require('./events/blog');
 const twitterEvent = require('./events/tweets');
 const Superfeedr = require('./events/superfeedr');
 
@@ -60,9 +59,6 @@ morningEvent
     goodMorningGivenToday = false;
   });
 
-blogEvent
-  .on('newArticles', articles => blogUtility.sendNewArticles(bot, articles));
-
 twitterEvent
   .on('newTweet', tweet => twitterUtility.sendNewTweet(bot, tweet));
 
@@ -74,4 +70,6 @@ superfeedr
   .on('newFeed', feed =>
     githubUtility.checkForRelease('ngVenezuela/wengy-ven', feed)
     && githubUtility.sendRelease(bot, feed, 'ngVenezuela/wengy-ven', false)
-  );
+  )
+  .on('newFeed', feed =>
+    blogUtility.checkForBlogEntry(feed) && blogUtility.sendNewBlogEntries(bot, feed));

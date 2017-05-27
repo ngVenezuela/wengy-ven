@@ -25,7 +25,6 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "feedparser": "^2.0.0",
     "node-fetch": "^1.6.3",
     "node-telegram-bot-api": "^0.27.1",
     "twitter": "^1.7.0",
