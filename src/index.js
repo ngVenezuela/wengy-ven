@@ -63,13 +63,6 @@ new TwitterEvent()
   .on('newTweet', tweet => twitterUtility.sendNewTweet(bot, tweet));
 
 superfeedr
-  .on('newFeed', feed =>
-    githubUtility.checkForRelease('angular/angular', feed)
-    && githubUtility.sendRelease(bot, feed, 'angular/angular', true)
-  )
-  .on('newFeed', feed =>
-    githubUtility.checkForRelease('ngVenezuela/wengy-ven', feed)
-    && githubUtility.sendRelease(bot, feed, 'ngVenezuela/wengy-ven', false)
-  )
+  .on('newFeed', feed => githubUtility.checkAndSendRelease(bot, feed))
   .on('newFeed', feed =>
     blogUtility.checkForBlogEntry(feed) && blogUtility.sendNewBlogEntries(bot, feed));
