@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const apiAIConfig = require('./../../config/config').apiAI;
+const apiAIConfig = require('./../../config/config').integrations.apiAI;
 const botUsername = require('./../../config/config').botUsername;
 const sendMessage = require('./send-message');
 
@@ -32,7 +32,13 @@ const query = (bot, queryString, chatId, messageId) => {
     .then(response => response.json())
     .then((response) => {
       if (validResponse(response)) {
-        sendMessage(bot, chatId, response.result.fulfillment.messages[0].speech, true, messageId);
+        sendMessage(
+          bot,
+          chatId,
+          response.result.fulfillment.messages[0].speech,
+          true,
+          messageId
+        );
       }
     }).catch(() => {});
 };
