@@ -4,7 +4,7 @@ const config = {
   telegramToken: 'MY_SUPER_SECRET_TELEGRAM_TOKEN',
   botUsername: 'WengyBot',
   server: {
-    url: 'MY_HTTPS_SERVER', // ej: 'https://9c386d7d.ngrok.io'
+    url: 'MY_HTTPS_SERVER',
     port: 'MY_PORT'
   },
   groupId: -1001031605415,
