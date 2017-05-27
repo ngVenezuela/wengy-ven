@@ -25,7 +25,7 @@ const config = {
         accessTokenKey: 'ACCESS_TOKEN_KEY',
         accessTokenSecret: 'ACCESS_TOKEN_SECRET'
       },
-      account: 'ngVenezuela',
+      id: '41469246',
       hashtagMessage: '#ngVenezuelaTweet'
     }
   }

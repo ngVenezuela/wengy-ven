@@ -5,7 +5,7 @@ const telegramToken = require('./../config/config').telegramToken;
 const server = require('./../config/config').server;
 
 const morningEvent = require('./events/morning');
-const twitterEvent = require('./events/tweets');
+const TwitterEvent = require('./events/tweets');
 const Superfeedr = require('./events/superfeedr');
 
 const chatUtility = require('./utils/chat');
@@ -59,7 +59,7 @@ morningEvent
     goodMorningGivenToday = false;
   });
 
-twitterEvent
+new TwitterEvent()
   .on('newTweet', tweet => twitterUtility.sendNewTweet(bot, tweet));
 
 superfeedr
