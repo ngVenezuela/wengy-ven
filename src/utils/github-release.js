@@ -1,8 +1,9 @@
-const config = require('./../../config/config');
+const groupId = require('./../../config/config').groupId;
+const releasesToCheck = require('./../../config/config').integrations.githubReleases;
 const githubReleaseMessage = require('./../../config/messages').githubRelease;
 const sendMessage = require('./../utils/send-message');
 
-const checkForRelease = (repository, feed) =>
+const isItAGithubRelease = (repository, feed) =>
   feed && feed.status.feed && feed.status.feed.search(repository) !== -1;
 
 const sendRelease = (bot, release, repository, changelogExist) => {
@@ -17,7 +18,7 @@ const sendRelease = (bot, release, repository, changelogExist) => {
 
     sendMessage(
       bot,
-      config.groupId,
+      groupId,
       githubReleaseMessage
         .replace('#{name}', name)
         .replace('#{version}', tag)
@@ -31,7 +32,16 @@ const sendRelease = (bot, release, repository, changelogExist) => {
   });
 };
 
+const checkAndSendRelease = (bot, feed) => {
+  releasesToCheck.forEach((release) => {
+    if (isItAGithubRelease(release.repo, feed)) {
+      sendRelease(bot, feed, release.repo, release.hasChangelog);
+    }
+  });
+};
+
 module.exports = {
-  checkForRelease,
+  checkAndSendRelease,
+  isItAGithubRelease,
   sendRelease
 };

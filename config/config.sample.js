@@ -27,7 +27,33 @@ const config = {
       },
       id: '41469246',
       hashtagMessage: '#ngVenezuelaTweet'
-    }
+    },
+    githubReleases: [
+      {
+        name: 'angular',
+        repo: 'angular/angular',
+        hasChangelog: true,
+        feed: 'https://github.com/angular/angular/releases.atom'
+      },
+      {
+        name: 'ionic',
+        repo: 'driftyco/ionic',
+        hasChangelog: true,
+        feed: 'https://github.com/driftyco/ionic/releases.atom'
+      },
+      {
+        name: 'nativescript',
+        repo: 'NativeScript/NativeScript',
+        hasChangelog: true,
+        feed: 'https://github.com/NativeScript/NativeScript/releases.atom'
+      },
+      {
+        name: 'wengy-ven',
+        repo: 'ngVenezuela/wengy-ven',
+        hasChangelog: false,
+        feed: 'https://github.com/ngVenezuela/wengy-ven/releases.atom'
+      }
+    ]
   }
 };
 
