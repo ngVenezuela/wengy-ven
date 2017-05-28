@@ -33,11 +33,12 @@ const sendRelease = (bot, release, repository, changelogExist) => {
 };
 
 const checkAndSendRelease = (bot, feed) => {
-  releasesToCheck.forEach((release) => {
-    if (isItAGithubRelease(release.repo, feed)) {
-      sendRelease(bot, feed, release.repo, release.hasChangelog);
-    }
-  });
+  const releaseFound =
+    releasesToCheck.find(release => isItAGithubRelease(release.repo, feed));
+
+  if (releaseFound) {
+    sendRelease(bot, feed, releaseFound.repo, releaseFound.hasChangelog);
+  }
 };
 
 module.exports = {
