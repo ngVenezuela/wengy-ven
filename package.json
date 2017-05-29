@@ -23,10 +23,12 @@
   },
   "homepage": "https://github.com/ngVenezuela/wengy-ven#readme",
   "dependencies": {
+    "bluebird": "3.5.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "node-fetch": "^1.6.3",
     "node-telegram-bot-api": "^0.27.1",
+    "redis": "2.7.1",
     "twitter": "^1.7.0",
     "uuid": "3.0.1"
   },
