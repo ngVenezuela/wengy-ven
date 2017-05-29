@@ -7,6 +7,10 @@ const config = {
     url: 'MY_HTTPS_SERVER',
     port: 'MY_PORT'
   },
+  redisOptions: {
+    url: 'MY_REDIS_SERVER',
+    port: 'MY_REDIS_PORT'
+  },
   groupId: -1001031605415,
   morningHour: 7,
   goodMorningRegExp: new RegExp('buen(os)*\\sd[ií]+as', 'iu'),

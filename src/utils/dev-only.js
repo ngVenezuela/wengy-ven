@@ -1,7 +1,7 @@
 const sendMessage = require('./send-message');
 
-const sendGroupId = (bot, msgContext) => {
-  bot.getChat(msgContext.chat.id).then((info) => {
+const sendGroupId = (bot, chatId) => {
+  bot.getChat(chatId).then((info) => {
     if (info.type === 'group') {
       sendMessage(
         bot,
@@ -12,4 +12,6 @@ const sendGroupId = (bot, msgContext) => {
   });
 };
 
-module.exports = sendGroupId;
+module.exports = {
+  sendGroupId
+};

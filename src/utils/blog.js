@@ -22,7 +22,12 @@ function sendNewBlogEntries(bot, feed) {
   });
 }
 
+function checkAndSendBlogEntry(bot, feed) {
+  if (checkForBlogEntry(feed)) {
+    sendNewBlogEntries(bot, feed);
+  }
+}
+
 module.exports = {
-  checkForBlogEntry,
-  sendNewBlogEntries
+  checkAndSendBlogEntry
 };

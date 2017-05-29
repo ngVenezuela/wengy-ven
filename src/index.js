@@ -1,3 +1,11 @@
+const redis = require('redis');
+const bluebird = require('bluebird');
+const redisOptions = require('./../config/config').redisOptions;
+
+bluebird.promisifyAll(redis.RedisClient.prototype);
+bluebird.promisifyAll(redis.Multi.prototype);
+const redisClient = redis.createClient(redisOptions);
+
 const TelegramBot = require('./bot/telegram-bot');
 const BotServer = require('./server/bot-server');
 
@@ -15,7 +23,8 @@ const generateRandom = require('./utils/time').generateRandom;
 const apiAIUtility = require('./utils/api-ai');
 const twitterUtility = require('./utils/tweets');
 const githubUtility = require('./utils/github-release');
-const devOnlyUtility = require('./utils/dev-only');
+const devUtility = require('./utils/dev-only');
+const commandUtility = require('./utils/command');
 
 const superfeedr = new Superfeedr();
 const bot = new TelegramBot(telegramToken);
@@ -23,26 +32,36 @@ const bot = new TelegramBot(telegramToken);
 // This informs the Telegram servers of the new webhook.
 bot.setWebHook(`${server.url}/${telegramToken}`);
 
-// eslint-disable-next-line no-unused-vars
-const botServer = new BotServer(`/${bot.token}`, server.port)
+new BotServer(`/${bot.token}`, server.port)
  .subscribe(bot)
  .subscribe(superfeedr);
 
 let goodMorningGivenToday = false;
 let minuteToCheck = generateRandom(0, 59);
 
-bot
-  .onText(/\/groupId/, (msg, match) => devOnlyUtility(bot, msg, match));
+redisClient
+  .on('ready', () => {
+    bot
+      .onText(/\/groupId/, (msg, match) =>
+        commandUtility.verifyCommand(redisClient, match, msg.from.id)
+          .then((canExecuteCommand) => {
+            if (canExecuteCommand) {
+              devUtility.sendGroupId(bot, msg.chat.id, match[0]);
+            }
+          })
+          .catch(() => {}));
 
-bot
-  .on('new_chat_participant', msg => chatUtility.sayHello(bot, msg))
-  .on('left_chat_participant', msg => chatUtility.sayGoodbye(bot, msg))
-  .on('text', (msg) => {
-    goodMorningGivenToday =
-      chatUtility.checkGoodMorning(goodMorningGivenToday, msg.text);
+    bot
+      .on('new_chat_participant', msg => chatUtility.sayHello(bot, msg))
+      .on('left_chat_participant', msg => chatUtility.sayGoodbye(bot, msg))
+      .on('text', (msg) => {
+        goodMorningGivenToday =
+          chatUtility.checkGoodMorning(goodMorningGivenToday, msg.text);
+      })
+      .on('text', msg => chatUtility.checkForCode(bot, msg, redisClient))
+      .on('text', msg => apiAIUtility.canBotRespondToThis(bot, msg, redisClient));
   })
-  .on('text', msg => chatUtility.checkForCode(bot, msg))
-  .on('text', msg => apiAIUtility.canBotRespondToThis(bot, msg));
+  .on('error', () => {});
 
 morningEvent
   .on('minuteMark', (vzlanHour, vzlanMinute, weekday) => {
@@ -64,5 +83,4 @@ new TwitterEvent()
 
 superfeedr
   .on('newFeed', feed => githubUtility.checkAndSendRelease(bot, feed))
-  .on('newFeed', feed =>
-    blogUtility.checkForBlogEntry(feed) && blogUtility.sendNewBlogEntries(bot, feed));
+  .on('newFeed', feed => blogUtility.checkAndSendBlogEntry(bot, feed));

@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 const apiAIConfig = require('./../../config/config').integrations.apiAI;
 const botUsername = require('./../../config/config').botUsername;
 const sendMessage = require('./send-message');
+const commandUtility = require('./../utils/command');
 
 const validResponse = response =>
   response.result && response.result.fulfillment &&
@@ -43,17 +44,23 @@ const query = (bot, queryString, chatId, messageId) => {
     }).catch(() => {});
 };
 
-const canBotRespondToThis = (bot, msgContext) => {
-  if (botHasReplies(msgContext)) {
-    query(bot, msgContext.text, msgContext.chat.id, msgContext.message_id);
-  } else if (botWasMentioned(msgContext.entities, msgContext.text)) {
-    query(
-      bot,
-      msgContext.text.replace(`@${botUsername}`, ''),
-      msgContext.chat.id,
-      msgContext.message_id
-    );
-  }
+const canBotRespondToThis = (bot, msgContext, redisClient) => {
+  commandUtility.verifyCommand(redisClient, '/bot', msgContext.from.id)
+    .then((canExecuteCommand) => {
+      if (canExecuteCommand) {
+        if (botHasReplies(msgContext)) {
+          query(bot, msgContext.text, msgContext.chat.id, msgContext.message_id);
+        } else if (botWasMentioned(msgContext.entities, msgContext.text)) {
+          query(
+            bot,
+            msgContext.text.replace(`@${botUsername}`, ''),
+            msgContext.chat.id,
+            msgContext.message_id
+          );
+        }
+      }
+    })
+    .catch(() => { });
 };
 
 module.exports = {
