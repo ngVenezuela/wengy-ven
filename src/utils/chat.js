@@ -1,63 +1,6 @@
-const fetch = require('node-fetch');
-
 const messages = require('./../../config/messages');
-const config = require('./../../config/config.js');
 const sendMessage = require('./../utils/send-message');
 const generateRandom = require('./../utils/time').generateRandom;
-const commandUtility = require('./../utils/command');
-
-const checkForCode = (bot, msgContext, redisClient) => {
-  commandUtility.verifyCommand(redisClient, '/gist', msgContext.from.id)
-    .then((canExecuteCommand) => {
-      if (canExecuteCommand) {
-        if (!Object.prototype.hasOwnProperty.call(msgContext, 'entities')) {
-          return;
-        }
-
-        if (msgContext.entities[0].type !== 'pre') {
-          return;
-        }
-
-        if (msgContext.text.length >= 200) {
-          return;
-        }
-
-        const chatId = msgContext.chat.id;
-        const { firstName = '', lastName = '', username = '' } = msgContext.from;
-        const fullName = firstName === '' && lastName === '' ? '' : `${firstName} ${lastName} `;
-        const user = username === '' ? '' : `(@${username})`;
-        const filename = `${new Date().toISOString()}.js`;
-        const gist = msgContext.text;
-
-        const body = {
-          description: 'gist creado por '.concat(
-            fullName,
-            user,
-            ` para ${config.community.telegram.link} con ${config.community.github})`
-          ),
-          public: true,
-          files: {
-            [filename]: {
-              content: gist
-            }
-          }
-        };
-
-        fetch('https://api.github.com/gists', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-          },
-          body: JSON.stringify(body)
-        })
-          .then(response => response.json())
-          .then(({ html_url }) => {
-            sendMessage(bot, chatId, html_url, true, msgContext.message_id);
-          }).catch(() => { });
-      }
-    })
-    .catch(() => { });
-};
 
 const formatName = (firstName, userName) => (userName ? '@'.concat(userName) : firstName);
 
@@ -91,7 +34,6 @@ const sayGoodbye = (bot, msg) => {
 
 module.exports = {
   sayHello,
-  sayGoodbye,
-  checkForCode
+  sayGoodbye
 };
 

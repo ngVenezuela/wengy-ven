@@ -22,9 +22,8 @@ const morningUtility = require('./utils/morning');
 const generateRandom = require('./utils/time').generateRandom;
 const apiAIUtility = require('./utils/api-ai');
 const twitterUtility = require('./utils/tweets');
-const githubUtility = require('./utils/github-release');
+const githubUtility = require('./utils/github');
 const devUtility = require('./utils/dev-only');
-const commandUtility = require('./utils/command');
 
 const superfeedr = new Superfeedr();
 const bot = new TelegramBot(telegramToken);
@@ -43,13 +42,14 @@ redisClient
   .on('ready', () => {
     bot
       .onText(/\/groupId/, (msg, match) =>
-        commandUtility.verifyCommand(redisClient, match, msg.from.id)
-          .then((canExecuteCommand) => {
-            if (canExecuteCommand) {
-              devUtility.sendGroupId(bot, msg.chat.id, match[0]);
-            }
-          })
-          .catch(() => {}));
+        devUtility.sendGroupId(bot, msg.chat.id, msg.from.id, match[0], redisClient));
+    bot
+      .onText(/\/comunidades/, (msg, match) =>
+        githubUtility.sendOpenVeGithubLink(bot, msg, match[0], redisClient));
+
+    bot
+      .onText(/\/github/, (msg, match) =>
+        githubUtility.sendCommunityRepo(bot, msg, match[0], redisClient));
 
     bot
       .on('new_chat_participant', msg => chatUtility.sayHello(bot, msg))
@@ -58,7 +58,7 @@ redisClient
         goodMorningGivenToday =
           morningUtility.checkGoodMorning(goodMorningGivenToday, msg.text);
       })
-      .on('text', msg => chatUtility.checkForCode(bot, msg, redisClient))
+      .on('text', msg => githubUtility.checkForCode(bot, msg, redisClient))
       .on('text', msg => apiAIUtility.canBotRespondToThis(bot, msg, redisClient));
   })
   .on('error', () => {});
