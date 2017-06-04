@@ -7,6 +7,6 @@ module.exports = (bot, chatId, messageText, replyMode = false, messageId) => {
     bot.sendChatAction(chatId, 'typing');
     setTimeout(() => {
       bot.sendMessage(chatId, messageText, defaultOptions);
-    }, 2000);
+    }, 1000);
   } catch (e) {} // eslint-disable-line no-empty
 };

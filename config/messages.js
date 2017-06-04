@@ -38,7 +38,9 @@ const messages = {
             '----\n',
             '[Puedes ver el Tweet aquí](#{tweetUrl})'),
   githubRelease: '*#{name}* acaba de alcanzar la versión *#{version}*\n\n'.concat(
-    '[Puedes ver los cambios aquí](#{url})')
+    '[Puedes ver los cambios aquí](#{url})'),
+  githubOpenVeLink: 'El enlace de github para comunidades de Telegram es: #{link}',
+  gistCreated: 'gist creado por #{fullName} #{user} para #{telegramLink} con #{githubLink}'
 };
 
 module.exports = messages;
