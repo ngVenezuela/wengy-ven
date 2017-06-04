@@ -41,15 +41,19 @@ let minuteToCheck = generateRandom(0, 59);
 redisClient
   .on('ready', () => {
     bot
-      .onText(/\/groupId/, (msg, match) =>
+      .onText(/^\/groupId$/, (msg, match) =>
         devUtility.sendGroupId(bot, msg.chat.id, msg.from.id, match[0], redisClient));
     bot
-      .onText(/\/comunidades/, (msg, match) =>
+      .onText(/^\/comunidades$/, (msg, match) =>
         githubUtility.sendOpenVeGithubLink(bot, msg, match[0], redisClient));
+    bot
+      .onText(/^\/github$/, (msg, match) =>
+        githubUtility.sendCommunityRepo(bot, msg, match[0], redisClient));
 
     bot
-      .onText(/\/github/, (msg, match) =>
-        githubUtility.sendCommunityRepo(bot, msg, match[0], redisClient));
+      // eslint-disable-next-line no-useless-escape
+      .onText(/^\/gist ([\s\S\.]+)/, (msg, match) =>
+        githubUtility.createGist(bot, msg, redisClient, match[1], false));
 
     bot
       .on('new_chat_participant', msg => chatUtility.sayHello(bot, msg))

@@ -40,7 +40,8 @@ const messages = {
   githubRelease: '*#{name}* acaba de alcanzar la versión *#{version}*\n\n'.concat(
     '[Puedes ver los cambios aquí](#{url})'),
   githubOpenVeLink: 'El enlace de github para comunidades de Telegram es: #{link}',
-  gistCreated: 'gist creado por #{fullName} #{user} para #{telegramLink} con #{githubLink}'
+  gistCreated: 'gist creado por #{fullName} #{user} para #{telegramLink} con #{githubLink}',
+  gistRecommendation: 'Utiliza el comando /gist _codigo_ para generar un gist en github'
 };
 
 module.exports = messages;

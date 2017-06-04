@@ -29,9 +29,11 @@ const verifyCommand = async (redisClient, command, userId) => {
     /*
       * create key again
       * ttlReply might be -2, it means key doesn't exist
-      * and it could happen if ttl is close to zero
+      * and it could happen if ttl is close to zero.
+
+      * 5 minutes cooldown for each user-command
     */
-    const newSet = await redisClient.setAsync(`${userId}-${command}`, 1, 'EX', 60);
+    const newSet = await redisClient.setAsync(`${userId}-${command}`, 1, 'EX', 60 * 5);
     return newSet === 'OK';
   } catch (error) {
     return false;
