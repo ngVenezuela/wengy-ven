@@ -1,13 +1,11 @@
-const groupId = require('./../../config/config').groupId;
-const blogFeedUrl = require('./../../config/config').blogFeedUrl;
+const groupId = require('./../../config/config').community.telegram.groupId;
+const blogFeedUrl = require('./../../config/config').community.blogFeedUrl;
 const newBlogPostMessage = require('./../../config/messages').newBlogPost;
 const sendMessage = require('./../utils/send-message');
 
-function checkForBlogEntry(feed) {
-  return feed.status.feed === blogFeedUrl;
-}
+const checkForBlogEntry = feed => feed.status.feed === blogFeedUrl;
 
-function sendNewBlogEntries(bot, feed) {
+const sendNewBlogEntries = (bot, feed) => {
   feed.items.forEach((article) => {
     setTimeout(() => {
       sendMessage(
@@ -20,13 +18,13 @@ function sendNewBlogEntries(bot, feed) {
       );
     });
   });
-}
+};
 
-function checkAndSendBlogEntry(bot, feed) {
+const checkAndSendBlogEntry = (bot, feed) => {
   if (checkForBlogEntry(feed)) {
     sendNewBlogEntries(bot, feed);
   }
-}
+};
 
 module.exports = {
   checkAndSendBlogEntry

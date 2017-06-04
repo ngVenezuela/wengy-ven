@@ -9,11 +9,11 @@ const redisClient = redis.createClient(redisOptions);
 const TelegramBot = require('./bot/telegram-bot');
 const BotServer = require('./server/bot-server');
 
-const telegramToken = require('./../config/config').telegramToken;
+const telegramToken = require('./../config/config').community.telegram.botToken;
 const server = require('./../config/config').server;
 
 const morningEvent = require('./events/morning');
-const TwitterEvent = require('./events/tweets');
+const newTweet = require('./events/tweets');
 const Superfeedr = require('./events/superfeedr');
 
 const chatUtility = require('./utils/chat');
@@ -33,8 +33,8 @@ const bot = new TelegramBot(telegramToken);
 bot.setWebHook(`${server.url}/${telegramToken}`);
 
 new BotServer(`/${bot.token}`, server.port)
- .subscribe(bot)
- .subscribe(superfeedr);
+  .subscribe(bot)
+  .subscribe(superfeedr);
 
 let goodMorningGivenToday = false;
 let minuteToCheck = generateRandom(0, 59);
@@ -56,7 +56,7 @@ redisClient
       .on('left_chat_participant', msg => chatUtility.sayGoodbye(bot, msg))
       .on('text', (msg) => {
         goodMorningGivenToday =
-          chatUtility.checkGoodMorning(goodMorningGivenToday, msg.text);
+          morningUtility.checkGoodMorning(goodMorningGivenToday, msg.text);
       })
       .on('text', msg => chatUtility.checkForCode(bot, msg, redisClient))
       .on('text', msg => apiAIUtility.canBotRespondToThis(bot, msg, redisClient));
@@ -66,7 +66,7 @@ redisClient
 morningEvent
   .on('minuteMark', (vzlanHour, vzlanMinute, weekday) => {
     const executeGoodMorningCheck =
-      morningUtility.giveGoodMorning(bot, goodMorningGivenToday, minuteToCheck,
+      morningUtility.canBotGiveGoodMorning(bot, goodMorningGivenToday, minuteToCheck,
       vzlanHour, vzlanMinute, weekday);
 
     if (executeGoodMorningCheck.goodMorningGivenToday) {
@@ -78,7 +78,7 @@ morningEvent
     goodMorningGivenToday = false;
   });
 
-new TwitterEvent()
+newTweet
   .on('newTweet', tweet => twitterUtility.sendNewTweet(bot, tweet));
 
 superfeedr

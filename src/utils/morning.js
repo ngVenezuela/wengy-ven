@@ -3,15 +3,15 @@ const messages = require('./../../config/messages');
 const config = require('./../../config/config');
 const sendMessage = require('./../utils/send-message');
 
-function morningConditions(goodMorningGivenToday, minuteToCheck, vzlanHour, vzlanMinute) {
-  return (
-    !goodMorningGivenToday &&
-    vzlanHour === config.morningHour &&
-    vzlanMinute === minuteToCheck
-  );
-}
+const MORNING_HOUR = 7;
+const GOOD_MORNING_REG_EXP = new RegExp('buen(os)*\\sd[ií]+as', 'iu');
 
-function getMorningMsg(weekday) {
+const morningConditions = (goodMorningGivenToday, minuteToCheck, vzlanHour, vzlanMinute) =>
+    !goodMorningGivenToday &&
+    vzlanHour === MORNING_HOUR &&
+    vzlanMinute === minuteToCheck;
+
+const getMorningMsg = (weekday) => {
   const weekDays = {
     0: 'generic',
     1: 'mondays',
@@ -28,13 +28,13 @@ function getMorningMsg(weekday) {
   );
 
   return messages.goodMornings[weekDays[weekday]][randomIndex];
-}
+};
 
 
-function giveGoodMorning(bot, goodMorningGivenToday,
-  minuteToCheck, vzlanHour, vzlanMinute, weekday) {
+const canBotGiveGoodMorning = (bot, goodMorningGivenToday,
+  minuteToCheck, vzlanHour, vzlanMinute, weekday) => {
   if (morningConditions(goodMorningGivenToday, minuteToCheck, vzlanHour, vzlanMinute)) {
-    sendMessage(bot, config.groupId, getMorningMsg(weekday));
+    sendMessage(bot, config.community.telegram.groupId, getMorningMsg(weekday));
     return {
       goodMorningGivenToday: true,
       minuteToCheck: generateRandom(0, 59)
@@ -45,8 +45,12 @@ function giveGoodMorning(bot, goodMorningGivenToday,
     goodMorningGivenToday: false,
     minuteToCheck
   };
-}
+};
+
+const checkGoodMorning = (goodMorningGivenToday, text) =>
+  !goodMorningGivenToday && GOOD_MORNING_REG_EXP.test(text);
 
 module.exports = {
-  giveGoodMorning
+  canBotGiveGoodMorning,
+  checkGoodMorning
 };

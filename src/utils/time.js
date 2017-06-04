@@ -4,16 +4,15 @@
  * @param {Integer} max - Max value
  * @return {Integer} Random Integer value
  */
-function generateRandom(min, max) {
-  return Math.floor(Math.random() * ((max - min) + 1)) + min;
-}
+const generateRandom = (min, max) =>
+  Math.floor(Math.random() * ((max - min) + 1)) + min;
 
 /**
  * Get date in Venezuela, given a date
  * @param {Date} date - Date
  * @return {Date} date in Venezuela
  */
-function getVzlanTime(date) {
+const getVzlanTime = (date) => {
   const vzlanOffset = 4;
   const actualTime = new Date(
     Date.UTC(
@@ -30,7 +29,7 @@ function getVzlanTime(date) {
   const vzlanTime = new Date(vzlanTimeInMs);
 
   return vzlanTime;
-}
+};
 
 
 /**
@@ -38,36 +37,36 @@ function getVzlanTime(date) {
  * @param {Date} date - Date
  * @return {Integer} Hour in Venezuela
  */
-function vzlanHour(date = new Date()) {
+const vzlanHour = (date = new Date()) => {
   const vzlanTime = getVzlanTime(date);
   const venezuelanHour = vzlanTime.getUTCHours(); // 24 hours format (0-23)
 
   return venezuelanHour;
-}
+};
 
 /**
  * Get minute in Venezuela, given a date
  * @param {Date} date - Date
  * @return {Integer} minute in Venezuela
  */
-function vzlanMinute(date = new Date()) {
+const vzlanMinute = (date = new Date()) => {
   const vzlanTime = getVzlanTime(date);
   const venezuelanMinute = vzlanTime.getUTCMinutes(); // 0-59
 
   return venezuelanMinute;
-}
+};
 
 /**
  * Get weekday in Venezuela, given a date
  * @param {Date} date - Date
  * @return {Integer} weekday in Venezuela
  */
-function vzlanWeekday(date = new Date()) {
+const vzlanWeekday = (date = new Date()) => {
   const vzlanTime = getVzlanTime(date);
   const venezuelanWeekDay = vzlanTime.getUTCDay(); // sunday = 0
 
   return venezuelanWeekDay;
-}
+};
 
 module.exports = {
   vzlanHour,

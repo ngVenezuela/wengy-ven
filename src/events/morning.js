@@ -9,7 +9,7 @@ const eventEmitter = new events.EventEmitter();
  * it also emits an event when it's
  * a new day
  */
-function emitMinuteMark() {
+const emitMinuteMark = () => {
   const vzlanHour = timeUtility.vzlanHour();
   const vzlanMinute = timeUtility.vzlanMinute();
 
@@ -22,7 +22,7 @@ function emitMinuteMark() {
   if (vzlanHour === 0 && vzlanMinute === 0) {
     eventEmitter.emit('newDay');
   }
-}
+};
 
 setInterval(emitMinuteMark, 60 * 1000); // 60 seconds
 
