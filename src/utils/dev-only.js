@@ -6,7 +6,7 @@ const sendGroupId = (bot, chatId) => {
       sendMessage(
         bot,
         info.id,
-        `Tú variable \`config.groupId\` es: ${info.id}`
+        `Tú variable \`config.community.telegram.groupId\` es: ${info.id}`
       );
     }
   });

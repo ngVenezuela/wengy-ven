@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 const apiAIConfig = require('./../../config/config').integrations.apiAI;
-const botUsername = require('./../../config/config').botUsername;
+const botUsername = require('./../../config/config').community.telegram.botUsername;
 const sendMessage = require('./send-message');
 const commandUtility = require('./../utils/command');
 

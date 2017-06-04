@@ -9,18 +9,18 @@ const hashtagMessage = require('./../../config/config').integrations.twitter.has
  * @param  {Object} bot     Telegram bot
  * @param  {Object} tweet   New tweet
  */
-function sendNewTweet(bot, tweet) {
+const sendNewTweet = (bot, tweet) => {
   const tweetUrl = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
 
   sendMessage(
     bot,
-    config.groupId,
+    config.community.telegram.groupId,
     newTweetMessage
       .replace('#{tweetText}', tweet.text)
       .replace('#{tweetUrl}', tweetUrl)
       .replace('#{hashtagMessage}', hashtagMessage)
   );
-}
+};
 
 module.exports = {
   sendNewTweet

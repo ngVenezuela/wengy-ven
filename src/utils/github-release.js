@@ -1,4 +1,4 @@
-const groupId = require('./../../config/config').groupId;
+const groupId = require('./../../config/config').community.telegram.groupId;
 const releasesToCheck = require('./../../config/config').integrations.githubReleases;
 const githubReleaseMessage = require('./../../config/messages').githubRelease;
 const sendMessage = require('./../utils/send-message');

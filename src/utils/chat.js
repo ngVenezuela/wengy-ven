@@ -6,9 +6,6 @@ const sendMessage = require('./../utils/send-message');
 const generateRandom = require('./../utils/time').generateRandom;
 const commandUtility = require('./../utils/command');
 
-const checkGoodMorning = (goodMorningGivenToday, text) =>
-  !goodMorningGivenToday && config.goodMorningRegExp.test(text);
-
 const checkForCode = (bot, msgContext, redisClient) => {
   commandUtility.verifyCommand(redisClient, '/gist', msgContext.from.id)
     .then((canExecuteCommand) => {
@@ -33,8 +30,11 @@ const checkForCode = (bot, msgContext, redisClient) => {
         const gist = msgContext.text;
 
         const body = {
-          description: 'gist creado por '.concat(fullName).concat(user).concat(
-            ' para https://t.me/ngvenezuela con https://github.com/ngVenezuela/wengy-ven'),
+          description: 'gist creado por '.concat(
+            fullName,
+            user,
+            ` para ${config.community.telegram.link} con ${config.community.github})`
+          ),
           public: true,
           files: {
             [filename]: {
@@ -92,7 +92,6 @@ const sayGoodbye = (bot, msg) => {
 module.exports = {
   sayHello,
   sayGoodbye,
-  checkGoodMorning,
   checkForCode
 };
 

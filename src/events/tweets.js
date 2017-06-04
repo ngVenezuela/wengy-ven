@@ -27,4 +27,4 @@ class TweetEvent extends EventEmitter {
   }
 }
 
-module.exports = TweetEvent;
+module.exports = new TweetEvent();

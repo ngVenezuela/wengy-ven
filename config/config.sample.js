@@ -1,8 +1,16 @@
 const uuidV4 = require('uuid/v4');
 
 const config = {
-  telegramToken: 'MY_SUPER_SECRET_TELEGRAM_TOKEN',
-  botUsername: 'WengyBot',
+  community: {
+    telegram: {
+      link: 'https://t.me/ngvenezuela',
+      botUsername: 'WengyBot',
+      botToken: 'MY_SUPER_SECRET_TELEGRAM_TOKEN',
+      groupId: -1001031605415
+    },
+    github: 'https://github.com/ngVenezuela/wengy-ven',
+    blogFeedUrl: 'https://medium.com/feed/ngvenezuela'
+  },
   server: {
     url: 'MY_HTTPS_SERVER',
     port: 'MY_PORT'
@@ -11,10 +19,6 @@ const config = {
     url: 'MY_REDIS_SERVER',
     port: 'MY_REDIS_PORT'
   },
-  groupId: -1001031605415,
-  morningHour: 7,
-  goodMorningRegExp: new RegExp('buen(os)*\\sd[ií]+as', 'iu'),
-  blogFeedUrl: 'https://medium.com/feed/ngvenezuela',
   integrations: {
     apiAI: {
       lang: 'es',
