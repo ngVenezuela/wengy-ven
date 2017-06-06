@@ -41,13 +41,13 @@ let minuteToCheck = generateRandom(0, 59);
 redisClient
   .on('ready', () => {
     bot
-      .onText(/^\/groupId$/, (msg, match) =>
+      .onText(/^\/groupId/, (msg, match) =>
         devUtility.sendGroupId(bot, msg.chat.id, msg.from.id, match[0], redisClient));
     bot
-      .onText(/^\/comunidades$/, (msg, match) =>
+      .onText(/^\/comunidades/, (msg, match) =>
         githubUtility.sendOpenVeGithubLink(bot, msg, match[0], redisClient));
     bot
-      .onText(/^\/github$/, (msg, match) =>
+      .onText(/^\/github/, (msg, match) =>
         githubUtility.sendCommunityRepo(bot, msg, match[0], redisClient));
 
     bot
