@@ -42,7 +42,7 @@ const canBotGiveGoodMorning = (bot, goodMorningGivenToday,
   }
 
   return {
-    goodMorningGivenToday: false,
+    goodMorningGivenToday,
     minuteToCheck
   };
 };
