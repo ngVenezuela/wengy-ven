@@ -13,14 +13,22 @@ class TweetEvent extends EventEmitter {
       access_token_secret: twitterConfig.auth.accessTokenSecret
     });
 
-    const otherThanMyselfRT = tweet =>
-      Object.hasOwnProperty.call(tweet, 'retweeted_status') && tweet.retweeted_status.user.id_str !== twitterConfig.id;
+    const tweetIsNotAReply = tweet => tweet.in_reply_to_status_id === null;
+
+    const tweetIsRt = tweet => Object.hasOwnProperty.call(tweet, 'retweeted_status');
+
+    const rtToOtherAccountsExceptConfigured = tweet =>
+      tweetIsRt(tweet) &&
+        tweet.retweeted_status.user.id_str !== twitterConfig.id;
 
     client
       .stream('statuses/filter', { follow: twitterConfig.id }, (stream) => {
         stream.on('data', (tweet) => {
-          // validating that tweet is not a reply or a RT to ngVenezuelaAccount
-          if (tweet.in_reply_to_status_id === null && otherThanMyselfRT(tweet)) {
+          // validating that tweet is not a reply and neither a RT
+          if (tweetIsNotAReply(tweet) && !tweetIsRt(tweet)) {
+            this.emit('newTweet', tweet);
+          // validating that tweet is a RT, but not to the configured account
+          } else if (rtToOtherAccountsExceptConfigured(tweet)) {
             this.emit('newTweet', tweet);
           }
         });
