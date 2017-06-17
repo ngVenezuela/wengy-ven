@@ -2,9 +2,9 @@ const config = {
   community: {
     telegram: {
       link: 'https://t.me/ngvenezuela',
-      botUsername: 'WengyBot',
-      botToken: 'MY_SUPER_SECRET_TELEGRAM_TOKEN',
-      groupId: -1001031605415
+      botUsername: process.env.botUsername || 'WengyBot',
+      botToken: process.env.botToken || 'MY_SUPER_SECRET_TELEGRAM_TOKEN',
+      groupId: process.env.botGroupId || -1001031605415
     },
     github: 'https://github.com/ngVenezuela/wengy-ven',
     blogFeedUrl: 'https://medium.com/feed/ngvenezuela'

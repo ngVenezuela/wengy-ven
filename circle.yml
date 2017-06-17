@@ -1,0 +1,15 @@
+machine:
+  timezone:
+    America/Caracas
+  node:
+    version: 7.6.0
+  service:
+    - redis
+  checkout:
+    post:
+      - cp config/config.sample.js config/config.js
+  deployment:
+    staging:
+      branch: develop
+      commands:
+        - pm2 start src/index.js -- botUsername=<%= ENV['devBotUsername'] %> botToken=<%= ENV['devBotToken'] %> botGroupId=<%= ENV['devBotGroupId'] %>
