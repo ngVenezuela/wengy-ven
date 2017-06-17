@@ -9,13 +9,13 @@ const messages = {
   ],
   goodMornings: {
     mondays: [
-      'Buenos días comunidad, ¡Que tengan un excelente inicio de semana! \u{1F60E}',
+      'Buenos días comunidad, ¡Que tengan un excelente inicio de semana! \u{1F60E}'
     ],
     fridays: [
       'Buenos días. Recuerden que los viernes no se hacen deploy \u{1F601}',
       'Buenos días. ¡Hoy es viernes y el hardware lo sabe!',
       'Buenos días comunidad. Feliz viernes',
-      'Buenos días. Hoy cualquier bug es un feature después de las 4pm',
+      'Buenos días. Hoy cualquier bug es un feature después de las 4pm'
     ],
     generic: [
       'Buenos días...¿tomaron café? \u{2615}',
@@ -29,7 +29,7 @@ const messages = {
       'Buenos días #ngPanas',
       'Buenos días comunidad, Y como dice @cesarfrick: ¡A trabajar, '.concat(
         'vagos! Que los yates de sus jefes no se pagan solos')
-    ],
+    ]
   },
   newBlogPost: '*#{author}* ha agregado una nueva entrada al blog titulada: '.concat(
     '*#{title}* y está disponible en: #{link}'),

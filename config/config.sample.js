@@ -1,5 +1,3 @@
-const uuidV4 = require('uuid/v4');
-
 const config = {
   community: {
     telegram: {
@@ -22,7 +20,6 @@ const config = {
   integrations: {
     apiAI: {
       lang: 'es',
-      sessionId: uuidV4(),
       queryUrl: 'https://api.api.ai/v1/query?v=20150910',
       clientAccessToken: 'MY_SUPER_SECRET_APIAI_TOKEN'
     },
