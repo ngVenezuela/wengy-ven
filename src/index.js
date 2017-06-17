@@ -1,5 +1,6 @@
 const redis = require('redis');
 const bluebird = require('bluebird');
+// eslint-disable-next-line import/no-unresolved
 const redisOptions = require('./../config/config').redisOptions;
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
@@ -9,7 +10,9 @@ const redisClient = redis.createClient(redisOptions);
 const TelegramBot = require('./bot/telegram-bot');
 const BotServer = require('./server/bot-server');
 
+// eslint-disable-next-line import/no-unresolved
 const telegramToken = require('./../config/config').community.telegram.botToken;
+// eslint-disable-next-line import/no-unresolved
 const server = require('./../config/config').server;
 
 const morningEvent = require('./events/morning');
