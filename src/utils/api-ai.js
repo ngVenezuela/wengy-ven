@@ -17,7 +17,7 @@ const botWasMentioned = (entities, text) =>
   entities && entities.findIndex(entity => entity.type === 'mention') > -1 &&
   text.includes(`@${botUsername}`);
 
-const query = (bot, queryString, chatId, messageId, userId) => {
+const query = (bot, queryString, chatId, messageId, sessionId) => {
   fetch(apiAIConfig.queryUrl, {
     method: 'POST',
     headers: {
@@ -26,7 +26,7 @@ const query = (bot, queryString, chatId, messageId, userId) => {
     },
     body: JSON.stringify({
       lang: 'es',
-      sessionId: userId,
+      sessionId,
       query: queryString
     })
   })
