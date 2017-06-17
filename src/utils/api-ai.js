@@ -17,7 +17,7 @@ const botWasMentioned = (entities, text) =>
   entities && entities.findIndex(entity => entity.type === 'mention') > -1 &&
   text.includes(`@${botUsername}`);
 
-const query = (bot, queryString, chatId, messageId) => {
+const query = (bot, queryString, chatId, messageId, userId) => {
   fetch(apiAIConfig.queryUrl, {
     method: 'POST',
     headers: {
@@ -26,7 +26,7 @@ const query = (bot, queryString, chatId, messageId) => {
     },
     body: JSON.stringify({
       lang: 'es',
-      sessionId: apiAIConfig.sessionId,
+      sessionId: userId,
       query: queryString
     })
   })
@@ -49,13 +49,20 @@ const canBotRespondToThis = (bot, msgContext, redisClient) => {
     .then((canExecuteCommand) => {
       if (canExecuteCommand) {
         if (botHasReplies(msgContext)) {
-          query(bot, msgContext.text, msgContext.chat.id, msgContext.message_id);
+          query(
+            bot,
+            msgContext.text,
+            msgContext.chat.id,
+            msgContext.message_id,
+            msgContext.from.id
+          );
         } else if (botWasMentioned(msgContext.entities, msgContext.text)) {
           query(
             bot,
             msgContext.text.replace(`@${botUsername}`, ''),
             msgContext.chat.id,
-            msgContext.message_id
+            msgContext.message_id,
+            msgContext.from.id
           );
         }
       }
