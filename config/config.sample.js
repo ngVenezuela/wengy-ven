@@ -14,8 +14,8 @@ const config = {
     port: process.env.serverPort || 'MY_PORT'
   },
   redisOptions: {
-    url: 'MY_REDIS_SERVER',
-    port: 'MY_REDIS_PORT'
+    url: process.env.redisUrl || 'redis://localhost',
+    port: process.env.redisPort || '6379'
   },
   integrations: {
     apiAI: {
