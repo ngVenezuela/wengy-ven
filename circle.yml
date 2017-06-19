@@ -1,0 +1,33 @@
+machine:
+  timezone:
+    America/Caracas
+  node:
+    version: 7.6.0
+  service:
+    - redis
+checkout:
+  post:
+    - echo 'copying config file'
+    - cp config/config.sample.js config/config.js
+dependencies:
+  override:
+    - echo 'installing npm dependencies'
+    - npm install
+test:
+  override:
+    - echo 'running tests'
+    - npm run test
+  post:
+    - echo 'running linter'
+    - npm run lint
+deployment:
+  staging:
+    branch: develop
+    commands:
+      - echo 'deploying develop branch'
+      - ssh -v $DROPLET_USER@$DROPLET_IP 'STAGING_MODE=1 ./wengy-ven-deployer.sh'
+  production:
+    branch: master
+    commands:
+      - echo 'deploying master branch'
+      - ssh -v $DROPLET_USER@$DROPLET_IP 'STAGING_MODE=0 ./wengy-ven-deployer.sh'

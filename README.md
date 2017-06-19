@@ -1,3 +1,6 @@
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ngVenezuela/wengy-ven/develop/LICENSE)
+[![GitHub forks](https://img.shields.io/github/forks/ngVenezuela/wengy-ven.svg)](https://github.com/ngVenezuela/wengy-ven/network)
+
 # Wengy-ven
 
 > BOT de Bienvenida a nuevos integrantes del grupo [ngVenezuela](https://t.me/ngvenezuela)

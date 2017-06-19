@@ -2,16 +2,16 @@ const config = {
   community: {
     telegram: {
       link: 'https://t.me/ngvenezuela',
-      botUsername: 'WengyBot',
-      botToken: 'MY_SUPER_SECRET_TELEGRAM_TOKEN',
-      groupId: -1001031605415
+      botUsername: process.env.botUsername || 'WengyBot',
+      botToken: process.env.botToken || 'MY_SUPER_SECRET_TELEGRAM_TOKEN',
+      groupId: process.env.botGroupId || -1001031605415
     },
     github: 'https://github.com/ngVenezuela/wengy-ven',
     blogFeedUrl: 'https://medium.com/feed/ngvenezuela'
   },
   server: {
-    url: 'MY_HTTPS_SERVER',
-    port: 'MY_PORT'
+    url: process.env.serverUrl || 'MY_HTTPS_SERVER',
+    port: process.env.serverPort || 'MY_PORT'
   },
   redisOptions: {
     url: 'MY_REDIS_SERVER',
@@ -21,16 +21,16 @@ const config = {
     apiAI: {
       lang: 'es',
       queryUrl: 'https://api.api.ai/v1/query?v=20150910',
-      clientAccessToken: 'MY_SUPER_SECRET_APIAI_TOKEN'
+      clientAccessToken: process.env.apiAiClientAccessToken || 'MY_SUPER_SECRET_APIAI_TOKEN'
     },
     twitter: {
       auth: {
-        consumerKey: 'CONSUMER_KEY',
-        consumerSecret: 'CONSUMER_SECRET',
-        accessTokenKey: 'ACCESS_TOKEN_KEY',
-        accessTokenSecret: 'ACCESS_TOKEN_SECRET'
+        consumerKey: process.env.twitterConsumerKey || 'CONSUMER_KEY',
+        consumerSecret: process.env.twitterConsumerSecret || 'CONSUMER_SECRET',
+        accessTokenKey: process.env.twitterAccessTokenKey || 'ACCESS_TOKEN_KEY',
+        accessTokenSecret: process.twitterAccessTokenSecret || 'ACCESS_TOKEN_SECRET'
       },
-      id: '41469246',
+      id: process.env.twitterId || '41469246',
       hashtagMessage: '#ngVenezuelaTweet'
     },
     githubReleases: [
