@@ -25,9 +25,9 @@ deployment:
     branch: develop
     commands:
       - echo 'deploying develop branch'
-      - ssh -v $DROPLET_USER@$DROPLET_IP 'STAGING_MODE=1 ./wengy-ven-deployer.sh'
+      - ssh -v -i $SSH_KEY_ROUTE $DROPLET_USER@$DROPLET_IP 'STAGING_MODE=1 ./wengy-ven-deployer.sh'
   production:
     branch: master
     commands:
       - echo 'deploying master branch'
-      - ssh -v $DROPLET_USER@$DROPLET_IP 'STAGING_MODE=0 ./wengy-ven-deployer.sh'
+      - ssh -v -i $SSH_KEY_ROUTE $DROPLET_USER@$DROPLET_IP 'STAGING_MODE=0 ./wengy-ven-deployer.sh'
