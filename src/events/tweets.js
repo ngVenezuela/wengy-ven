@@ -33,7 +33,9 @@ class TweetEvent extends EventEmitter {
           }
         });
 
-        stream.on('error', () => {});
+        stream.on('error', (error) => {
+          throw new Error(`Twitter error: ${error}`);
+        });
       });
   }
 }
