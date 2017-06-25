@@ -65,7 +65,9 @@ redisClient
       .on('text', msg => githubUtility.checkForCode(bot, msg, redisClient))
       .on('text', msg => apiAIUtility.canBotRespondToThis(bot, msg, redisClient));
   })
-  .on('error', () => {});
+  .on('error', (error) => {
+    throw new Error(`Redis error: ${error}`);
+  });
 
 morningEvent
   .on('minuteMark', (vzlanHour, vzlanMinute, weekday) => {

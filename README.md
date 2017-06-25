@@ -4,14 +4,60 @@
 
 # Wengy-ven
 
-> BOT de Bienvenida a nuevos integrantes del grupo [ngVenezuela](https://t.me/ngvenezuela)
-en Telegram. Desarrollado con NodeJS y el API de Telegram.
+> BOT oficial para la comunidad de [ngVenezuela](https://t.me/ngvenezuela) en Telegram. Desarrollado con NodeJS y el API de Telegram.
 
-## Contribuyendo:
+## Características
 
-Si quieres contribuir en este proyecto, te invitamos a leer las siguientes instrucciones: [https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-el-proyecto](https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-el-proyecto)
+* Comandos (se utiliza [redis](https://github.com/NodeRedis/node_redis) para evitar el abuso de estos):
+  * /github - muestra un enlace para este repo.
 
-Además, te invitamos a leer el documento [CONTRIBUTING](.github/CONTRIBUTING.md) para conocer todos los detalle de nuestro código de conducta y el proceso para enviarnos _Pull Requests_.
+    ![](http://i.imgur.com/yt4gq19.png)
+  * /comunidades - muestra un enlace para el grupo de comunidades de OpenVE.
+
+    ![](http://i.imgur.com/SKDXlHi.png)
+  * /gist (acepta un parámetro) - genera un gist y muestra el enlace al mismo.
+
+    ![](http://i.imgur.com/jvfIbnb.png)
+
+* Se saluda a los nuevos miembros que entran al grupo, y también a los que se van.
+
+  ![](http://i.imgur.com/tk7Qct5.png)
+* Da los buenos días según la siguiente condición (se acordó así inicialmente):
+  * Se escoge un minuto aleatoriamente y se verifica que a las 7 AM (hora venezuela), de los buenos días, si ningún usuario los ha dado ese mismo día.
+  
+      ![](http://i.imgur.com/Hhk3B6T.png)
+* En caso de que el usuario coloque un código formateado entre ```, si es mayor a 200 caracteres se le sugiere que utilice el comando /gist, de lo contrario, crea un gist automáticamente. Esto se hace a través de la [API de github](https://developer.github.com/v3/)
+
+    ![](http://i.imgur.com/96xk4tV.png)
+* Se siguen varios repos relacionados a Angular/AngularJS, cuando hay un nuevo release de los mismos, se informa mediante un mensaje al grupo mencionando la versión y un enlace al CHANGELOG.md o al repo en caso de que no tenga changelog. Esto se hace a través de [Superfeedr](https://superfeedr.com).
+
+    ![](http://i.imgur.com/1SpTTIE.png)
+* Se sigue el feed del blog oficial de *ngVenezuela*, y cuando hay nuevas entradas se publica en el grupo el enlace con la nueva entrada con el nombre del autor. Esto se hace a través de [Superfeedr](https://superfeedr.com).
+
+    ![](http://i.imgur.com/L8zBF8T.png)
+* Si se le hace una mención al bot o se le responde a un mensaje, se evaluará la expresión a través de [api.ai](https://api.ai/) y se le responderá siempre y cuando se le haya entrenado según el mensaje que se le escribió.
+
+    ![](http://i.imgur.com/7E6IlLo.png)
+* Se le hace un seguimiento a la cuenta oficial de twitter de *ngVenezuela*, y cualquier tuit o RT que se haga desde esa cuenta, se muestra un enlace al grupo.
+
+    ![](http://i.imgur.com/Z42qTXp.png)
+* Cualquier _push_ a la rama **master**, genera un despliegue automático con [CircleCI](https://circleci.com/), dado que no fallen las pruebas ([Jest](https://facebook.github.io/jest/)) ni el linter ([ESLint](http://eslint.org/)).
+    
+    ![](http://i.imgur.com/sbTnKsF.png)
+
+## Contribuyendo
+
+Te invitamos a leer el documento [CONTRIBUTING](.github/CONTRIBUTING.md) para conocer todos los detalle de nuestro código de conducta y el proceso para enviarnos _Pull Requests_.
+
+Para configurar tu ambiente de desarrollo, te invitamos a leer las siguientes instrucciones: [https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-el-proyecto](https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-el-proyecto)
+
+## Corriendo el 'linter'
+
+Para ejecutar el 'linter' (para guías de estilo), utilizamos la de [airbnb](https://github.com/airbnb/javascript), simplemente ejecutamos el siguiente comando:
+
+```bash
+$ npm run lint
+```
 
 ## Corriendo los tests
 
@@ -27,14 +73,6 @@ $ npm run test:watch
 ## Versionado
 
 Utilizamos [SemVer](http://semver.org/lang/es/) para el versionado. Para ver las versiones disponibles de nuestro BOT, mira los [Tags](https://github.com/ngVenezuela/wengy-ven/tags) en este repositorio.
-
-## Despliegue
-
-Finalmente, para ejecutar nuestro BOT, nos aseguramos de estar en el directorio de nuestro proyecto y escribimos el siguiente comando en nuestra terminal:
-
-```bash
-$ node src/index.js
-```
 
 ## Autores
 

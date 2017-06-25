@@ -47,8 +47,13 @@ const canBotGiveGoodMorning = (bot, goodMorningGivenToday,
   };
 };
 
-const checkGoodMorning = (goodMorningGivenToday, text) =>
-  !goodMorningGivenToday && GOOD_MORNING_REG_EXP.test(text);
+const checkGoodMorning = (goodMorningGivenToday, text) => {
+  if (goodMorningGivenToday) {
+    return true;
+  }
+
+  return GOOD_MORNING_REG_EXP.test(text);
+};
 
 module.exports = {
   canBotGiveGoodMorning,
