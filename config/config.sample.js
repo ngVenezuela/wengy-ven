@@ -28,7 +28,7 @@ const config = {
         consumerKey: process.env.twitterConsumerKey || 'CONSUMER_KEY',
         consumerSecret: process.env.twitterConsumerSecret || 'CONSUMER_SECRET',
         accessTokenKey: process.env.twitterAccessTokenKey || 'ACCESS_TOKEN_KEY',
-        accessTokenSecret: process.twitterAccessTokenSecret || 'ACCESS_TOKEN_SECRET'
+        accessTokenSecret: process.env.twitterAccessTokenSecret || 'ACCESS_TOKEN_SECRET'
       },
       id: process.env.twitterId || '41469246',
       hashtagMessage: '#ngVenezuelaTweet'
