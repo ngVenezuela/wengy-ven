@@ -1,7 +1,9 @@
+<!-- Plantilla basada en: https://github.com/angular/angular/blob/master/.github/PULL_REQUEST_TEMPLATE.md -->
+
 ## Lista de verificación del PR
 Por favor marca con un `check` si tu PR cumple los siguientes requerimientos:
 
-- [ ] El mensaje de commit sigue nuestras pautas:: https://github.com/ngVenezuela/wengy-ven/blob/master/.github/CONTRIBUTING.md#formato-de-commits
+- [ ] El mensaje de commit sigue nuestras pautas: https://github.com/ngVenezuela/wengy-ven/blob/master/.github/CONTRIBUTING.md#formato-de-commits
 <!--Tests for the changes have been added (for bug fixes / features)-->
 - [ ] Documentación ha sido añadida / actualizada (para corrección de errores / características)
 
