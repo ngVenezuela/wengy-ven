@@ -1,32 +1,42 @@
-**Estoy enviando un ...**  (marque con una "x")
+## Lista de verificación del PR
+Por favor marca con un `check` si tu PR cumple los siguientes requerimientos:
+
+- [ ] El mensaje de commit sigue nuestras pautas:: https://github.com/ngVenezuela/wengy-ven/blob/master/.github/CONTRIBUTING.md#formato-de-commits
+<!--Tests for the changes have been added (for bug fixes / features)-->
+- [ ] Documentación ha sido añadida / actualizada (para corrección de errores / características)
+
+
+## Tipo de PR
+¿Qué tipo de cambio introduce este PR?
+
+<!-- Por favor chequea las que aplica a este PR usando "x". -->
 ```
-[ ] Error reportado (Haz referencia al issue) => (Busca en github un issue o PR antés de enviar uno, NO olvides borrar esto).
-[ ] Solicitud de caracteristica (Haz referencia al issue, marcado como "Mejora", NO olvides borrar esto)
-
+[ ] Correción de error
+[ ] Característica
+[ ] Actualización de estilo de código (formateo, variables locales)
+[ ] Refactorización (no hay cambios funcionales, no hay cambios de api)
+[ ] Cambios relacionados al `Build`
+[ ] Cambios relacionados a Integración continua
+[ ] Cambios al contenido de la documentación
+[ ] Otro... Por favor describa:
 ```
 
-**Comportamiento Actual** 
-<!-- Describe como aparece el bug. -->
-<!-- En caso de no aplicar coloca: _No aplica_ -->
+## ¿Cual es el comportamiento actual?
+<!-- Por favor describe el comportamiento actual que estás modificando, o enlaza al issue relevante. -->
+
+Número de issue: N/A
 
 
-**Comportamiento Esperado**
-<!-- Describe como es el comportamiento esperado sin el bug. -->
-<!-- En caso de no aplicar coloca: _No aplica_ -->
-
-**Reproducción del Problema**
-<!-- Si el comportamiento actual es un bug, o puedes ilustrar mejor la caracteristica solicita con un ejemplo, por favor provee los pasos a seguir para reproducirlo, y si es posible, una pequeña demostración de el problema puede usar  https://plnkr.co u otro similar.-->
-<!-- En caso de no aplicar coloca: _No aplica_ -->
+## ¿Cual es el nuevo comportamiento?
 
 
-**Cual es el motivo / Caso util para cambiar el comportamiento?**
-<!-- Describe el motivo o el caso util -->
-<!-- En caso de no aplicar coloca: _No aplica_ -->
+## ¿Este PR introduce un cambio no retrocompatible?
+```
+[ ] Si
+[ ] No
+```
+
+<!-- Si este PR contiene un cambio no retrocompatible, por favor describe el impacto y el proceso de migración para las aplicaciones existentes aquí abajo. -->
 
 
-**Por favor cuentamos sobre tu ambiente de desarrollo:**
-<!--Sistema Operativo, IDE, package manager, HTTP server, ... -->
-<!-- En caso de no aplicar coloca: _No aplica_ -->
-
-
-**_BORRAR ANTES DE HACER EL PR: Si necesitas un poco de ayuda con Markdown, no dejes de visitar [este enlace](https://guides.github.com/features/mastering-markdown/)._**
+## Otra información
