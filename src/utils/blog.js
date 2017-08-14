@@ -1,7 +1,7 @@
 const groupId = require('./../../config/config').community.telegram.groupId;
 const blogFeedUrl = require('./../../config/config').community.blogFeedUrl;
 const newBlogPostMessage = require('./../../config/messages').newBlogPost;
-const sendMessage = require('./../utils/send-message');
+const sendMessage = require('./../utils/message').sendMessage;
 
 const checkForBlogEntry = feed => feed.status.feed === blogFeedUrl;
 

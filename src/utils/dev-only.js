@@ -1,4 +1,4 @@
-const sendMessage = require('./send-message');
+const sendMessage = require('./message').sendMessage;
 const commandUtility = require('./../utils/command');
 
 const sendGroupId = (bot, chatId, fromId, command, redisClient) => {
@@ -15,9 +15,9 @@ const sendGroupId = (bot, chatId, fromId, command, redisClient) => {
           }
         });
       }
-    })
-    .catch(() => { });
+    });
 };
+
 
 module.exports = {
   sendGroupId

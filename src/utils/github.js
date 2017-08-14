@@ -9,7 +9,7 @@ const telegramLink = require('./../../config/config').community.telegram.link;
 const githubLink = require('./../../config/config').community.github;
 const gistRecommendation = require('./../../config/messages').gistRecommendation;
 
-const sendMessage = require('./../utils/send-message');
+const sendMessage = require('./../utils/message').sendMessage;
 const commandUtility = require('./../utils/command');
 
 const GITHUB_LINK_OPENVE_TELEGRAM_COMMUNITY = 'https://github.com/OpenVE/comunidades-en-telegram';
@@ -84,9 +84,10 @@ const prepareAndSendGist = (bot, msgContext, checkingForCode, code = '') => {
     body: JSON.stringify(body)
   })
     .then(response => response.json())
-    .then(({ html_url }) => {
-      sendMessage(bot, chatId, html_url, true, msgContext.message_id);
-    }).catch(() => { });
+    .then(({ html_url }) => sendMessage(bot, chatId, html_url, true, msgContext.message_id))
+    .catch((error) => {
+      throw new Error(`Could not create gist: ${error}`);
+    });
 };
 
 const createGist = (bot, msgContext, redisClient, text = '', checkingForCode = true) => {
@@ -101,8 +102,7 @@ const createGist = (bot, msgContext, redisClient, text = '', checkingForCode = t
           prepareAndSendGist(bot, msgContext, checkingForCode, text);
         }
       }
-    })
-    .catch(() => { });
+    });
 };
 
 const checkForCode = (bot, msgContext, redisClient) => {
@@ -127,8 +127,7 @@ const sendOpenVeGithubLink = (bot, msgContext, command, redisClient) => {
           githubOpenVeLinkMessage.replace('#{link}', GITHUB_LINK_OPENVE_TELEGRAM_COMMUNITY)
         );
       }
-    })
-    .catch(() => { });
+    });
 };
 
 const sendCommunityRepo = (bot, msgContext, command, redisClient) => {
@@ -141,8 +140,7 @@ const sendCommunityRepo = (bot, msgContext, command, redisClient) => {
           githubLink
         );
       }
-    })
-    .catch(() => { });
+    });
 };
 
 module.exports = {

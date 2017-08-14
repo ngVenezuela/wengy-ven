@@ -1,7 +1,7 @@
 const generateRandom = require('./../utils/time').generateRandom;
 const messages = require('./../../config/messages');
 const config = require('./../../config/config');
-const sendMessage = require('./../utils/send-message');
+const sendMessage = require('./../utils/message').sendMessage;
 
 const MORNING_HOUR = 7;
 const GOOD_MORNING_REG_EXP = new RegExp('buen(os)*\\sd[ií]+as', 'iu');
@@ -35,6 +35,7 @@ const canBotGiveGoodMorning = (bot, goodMorningGivenToday,
   minuteToCheck, vzlanHour, vzlanMinute, weekday) => {
   if (morningConditions(goodMorningGivenToday, minuteToCheck, vzlanHour, vzlanMinute)) {
     sendMessage(bot, config.community.telegram.groupId, getMorningMsg(weekday));
+
     return {
       goodMorningGivenToday: true,
       minuteToCheck: generateRandom(0, 59)

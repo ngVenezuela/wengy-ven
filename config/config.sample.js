@@ -4,7 +4,8 @@ const config = {
       link: 'https://t.me/ngvenezuela',
       botUsername: process.env.botUsername || 'WengyBot',
       botToken: process.env.botToken || 'MY_SUPER_SECRET_TELEGRAM_TOKEN',
-      groupId: process.env.botGroupId || -1001031605415
+      groupId: process.env.botGroupId || -1001031605415,
+      adminGroupId: process.env.botAdminGroupId || -241180414
     },
     github: 'https://github.com/ngVenezuela/wengy-ven',
     blogFeedUrl: 'https://medium.com/feed/ngvenezuela'
@@ -55,11 +56,16 @@ const config = {
       {
         name: 'wengy-ven',
         repo: 'ngVenezuela/wengy-ven',
-        hasChangelog: false,
+        hasChangelog: true,
         feed: 'https://github.com/ngVenezuela/wengy-ven/releases.atom'
       }
     ]
-  }
+  },
+  whiteListedDomains: [
+    'https://github.com',
+    'https://medium.com',
+    'https://twitter.com'
+  ]
 };
 
 module.exports = config;
