@@ -1,4 +1,4 @@
-const MAX_COMMANDS_PER_MINUTE_AND_USER = 5;
+const MAX_COMMANDS_PER_MINUTE_AND_USER = 10;
 
 const verifyCommand = async (redisClient, command, userId) => {
   try {

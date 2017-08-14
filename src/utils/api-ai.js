@@ -1,20 +1,22 @@
 const fetch = require('node-fetch');
 const apiAIConfig = require('./../../config/config').integrations.apiAI;
 const botUsername = require('./../../config/config').community.telegram.botUsername;
-const sendMessage = require('./send-message');
+const sendMessage = require('./message').sendMessage;
 const commandUtility = require('./../utils/command');
 
 const validResponse = response =>
-  response.result && response.result.fulfillment &&
+  response.result &&
+  response.result.fulfillment &&
   response.result.fulfillment.messages.length > 0 &&
   response.result.fulfillment.messages[0].speech !== '';
 
 const botHasReplies = msgContext =>
   Object.prototype.hasOwnProperty.call(msgContext, 'reply_to_message') &&
-    msgContext.reply_to_message.from.username === botUsername;
+  msgContext.reply_to_message.from.username === botUsername;
 
 const botWasMentioned = (entities, text) =>
-  entities && entities.findIndex(entity => entity.type === 'mention') > -1 &&
+  entities &&
+  entities.findIndex(entity => entity.type === 'mention') > -1 &&
   text.includes(`@${botUsername}`);
 
 const query = (bot, queryString, chatId, messageId, sessionId) => {
@@ -41,13 +43,15 @@ const query = (bot, queryString, chatId, messageId, sessionId) => {
           messageId
         );
       }
-    }).catch(() => {});
+    }).catch((error) => {
+      throw new Error(`Error getting api.ai message: ${error}`);
+    });
 };
 
 const canBotRespondToThis = (bot, msgContext, redisClient) => {
   commandUtility.verifyCommand(redisClient, '/bot', msgContext.from.id)
     .then((canExecuteCommand) => {
-      if (canExecuteCommand) {
+      if (canExecuteCommand && !(/^\//).test(msgContext.text)) {
         if (botHasReplies(msgContext)) {
           query(
             bot,
@@ -64,10 +68,17 @@ const canBotRespondToThis = (bot, msgContext, redisClient) => {
             msgContext.message_id,
             msgContext.from.id
           );
+        } else if (msgContext.chat.type === 'private') {
+          query(
+            bot,
+            msgContext.text,
+            msgContext.chat.id,
+            msgContext.message_id,
+            msgContext.from.id
+          );
         }
       }
-    })
-    .catch(() => { });
+    });
 };
 
 module.exports = {

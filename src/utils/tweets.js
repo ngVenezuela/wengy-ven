@@ -1,5 +1,5 @@
 const config = require('./../../config/config');
-const sendMessage = require('./../utils/send-message');
+const sendMessage = require('./../utils/message').sendMessage;
 const newTweetMessage = require('./../../config/messages').newTweet;
 const hashtagMessage = require('./../../config/config').integrations.twitter.hashtagMessage;
 

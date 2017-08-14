@@ -24,6 +24,7 @@ const apiAIUtility = require('./utils/api-ai');
 const twitterUtility = require('./utils/tweets');
 const githubUtility = require('./utils/github');
 const devUtility = require('./utils/dev-only');
+const adminUtility = require('./utils/admin');
 
 const superfeedr = new Superfeedr();
 const bot = new TelegramBot(telegramToken);
@@ -42,28 +43,74 @@ redisClient
   .on('ready', () => {
     bot
       .onText(/^\/groupId/, (msg, match) =>
-        devUtility.sendGroupId(bot, msg.chat.id, msg.from.id, match[0], redisClient));
+        adminUtility.verifyGroup(
+          msg,
+          () => devUtility.sendGroupId(bot, msg.chat.id, msg.from.id, match[0], redisClient),
+          true,
+          true
+        )
+      );
     bot
       .onText(/^\/comunidades/, (msg, match) =>
-        githubUtility.sendOpenVeGithubLink(bot, msg, match[0], redisClient));
+        adminUtility.verifyGroup(
+          msg,
+          () => githubUtility.sendOpenVeGithubLink(bot, msg, match[0], redisClient),
+          true,
+          false,
+          true
+        )
+      );
     bot
       .onText(/^\/github/, (msg, match) =>
-        githubUtility.sendCommunityRepo(bot, msg, match[0], redisClient));
+        adminUtility.verifyGroup(
+          msg,
+          () => githubUtility.sendCommunityRepo(bot, msg, match[0], redisClient),
+          true,
+          false,
+          true
+        )
+      );
 
     bot
       // eslint-disable-next-line no-useless-escape
       .onText(/^\/gist ([\s\S\.]+)/, (msg, match) =>
-        githubUtility.createGist(bot, msg, redisClient, match[1], false));
+        adminUtility.verifyGroup(
+          msg,
+          () => githubUtility.createGist(bot, msg, redisClient, match[1], false),
+          true,
+          false,
+          true
+        )
+      );
 
     bot
-      .on('new_chat_participant', msg => chatUtility.sayHello(bot, msg))
-      .on('left_chat_participant', msg => chatUtility.sayGoodbye(bot, msg))
-      .on('text', (msg) => {
-        goodMorningGivenToday =
-          morningUtility.checkGoodMorning(goodMorningGivenToday, msg.text);
-      })
-      .on('text', msg => githubUtility.checkForCode(bot, msg, redisClient))
-      .on('text', msg => apiAIUtility.canBotRespondToThis(bot, msg, redisClient));
+      .on('new_chat_participant', msg =>
+        adminUtility.verifyGroup(msg, () => chatUtility.sayHello(bot, msg))
+      )
+      .on('left_chat_participant', msg =>
+        adminUtility.verifyGroup(msg, () => chatUtility.sayGoodbye(bot, msg))
+      )
+      .on('text', msg =>
+        adminUtility.verifyGroup(
+          msg,
+          () => {
+            goodMorningGivenToday =
+              morningUtility.checkGoodMorning(goodMorningGivenToday, msg.text);
+
+            adminUtility.verifyAndSendUrl(bot, msg, redisClient);
+            githubUtility.checkForCode(bot, msg, redisClient);
+          }
+        )
+      )
+      .on('text', msg =>
+        adminUtility.verifyGroup(
+          msg,
+          () => apiAIUtility.canBotRespondToThis(bot, msg, redisClient),
+          true,
+          false,
+          true
+        )
+      );
   })
   .on('error', (error) => {
     throw new Error(`Redis error: ${error}`);
@@ -72,8 +119,9 @@ redisClient
 morningEvent
   .on('minuteMark', (vzlanHour, vzlanMinute, weekday) => {
     const executeGoodMorningCheck =
-      morningUtility.canBotGiveGoodMorning(bot, goodMorningGivenToday, minuteToCheck,
-      vzlanHour, vzlanMinute, weekday);
+      morningUtility.canBotGiveGoodMorning(
+        bot, goodMorningGivenToday, minuteToCheck, vzlanHour, vzlanMinute, weekday
+      );
 
     if (executeGoodMorningCheck.goodMorningGivenToday) {
       goodMorningGivenToday = true;

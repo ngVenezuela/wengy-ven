@@ -1,5 +1,5 @@
 const messages = require('./../../config/messages');
-const sendMessage = require('./../utils/send-message');
+const sendMessage = require('./../utils/message').sendMessage;
 const generateRandom = require('./../utils/time').generateRandom;
 
 const formatName = (firstName, userName) => (userName ? '@'.concat(userName) : firstName);
