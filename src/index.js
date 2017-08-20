@@ -84,13 +84,15 @@ redisClient
       );
 
     bot
-      .on('new_chat_participant', msg =>
+      .on('new_chat_members', msg =>
         adminUtility.verifyGroup(msg, () => chatUtility.sayHello(bot, msg))
-      )
-      .on('left_chat_participant', msg =>
+      );
+    bot
+      .on('left_chat_member', msg =>
         adminUtility.verifyGroup(msg, () => chatUtility.sayGoodbye(bot, msg))
-      )
-      .on('text', msg =>
+      );
+    bot
+      .on('message', msg =>
         adminUtility.verifyGroup(
           msg,
           () => {
@@ -101,8 +103,9 @@ redisClient
             githubUtility.checkForCode(bot, msg, redisClient);
           }
         )
-      )
-      .on('text', msg =>
+      );
+    bot
+      .on('message', msg =>
         adminUtility.verifyGroup(
           msg,
           () => apiAIUtility.canBotRespondToThis(bot, msg, redisClient),

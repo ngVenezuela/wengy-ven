@@ -3,11 +3,11 @@
 ### Agregado
 
 - Se agregó un changelog.md al proyecto.
+- Al enviar un enlace al grupo, se envía dicho enlace al grupo de admins.
 
 ### Cambiado
 
 - Se agregó una nueva plantilla para PR's.
-
 
 ## 3.1.0 (2017-06-25)
 

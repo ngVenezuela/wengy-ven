@@ -5,15 +5,17 @@ const generateRandom = require('./../utils/time').generateRandom;
 const formatName = (firstName, userName) => (userName ? '@'.concat(userName) : firstName);
 
 const sayHello = (bot, msg) => {
-  sendMessage(
-    bot,
-    msg.chat.id,
-    messages.welcome.replace(
-      '#{name}',
-      formatName(msg.new_chat_member.first_name, msg.new_chat_member.username)
-    ),
-    true,
-    msg.message_id
+  msg.new_chat_members.forEach(newChatMember =>
+    sendMessage(
+      bot,
+      msg.chat.id,
+      messages.welcome.replace(
+        '#{name}',
+        formatName(newChatMember.first_name, newChatMember.username)
+      ),
+      true,
+      msg.message_id
+    )
   );
 };
 
