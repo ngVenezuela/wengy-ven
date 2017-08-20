@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## 3.2.0 (2017-08-20)
+
 ### Agregado
 
 - Se agregó un changelog.md al proyecto.
