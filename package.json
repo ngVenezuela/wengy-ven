@@ -4,7 +4,7 @@
   "description": "Official telegram bot for the ng-Venezuela community",
   "main": "src/index.js",
   "scripts": {
-    "dev": "node_modules/nodemon/bin/nodemon.js src/index.js",
+    "dev": " debugMode=1 node_modules/nodemon/bin/nodemon.js src/index.js",
     "lint": "node_modules/eslint/bin/eslint.js **/*.js",
     "test": "node_modules/jest/bin/jest.js --no-cache --no-watchman || true",
     "test:watch": "node_modules/jest/bin/jest.js --no-cache --watch"
@@ -28,9 +28,9 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "node-fetch": "^1.6.3",
-    "node-telegram-bot-api": "^0.27.1",
+    "node-telegram-bot-api": "^0.28.0",
     "redis": "2.7.1",
-    "twitter": "^1.7.0"
+    "twitter": "^1.7.1"
   },
   "devDependencies": {
     "eslint": "3.19.0",
