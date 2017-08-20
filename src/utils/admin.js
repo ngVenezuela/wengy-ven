@@ -51,11 +51,11 @@ const verifyAndSendUrl = (bot, msg, redisClient) => {
  * @param {boolean} privateChat
  */
 const verifyGroup = (msg, cb, mainGroup = true, adminGroup = false, privateChat = false) => {
-  if (mainGroup && msg.chat.type === 'group' && msg.chat.id.toString() === groupId) {
+  if (mainGroup && ['group', 'supergroup'].includes(msg.chat.type) && msg.chat.id.toString() === groupId) {
     return cb();
   }
 
-  if (adminGroup && msg.chat.type === 'group' && msg.chat.id.toString() === adminGroupId) {
+  if (adminGroup && ['group', 'supergroup'].includes(msg.chat.type) && msg.chat.id.toString() === adminGroupId) {
     return cb();
   }
 
