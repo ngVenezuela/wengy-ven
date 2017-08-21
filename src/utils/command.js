@@ -1,5 +1,13 @@
 const MAX_COMMANDS_PER_MINUTE_AND_USER = 10;
 
+/**
+ * It checks that an user has not used the
+ * command more than ten times in the last minute.
+ * @param {object} redisClient
+ * @param {string} command
+ * @param {number} userId
+ * @return {boolean}
+ */
 const verifyCommand = async (redisClient, command, userId) => {
   try {
     const commandUserValue = await redisClient.getAsync(`${userId}-${command}`);

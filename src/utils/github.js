@@ -16,18 +16,35 @@ const GITHUB_LINK_OPENVE_TELEGRAM_COMMUNITY = 'https://github.com/OpenVE/comunid
 const GIST_COMMAND = '/gist';
 const MAX_LENGTH_GIST_TEXT = 200;
 
+/**
+ * Check if it's a valid github release
+ * @param {string} repository
+ * @param {string} feed
+ * @return {boolean}
+ */
 const isItAGithubRelease = (repository, feed) =>
-  feed && feed.status.feed && feed.status.feed.search(repository) !== -1;
+  feed &&
+  feed.status.feed &&
+  feed.status.feed.search(repository) !== -1;
 
+/**
+ * Send github release message to group
+ * @param {object} bot
+ * @param {array} release
+ * @param {string} repository
+ * @param {boolean} changelogExist
+ */
 const sendRelease = (bot, release, repository, changelogExist) => {
   if (release.items.length === 0) {
     return;
   }
 
-  const name = repository.match(/[\w\.-]+$/gi)[0]; // eslint-disable-line no-useless-escape
+  // eslint-disable-next-line no-useless-escape
+  const name = repository.match(/[\w\.-]+$/gi)[0];
 
   release.items.forEach((item) => {
-    const tag = item.id.match(/[\w\.-]+$/gi)[0]; // eslint-disable-line no-useless-escape
+    // eslint-disable-next-line no-useless-escape
+    const tag = item.id.match(/[\w\.-]+$/gi)[0];
 
     sendMessage(
       bot,
@@ -45,6 +62,11 @@ const sendRelease = (bot, release, repository, changelogExist) => {
   });
 };
 
+/**
+ * Check and send github release
+ * @param {object} bot
+ * @param {object} feed
+ */
 const checkAndSendRelease = (bot, feed) => {
   const releaseFound =
     releasesToCheck.find(release => isItAGithubRelease(release.repo, feed));
@@ -54,7 +76,17 @@ const checkAndSendRelease = (bot, feed) => {
   }
 };
 
-const prepareAndSendGist = (bot, msgContext, checkingForCode, code = '') => {
+/**
+ * Prepare the gist, and send it to group
+ * @param {object} bot
+ * @param {object} msgContext
+ * @param {boolean} checkingForCode
+ * @param {string} code
+ */
+const prepareAndSendGist = (
+  bot, msgContext,
+  checkingForCode, code = ''
+) => {
   const chatId = msgContext.chat.id;
   const { firstName = '', lastName = '', username = '' } = msgContext.from;
   const fullName = firstName === '' && lastName === '' ? '' : `${firstName} ${lastName} `;
@@ -90,7 +122,17 @@ const prepareAndSendGist = (bot, msgContext, checkingForCode, code = '') => {
     });
 };
 
-const createGist = (bot, msgContext, redisClient, text = '', checkingForCode = true) => {
+/**
+ * Check gist considerations.
+ * It may send a message or it may
+ * send the gist directly
+ * @param {object} bot
+ * @param {object} msgContext
+ * @param {*} redisClient
+ * @param {*} text
+ * @param {boolean} checkingForCode
+ */
+const checkGist = (bot, msgContext, redisClient, text = '', checkingForCode = true) => {
   commandUtility.verifyCommand(redisClient, GIST_COMMAND, msgContext.from.id)
     .then((canExecuteCommand) => {
       if (canExecuteCommand) {
@@ -105,6 +147,13 @@ const createGist = (bot, msgContext, redisClient, text = '', checkingForCode = t
     });
 };
 
+/**
+ * Check if entity of message
+ * is a code (eg. ```Hello world```)
+ * @param {object} bot
+ * @param {object} msgContext
+ * @param {object} redisClient
+ */
 const checkForCode = (bot, msgContext, redisClient) => {
   if (!Object.prototype.hasOwnProperty.call(msgContext, 'entities')) {
     return;
@@ -114,9 +163,17 @@ const checkForCode = (bot, msgContext, redisClient) => {
     return;
   }
 
-  createGist(bot, msgContext, redisClient);
+  checkGist(bot, msgContext, redisClient);
 };
 
+/**
+ * Send the OpenVE github
+ * community link to the group
+ * @param {object} bot
+ * @param {object} msgContext
+ * @param {string} command
+ * @param {object} redisClient
+ */
 const sendOpenVeGithubLink = (bot, msgContext, command, redisClient) => {
   commandUtility.verifyCommand(redisClient, command, msgContext.from.id)
     .then((canExecuteCommand) => {
@@ -130,6 +187,13 @@ const sendOpenVeGithubLink = (bot, msgContext, command, redisClient) => {
     });
 };
 
+/**
+ * Send wengy's github repo link
+ * @param {object} bot
+ * @param {object} msgContext
+ * @param {string} command
+ * @param {object} redisClient
+ */
 const sendCommunityRepo = (bot, msgContext, command, redisClient) => {
   commandUtility.verifyCommand(redisClient, command, msgContext.from.id)
     .then((canExecuteCommand) => {
@@ -148,5 +212,5 @@ module.exports = {
   checkForCode,
   sendOpenVeGithubLink,
   sendCommunityRepo,
-  createGist
+  checkGist
 };

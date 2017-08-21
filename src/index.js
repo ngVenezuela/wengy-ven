@@ -41,6 +41,9 @@ let minuteToCheck = generateRandom(0, 59);
 
 redisClient
   .on('ready', () => {
+    /**
+     * Check for /groupId text command
+     */
     bot
       .onText(/^\/groupId/, (msg, match) =>
         adminUtility.verifyGroup(
@@ -50,6 +53,9 @@ redisClient
           true
         )
       );
+    /**
+     * Check for /comunidades text command
+     */
     bot
       .onText(/^\/comunidades/, (msg, match) =>
         adminUtility.verifyGroup(
@@ -60,6 +66,9 @@ redisClient
           true
         )
       );
+    /**
+     * Check for /github text command
+     */
     bot
       .onText(/^\/github/, (msg, match) =>
         adminUtility.verifyGroup(
@@ -70,27 +79,41 @@ redisClient
           true
         )
       );
-
+    /**
+     * Check for /gist with paramteres command
+     */
     bot
       // eslint-disable-next-line no-useless-escape
       .onText(/^\/gist ([\s\S\.]+)/, (msg, match) =>
         adminUtility.verifyGroup(
           msg,
-          () => githubUtility.createGist(bot, msg, redisClient, match[1], false),
+          () => githubUtility.checkGist(bot, msg, redisClient, match[1], false),
           true,
           false,
           true
         )
       );
 
+    /**
+     * Triggered when new member(s) join
+     */
     bot
       .on('new_chat_members', msg =>
         adminUtility.verifyGroup(msg, () => chatUtility.sayHello(bot, msg))
       );
+    /**
+     * Triggered when a member leaves
+     */
     bot
       .on('left_chat_member', msg =>
         adminUtility.verifyGroup(msg, () => chatUtility.sayGoodbye(bot, msg))
       );
+    /**
+     * On any message:
+     * check if good morning was given
+     * check if it's a url
+     * check if it's code
+     */
     bot
       .on('message', msg =>
         adminUtility.verifyGroup(
@@ -104,6 +127,9 @@ redisClient
           }
         )
       );
+    /**
+     * On any message check if api.ai has a respond to the message
+     */
     bot
       .on('message', msg =>
         adminUtility.verifyGroup(
@@ -120,6 +146,9 @@ redisClient
   });
 
 morningEvent
+  /**
+   * Every minute it checks if good morning was given
+   */
   .on('minuteMark', (vzlanHour, vzlanMinute, weekday) => {
     const executeGoodMorningCheck =
       morningUtility.canBotGiveGoodMorning(
@@ -131,13 +160,25 @@ morningEvent
       minuteToCheck = executeGoodMorningCheck.minuteToCheck;
     }
   })
+  /**
+   * If it's a new day, reset goodMorningToday variable
+   */
   .on('newDay', () => {
     goodMorningGivenToday = false;
   });
 
 newTweet
+  /**
+   * It triggers when there's a new tweet
+   */
   .on('newTweet', tweet => twitterUtility.sendNewTweet(bot, tweet));
 
 superfeedr
+  /**
+   * It triggers when there is a new github release
+   */
   .on('newFeed', feed => githubUtility.checkAndSendRelease(bot, feed))
+  /**
+   * It triggers when there is a new entry in the blog
+   */
   .on('newFeed', feed => blogUtility.checkAndSendBlogEntry(bot, feed));

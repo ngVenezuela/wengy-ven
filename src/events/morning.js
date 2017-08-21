@@ -1,29 +1,40 @@
-const events = require('events');
+const EventEmitter = require('events').EventEmitter;
 const timeUtility = require('./../utils/time');
 
-const eventEmitter = new events.EventEmitter();
-
 /**
- * this function emits an event
- * with the current hour/minute &
- * it also emits an event when it's
- * a new day
+ * Class representing an EventEmitter
+ * @extends EventEmitter
  */
-const emitMinuteMark = () => {
-  const vzlanHour = timeUtility.vzlanHour();
-  const vzlanMinute = timeUtility.vzlanMinute();
+class MorningEvent extends EventEmitter {
+  /**
+   * Creates an instance of EventEmitter
+   */
+  constructor() {
+    super();
 
-  eventEmitter.emit(
-    'minuteMark',
-    vzlanHour,
-    vzlanMinute,
-    timeUtility.vzlanWeekday()
-  );
-  if (vzlanHour === 0 && vzlanMinute === 0) {
-    eventEmitter.emit('newDay');
+    /**
+     * This function emits an event
+     * with the current hour/minute &
+     * it also emits an event when it's
+     * a new day
+     */
+    const emitMinuteMark = () => {
+      const vzlanHour = timeUtility.vzlanHour();
+      const vzlanMinute = timeUtility.vzlanMinute();
+
+      this.emit(
+        'minuteMark',
+        vzlanHour,
+        vzlanMinute,
+        timeUtility.vzlanWeekday()
+      );
+      if (vzlanHour === 0 && vzlanMinute === 0) {
+        this.emit('newDay');
+      }
+    };
+
+    setInterval(emitMinuteMark, 60 * 1000); // 60 seconds
   }
-};
+}
 
-setInterval(emitMinuteMark, 60 * 1000); // 60 seconds
-
-module.exports = eventEmitter;
+module.exports = new MorningEvent();

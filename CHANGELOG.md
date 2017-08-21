@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 3.2.2 (2017-08-20)
+
+### Agregado
+
+- Se agregó JSDoc a todos los métodos, funciones y clases.
+
 ## 3.2.1 (2017-08-20)
 
 ### Corregido
