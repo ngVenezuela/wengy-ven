@@ -4,7 +4,8 @@ const newTweetMessage = require('./../../config/messages').newTweet;
 const hashtagMessage = require('./../../config/config').integrations.twitter.hashtagMessage;
 
 /**
- * Construct and send the message to notify a new tweet in the group
+ * Construct and send the message to notify
+ * a new tweet in the group
  *
  * @param  {Object} bot     Telegram bot
  * @param  {Object} tweet   New tweet

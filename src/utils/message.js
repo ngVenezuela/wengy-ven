@@ -1,3 +1,12 @@
+/**
+ * Forward telegram message
+ * @param {object} bot
+ * @param {number} chatId
+ * @param {number} fromChatId
+ * @param {number} messageId
+ * @param {object} options
+ * @see https://github.com/yagop/node-telegram-bot-api/blob/release/doc/api.md#TelegramBot+forwardMessage
+ */
 const forwardMessage = (bot, chatId, fromChatId, messageId, options = {}) => {
   try {
     bot.forwardMessage(chatId, fromChatId, messageId, options);
@@ -6,6 +15,14 @@ const forwardMessage = (bot, chatId, fromChatId, messageId, options = {}) => {
   }
 };
 
+/**
+ * Send telegram message
+ * @param {object} bot
+ * @param {number} chatId
+ * @param {string} messageText
+ * @param {boolean} replyMode
+ * @param {number} messageId
+ */
 const sendMessage = (bot, chatId, messageText, replyMode = false, messageId = null) => {
   try {
     const defaultOptions = { parse_mode: 'Markdown' };
@@ -14,7 +31,7 @@ const sendMessage = (bot, chatId, messageText, replyMode = false, messageId = nu
     }
 
     bot.sendChatAction(chatId, 'typing');
-    setTimeout(() => bot.sendMessage(chatId, messageText, defaultOptions), 1000);
+    setTimeout(() => bot.sendMessage(chatId, messageText, defaultOptions), 500);
   } catch (error) {
     throw new Error(`Could not send message: ${error}`);
   }

@@ -6,11 +6,30 @@ const sendMessage = require('./../utils/message').sendMessage;
 const MORNING_HOUR = 7;
 const GOOD_MORNING_REG_EXP = new RegExp('buen(os)*\\sd[ií]+as', 'iu');
 
-const morningConditions = (goodMorningGivenToday, minuteToCheck, vzlanHour, vzlanMinute) =>
+/**
+ * Check if good morning has not
+ * been given yet and if it's time
+ * to give them
+ * @param {boolean} goodMorningGivenToday
+ * @param {string} minuteToCheck
+ * @param {string} vzlanHour
+ * @param {string} vzlanMinute
+ * @return {boolean}
+ */
+const morningConditions = (
+  goodMorningGivenToday, minuteToCheck,
+  vzlanHour, vzlanMinute
+) =>
     !goodMorningGivenToday &&
     vzlanHour === MORNING_HOUR &&
     vzlanMinute === minuteToCheck;
 
+/**
+ * Get morning message depending
+ * on what day of the week it is
+ * @param {number} weekday
+ * @return {string}
+ */
 const getMorningMsg = (weekday) => {
   const weekDays = {
     0: 'generic',
@@ -30,9 +49,22 @@ const getMorningMsg = (weekday) => {
   return messages.goodMornings[weekDays[weekday]][randomIndex];
 };
 
-
-const canBotGiveGoodMorning = (bot, goodMorningGivenToday,
-  minuteToCheck, vzlanHour, vzlanMinute, weekday) => {
+/**
+ * Check morning conditions and return object
+ * containing if good morning was given today
+ * and the minute to be checked
+ * @param {object} bot
+ * @param {boolean} goodMorningGivenToday
+ * @param {string} minuteToCheck
+ * @param {string} vzlanHour
+ * @param {string} vzlanMinute
+ * @param {number} weekday
+ * @return {object}
+ */
+const canBotGiveGoodMorning = (
+  bot, goodMorningGivenToday, minuteToCheck,
+  vzlanHour, vzlanMinute, weekday
+) => {
   if (morningConditions(goodMorningGivenToday, minuteToCheck, vzlanHour, vzlanMinute)) {
     sendMessage(bot, config.community.telegram.groupId, getMorningMsg(weekday));
 
@@ -48,6 +80,13 @@ const canBotGiveGoodMorning = (bot, goodMorningGivenToday,
   };
 };
 
+/**
+ * Check if good morning was given or if
+ * the text match a good morning expression
+ * @param {boolean} goodMorningGivenToday
+ * @param {string} text
+ * @return {boolean}
+ */
 const checkGoodMorning = (goodMorningGivenToday, text) => {
   if (goodMorningGivenToday) {
     return true;
