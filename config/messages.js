@@ -36,7 +36,7 @@ const messages = {
   newTweet: '#{hashtagMessage} \u{1F426}\n'.concat(
             '#{tweetText}\n',
             '----\n',
-            '[Puedes ver el Tweet aquí](#{tweetUrl})'),
+            'Puedes ver el Tweet aquí: #{tweetUrl}'),
   githubRelease: '*#{name}* acaba de alcanzar la versión *#{version}*\n\n'.concat(
     '[Puedes ver los cambios aquí](#{url})'),
   githubOpenVeLink: 'El enlace de github para comunidades de Telegram es: #{link}',

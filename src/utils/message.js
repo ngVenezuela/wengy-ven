@@ -22,10 +22,13 @@ const forwardMessage = (bot, chatId, fromChatId, messageId, options = {}) => {
  * @param {string} messageText
  * @param {boolean} replyMode
  * @param {number} messageId
+ * @param {boolean} htmlMode
  */
-const sendMessage = (bot, chatId, messageText, replyMode = false, messageId = null) => {
+const sendMessage = (
+  bot, chatId, messageText, replyMode = false, messageId = null, htmlMode = false
+) => {
   try {
-    const defaultOptions = { parse_mode: 'Markdown' };
+    const defaultOptions = { parse_mode: htmlMode ? 'HTML' : 'Markdown' };
     if (replyMode && messageId) {
       Object.assign(defaultOptions, { reply_to_message_id: messageId });
     }
