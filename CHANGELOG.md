@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 3.2.3 (2017-10-07)
+
+### Corregido
+
+- Mensaje de nuevo tuit se envía como HTML, además se escapan algunos caracteres especiales.
+
 ## 3.2.2 (2017-08-20)
 
 ### Agregado
