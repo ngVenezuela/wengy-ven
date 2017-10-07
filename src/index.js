@@ -140,6 +140,10 @@ redisClient
           true
         )
       );
+    bot
+      .on('webhook_error', (error) => {
+        throw new Error(`Webhook error: ${error}`);
+      });
   })
   .on('error', (error) => {
     throw new Error(`Redis error: ${error}`);

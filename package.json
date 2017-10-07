@@ -4,7 +4,8 @@
   "description": "Official telegram bot for the ng-Venezuela community",
   "main": "src/index.js",
   "scripts": {
-    "dev": " debugMode=1 node_modules/nodemon/bin/nodemon.js src/index.js",
+    "dev": " debugMode=1 node src/index.js",
+    "dev:watch": " debugMode=1 node_modules/nodemon/bin/nodemon.js src/index.js",
     "lint": "node_modules/eslint/bin/eslint.js **/*.js",
     "test": "node_modules/jest/bin/jest.js --no-cache --no-watchman || true",
     "test:watch": "node_modules/jest/bin/jest.js --no-cache --watch"
