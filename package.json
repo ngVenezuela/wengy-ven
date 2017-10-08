@@ -31,7 +31,7 @@
     "node-fetch": "^1.6.3",
     "node-telegram-bot-api": "^0.28.0",
     "redis": "2.7.1",
-    "twitter": "^1.7.1"
+    "twit": "2.2.9"
   },
   "devDependencies": {
     "eslint": "3.19.0",

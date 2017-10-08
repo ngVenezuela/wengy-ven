@@ -1,5 +1,6 @@
 const EventEmitter = require('events').EventEmitter;
-const Twitter = require('twitter');
+const Twit = require('twit');
+
 const twitterConfig = require('./../../config/config').integrations.twitter;
 
 /**
@@ -13,11 +14,12 @@ class TweetEvent extends EventEmitter {
   constructor() {
     super();
 
-    const client = new Twitter({
+    const client = new Twit({
       consumer_key: twitterConfig.auth.consumerKey,
       consumer_secret: twitterConfig.auth.consumerSecret,
-      access_token_key: twitterConfig.auth.accessTokenKey,
-      access_token_secret: twitterConfig.auth.accessTokenSecret
+      access_token: twitterConfig.auth.accessTokenKey,
+      access_token_secret: twitterConfig.auth.accessTokenSecret,
+      timeout_ms: 60 * 1000
     });
 
     /**
@@ -41,20 +43,19 @@ class TweetEvent extends EventEmitter {
       tweetIsRt(tweet) &&
         tweet.retweeted_status.user.id_str !== twitterConfig.id;
 
-    client
-      .stream('statuses/filter', { follow: twitterConfig.id }, (stream) => {
-        stream.on('data', (tweet) => {
-          if (tweetIsNotAReply(tweet) && !tweetIsRt(tweet)) {
-            this.emit('newTweet', tweet);
-          } else if (rtToOtherAccountsExceptConfigured(tweet)) {
-            this.emit('newTweet', tweet);
-          }
-        });
+    const stream = client.stream('statuses/filter', { follow: twitterConfig.id });
 
-        stream.on('error', (error) => {
-          throw new Error(`Twitter error: ${error}`);
-        });
-      });
+    stream.on('tweet', (tweet) => {
+      if (tweetIsNotAReply(tweet) && !tweetIsRt(tweet)) {
+        this.emit('newTweet', tweet);
+      } else if (rtToOtherAccountsExceptConfigured(tweet)) {
+        this.emit('newTweet', tweet);
+      }
+    });
+
+    stream.on('error', (error) => {
+      throw new Error(`Twitter error: ${error}`);
+    });
   }
 }
 
