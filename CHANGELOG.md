@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 3.2.4 (2017-10-07)
+
+### Modificado
+
+- Se reemplazó la librería `twitter` por `twit` para manejar los errores 420 de Twitter.
+
 ## 3.2.3 (2017-10-07)
 
 ### Corregido
