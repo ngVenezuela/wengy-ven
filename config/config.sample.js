@@ -59,7 +59,8 @@ const config = {
         hasChangelog: true,
         feed: 'https://github.com/ngVenezuela/wengy-ven/releases.atom'
       }
-    ]
+    ],
+    sentryDnsKey: process.env.sentryDnsKey || ''
   },
   whiteListedDomains: [
     'https://github.com',
