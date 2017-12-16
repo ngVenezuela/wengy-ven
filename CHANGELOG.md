@@ -1,6 +1,12 @@
 ## [Unreleased]
 
-## 3.2.4 (2017-10-08)
+## 3.3.0 (2017-12-16)
+
+### Agregado
+
+- Se agregó un servicio para reportar errores. (https://sentry.io)
+
+## 3.2.4 (2017-10-07)
 
 ### Modificado
 
