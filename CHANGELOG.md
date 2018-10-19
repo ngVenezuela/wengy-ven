@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 3.3.2 (2018-10-19)
+
+### Corregido
+
+- Se modificó el changelog de acuerdo al último cambio
+
 ## 3.3.1 (2018-10-18)
 
 ### Corregido
