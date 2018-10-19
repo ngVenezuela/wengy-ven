@@ -132,7 +132,7 @@ const runMainProcess = () => {
           )
         );
       /**
-       * On any message check if api.ai has a respond to the message
+       * On any message check if api.ai has a response to the message
        */
       bot
         .on('message', msg =>
@@ -192,7 +192,7 @@ const runMainProcess = () => {
     .on('newFeed', feed => blogUtility.checkAndSendBlogEntry(bot, feed));
 };
 
-if (process.env.enironment !== 'development' && sentryDsnKey) {
+if (process.env.environment !== 'development' && sentryDsnKey) {
   raven.config(sentryDsnKey).install();
   raven.context(() => {
     runMainProcess();
