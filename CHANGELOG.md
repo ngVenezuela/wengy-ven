@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 3.3.1 (2018-10-18)
+
+### Corregido
+
+- Se agregó un token para la api de github
+
 ## 3.3.0 (2017-12-16)
 
 ### Agregado
