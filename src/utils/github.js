@@ -8,6 +8,7 @@ const gistCreated = require('./../../config/messages').gistCreated;
 const telegramLink = require('./../../config/config').community.telegram.link;
 const githubLink = require('./../../config/config').community.github;
 const gistRecommendation = require('./../../config/messages').gistRecommendation;
+const githubToken = require('./../../config/config').integrations.github.accessToken;
 
 const sendMessage = require('./../utils/message').sendMessage;
 const commandUtility = require('./../utils/command');
@@ -112,6 +113,7 @@ const prepareAndSendGist = (
     method: 'POST',
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
+      'Authorization': `token ${githubToken}`
     },
     body: JSON.stringify(body)
   })
@@ -134,7 +136,7 @@ const prepareAndSendGist = (
  */
 const checkGist = (bot, msgContext, redisClient, text = '', checkingForCode = true) => {
   commandUtility.verifyCommand(redisClient, GIST_COMMAND, msgContext.from.id)
-    .then((canExecuteCommand) => {
+  .then((canExecuteCommand) => {
       if (canExecuteCommand) {
         if (text === '' && msgContext.text.length >= MAX_LENGTH_GIST_TEXT) {
           if (checkingForCode) {

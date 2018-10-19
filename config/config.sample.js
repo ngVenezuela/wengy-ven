@@ -34,6 +34,9 @@ const config = {
       id: process.env.twitterId || '41469246',
       hashtagMessage: '#ngVenezuelaTweet'
     },
+    github: {
+      accessToken: process.env.githubAccessToken || 'GITHUB_ACCESS_TOKEN'
+    },
     githubReleases: [
       {
         name: 'angular',
