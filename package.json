@@ -5,10 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "environment=development node src/index.js",
-    "dev:watch": "environment=development node_modules/nodemon/bin/nodemon.js src/index.js",
-    "lint": "node_modules/eslint/bin/eslint.js **/*.js",
-    "test": "node_modules/jest/bin/jest.js --no-cache --no-watchman || true",
-    "test:watch": "node_modules/jest/bin/jest.js --no-cache --watch"
+    "dev:watch": "environment=development nodemon src/index.js",
+    "lint": "eslint **/*.js",
+    "test": "jest --no-cache --no-watchman || true",
+    "test:watch": "jest --no-cache --watch"
   },
   "repository": {
     "type": "git",
@@ -25,24 +25,23 @@
   },
   "homepage": "https://github.com/ngVenezuela/wengy-ven#readme",
   "dependencies": {
-    "bluebird": "3.5.0",
-    "body-parser": "^1.17.1",
-    "express": "^4.15.2",
-    "node-fetch": "^1.6.3",
-    "node-telegram-bot-api": "^0.28.0",
-    "raven": "^2.2.1",
-    "redis": "2.7.1",
-    "twit": "2.2.9"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "ioredis": "^4.2.0",
+    "node-fetch": "^2.1.2",
+    "node-telegram-bot-api": "^0.30.0",
+    "raven": "^2.6.2",
+    "twit": "^2.2.11"
   },
   "devDependencies": {
-    "eslint": "3.19.0",
-    "eslint-config": "0.3.0",
-    "eslint-config-airbnb": "15.0.1",
-    "eslint-plugin-import": "2.3.0",
-    "eslint-plugin-jsx-a11y": "5.0.3",
-    "eslint-plugin-react": "7.1.0",
+    "eslint": "^3.19.0",
+    "eslint-config": "^0.3.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.1.0",
     "jest": "^19.0.2",
     "jsdoc": "^3.4.3",
-    "nodemon": "1.11.0"
+    "nodemon": "^1.11.0"
   }
 }

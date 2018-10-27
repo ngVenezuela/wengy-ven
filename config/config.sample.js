@@ -15,27 +15,28 @@ const config = {
     port: process.env.serverPort || 'MY_PORT'
   },
   redisOptions: {
-    url: process.env.redisUrl || 'redis://localhost',
-    port: process.env.redisPort || '6379'
+    host: process.env.redisUrl || 'localhost',
+    port: process.env.redisPort || '6379',
+    enableReadyCheck: true
   },
   integrations: {
     apiAI: {
       lang: 'es',
       queryUrl: 'https://api.api.ai/v1/query?v=20150910',
-      clientAccessToken: process.env.apiAiClientAccessToken || 'MY_SUPER_SECRET_APIAI_TOKEN'
+      clientAccessToken: process.env.apiAiClientAccessToken
     },
     twitter: {
       auth: {
-        consumerKey: process.env.twitterConsumerKey || 'CONSUMER_KEY',
-        consumerSecret: process.env.twitterConsumerSecret || 'CONSUMER_SECRET',
-        accessTokenKey: process.env.twitterAccessTokenKey || 'ACCESS_TOKEN_KEY',
-        accessTokenSecret: process.env.twitterAccessTokenSecret || 'ACCESS_TOKEN_SECRET'
+        consumerKey: process.env.twitterConsumerKey,
+        consumerSecret: process.env.twitterConsumerSecret,
+        accessTokenKey: process.env.twitterAccessTokenKey,
+        accessTokenSecret: process.env.twitterAccessTokenSecret
       },
       id: process.env.twitterId || '41469246',
       hashtagMessage: '#ngVenezuelaTweet'
     },
     github: {
-      accessToken: process.env.githubAccessToken || 'GITHUB_ACCESS_TOKEN'
+      accessToken: process.env.githubAccessToken
     },
     githubReleases: [
       {

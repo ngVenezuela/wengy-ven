@@ -1,12 +1,5 @@
-const redis = require('redis');
-const bluebird = require('bluebird');
 const raven = require('raven');
-
-const redisOptions = require('./../config/config').redisOptions;
-
-bluebird.promisifyAll(redis.RedisClient.prototype);
-bluebird.promisifyAll(redis.Multi.prototype);
-const redisClient = redis.createClient(redisOptions);
+const Redis = require('ioredis');
 
 const TelegramBot = require('./bot/telegram-bot');
 const BotServer = require('./server/bot-server');
@@ -14,6 +7,7 @@ const BotServer = require('./server/bot-server');
 const telegramToken = require('./../config/config').community.telegram.botToken;
 const server = require('./../config/config').server;
 const sentryDsnKey = require('./../config/config').integrations.sentryDnsKey;
+const redisOptions = require('./../config/config').redisOptions;
 
 const morningEvent = require('./events/morning');
 const newTweet = require('./events/tweets');
@@ -29,6 +23,7 @@ const githubUtility = require('./utils/github');
 const devUtility = require('./utils/dev-only');
 const adminUtility = require('./utils/admin');
 
+const redisClient = new Redis(redisOptions);
 const superfeedr = new Superfeedr();
 const bot = new TelegramBot(telegramToken);
 
