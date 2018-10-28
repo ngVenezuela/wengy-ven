@@ -46,12 +46,14 @@ jobs:
       - run: echo "About to run linter"
       - run: npm run lint
       - run: echo "Lint completed successfully"
-  deploy-staging:
+
+  deploy-stage:
     steps:
       - run: echo "About to connect to remote server"
       - run: echo ssh -v ${DROPLET_USER}@${DROPLET_IP} STAGING_MODE=1 ./wengy-ven-deployer.sh
       - run: echo "Disconnected from server"
-  deploy-production:
+
+  deploy-prod:
     steps:
       - run: echo "About to connect to remote server"
       - run: echo ssh -v ${DROPLET_USER}@${DROPLET_IP} STAGING_MODE=0 ./wengy-ven-deployer.sh
@@ -62,18 +64,16 @@ workflows:
   build-deploy:
     jobs:
       - build
-      - deploy-staging:
-        requires:
-          - build
-        filters:
-          branches:
-            only:
-              develop
-      - deploy-production:
-        required:
-          - build
-        filters:
-          branches:
-            only:
-              master
+      - deploy-stage:
+          requires:
+            - build
+          filters:
+            branches:
+              only: develop
+      - deploy-prod:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
 
