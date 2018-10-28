@@ -14,48 +14,31 @@ class TweetEvent extends EventEmitter {
   constructor() {
     super();
 
-    const client = new Twit({
-      consumer_key: twitterConfig.auth.consumerKey,
-      consumer_secret: twitterConfig.auth.consumerSecret,
-      access_token: twitterConfig.auth.accessTokenKey,
-      access_token_secret: twitterConfig.auth.accessTokenSecret,
-      timeout_ms: 60 * 1000
-    });
+    const { consumerKey, consumerSecret, accessTokenKey, accessTokenSecret} = twitterConfig.auth;
+    if (consumerKey && consumerSecret && accessTokenKey && accessTokenSecret) {
+      const client = new Twit({
+        consumer_key: consumerKey,
+        consumer_secret: consumerSecret,
+        access_token: accessTokenKey,
+        access_token_secret: accessTokenSecret,
+        timeout_ms: 60 * 1000
+      });
 
-    /**
-     * Validating that tweet is not a reply and neither a RT
-     * @param {object} tweet
-     */
-    const tweetIsNotAReply = tweet => tweet.in_reply_to_status_id === null;
+      const isNotANewTweet = tweet =>
+        tweet.retweeted || tweet.retweeted_status || tweet.in_reply_to_status_id || tweet.in_reply_to_user_id || tweet.delete;
 
-    /**
-     * Validating that tweet is a RT
-     * @param {object} tweet
-     */
-    const tweetIsRt = tweet => Object.hasOwnProperty.call(tweet, 'retweeted_status');
+      const stream = client.stream('user', { follow: twitterConfig.id });
 
-    /**
-     * Validating that RT is to other accounts,
-     * except the one configured in config
-     * @param {object} tweet
-     */
-    const rtToOtherAccountsExceptConfigured = tweet =>
-      tweetIsRt(tweet) &&
-        tweet.retweeted_status.user.id_str !== twitterConfig.id;
+      stream.on('tweet', (tweet) => {
+        if(!isNotANewTweet(tweet)) {
+          this.emit('newTweet', tweet);
+        }
+      });
 
-    const stream = client.stream('statuses/filter', { follow: twitterConfig.id });
-
-    stream.on('tweet', (tweet) => {
-      if (tweetIsNotAReply(tweet) && !tweetIsRt(tweet)) {
-        this.emit('newTweet', tweet);
-      } else if (rtToOtherAccountsExceptConfigured(tweet)) {
-        this.emit('newTweet', tweet);
-      }
-    });
-
-    stream.on('error', (error) => {
-      throw new Error(`Twitter error: ${error}`);
-    });
+      stream.on('error', (error) => {
+        throw new Error(`Twitter error: ${error}`);
+      });
+    }
   }
 }
 

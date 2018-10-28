@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 3.3.3 (2018-10-27)
+
+### Actualizado
+
+- Se actualizó a la versión 2.0 de CircleCI
+
 ## 3.3.2 (2018-10-19)
 
 ### Corregido

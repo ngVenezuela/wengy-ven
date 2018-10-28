@@ -10,7 +10,7 @@ const MAX_COMMANDS_PER_MINUTE_AND_USER = 10;
  */
 const verifyCommand = async (redisClient, command, userId) => {
   try {
-    const commandUserValue = await redisClient.getAsync(`${userId}-${command}`);
+    const commandUserValue = await redisClient.get(`${userId}-${command}`);
 
     // if user already has max commands per minute, return false
     if (parseInt(commandUserValue, 10) === MAX_COMMANDS_PER_MINUTE_AND_USER) {
@@ -22,10 +22,10 @@ const verifyCommand = async (redisClient, command, userId) => {
       * for future reference, redisClient.incr will do what we want,
       * but, if key already expired, it will create one with no expiration time
     */
-    const ttlRemaining = await redisClient.ttlAsync(`${userId}-${command}`);
+    const ttlRemaining = await redisClient.ttl(`${userId}-${command}`);
 
     if (ttlRemaining > 0) {
-      const newSet = await redisClient.setAsync(
+      const newSet = await redisClient.set(
         `${userId}-${command}`,
         parseInt(commandUserValue, 10) + 1,
         'EX',
@@ -41,7 +41,7 @@ const verifyCommand = async (redisClient, command, userId) => {
 
       * 5 minutes cooldown for each user-command
     */
-    const newSet = await redisClient.setAsync(`${userId}-${command}`, 1, 'EX', 60 * 5);
+    const newSet = await redisClient.set(`${userId}-${command}`, 1, 'EX', 60 * 5);
     return newSet === 'OK';
   } catch (error) {
     return false;

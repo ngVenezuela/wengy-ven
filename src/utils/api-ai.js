@@ -42,32 +42,35 @@ const botWasMentioned = (entities, text) =>
  * @param {number} sessionId
  */
 const query = (bot, queryString, chatId, messageId, sessionId) => {
-  fetch(apiAIConfig.queryUrl, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiAIConfig.clientAccessToken}`,
-      'Content-Type': 'application/json; charset=utf-8'
-    },
-    body: JSON.stringify({
-      lang: 'es',
-      sessionId,
-      query: queryString
+  const { queryUrl, clientAccessToken } = apiAIConfig;
+  if (clientAccessToken) {
+    fetch(queryUrl, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiAIConfig.clientAccessToken}`,
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
+        lang: 'es',
+        sessionId,
+        query: queryString
+      })
     })
-  })
-    .then(response => response.json())
-    .then((response) => {
-      if (apiAiHasResponse(response)) {
-        sendMessage(
-          bot,
-          chatId,
-          response.result.fulfillment.messages[0].speech,
-          true,
-          messageId
-        );
-      }
-    }).catch((error) => {
-      throw new Error(`Error getting api.ai message: ${error}`);
-    });
+      .then(response => response.json())
+      .then((response) => {
+        if (apiAiHasResponse(response)) {
+          sendMessage(
+            bot,
+            chatId,
+            response.result.fulfillment.messages[0].speech,
+            true,
+            messageId
+          );
+        }
+      }).catch((error) => {
+        throw new Error(`Error getting api.ai message: ${error}`);
+      });
+  }
 };
 
 /**
