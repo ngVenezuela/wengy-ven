@@ -48,12 +48,14 @@ jobs:
       - run: echo "Lint completed successfully"
 
   deploy-stage:
+    machine: true
     steps:
       - run: echo "About to connect to remote server"
       - run: echo ssh -v ${DROPLET_USER}@${DROPLET_IP} STAGING_MODE=1 ./wengy-ven-deployer.sh
       - run: echo "Disconnected from server"
 
   deploy-prod:
+    machine: true
     steps:
       - run: echo "About to connect to remote server"
       - run: echo ssh -v ${DROPLET_USER}@${DROPLET_IP} STAGING_MODE=0 ./wengy-ven-deployer.sh
