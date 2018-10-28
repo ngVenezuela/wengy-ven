@@ -17,10 +17,10 @@ class TweetEvent extends EventEmitter {
     const { consumerKey, consumerSecret, accessTokenKey, accessTokenSecret} = twitterConfig.auth;
     if (consumerKey && consumerSecret && accessTokenKey && accessTokenSecret) {
       const client = new Twit({
-        consumer_key: twitterConfig.auth.consumerKey,
-        consumer_secret: twitterConfig.auth.consumerSecret,
-        access_token: twitterConfig.auth.accessTokenKey,
-        access_token_secret: twitterConfig.auth.accessTokenSecret,
+        consumer_key: consumerKey,
+        consumer_secret: consumerSecret,
+        access_token: accessTokenKey,
+        access_token_secret: accessTokenSecret,
         timeout_ms: 60 * 1000
       });
 
