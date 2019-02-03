@@ -1,5 +1,15 @@
 ## [Unreleased]
 
+## 4.0.0 (2019-02-09)
+
+### Agregado
+
+- Soporte para zeit/now.
+
+### Actualizado
+
+- Dependencias
+
 ## 3.3.3 (2018-10-27)
 
 ### Actualizado

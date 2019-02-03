@@ -36,10 +36,6 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-# Ignore config files
-
-config.js
-
 # Webstorm config files
 .idea
 
@@ -48,3 +44,6 @@ config.js
 
 # Vscode config files
 .vscode
+
+# Environment variables
+.env

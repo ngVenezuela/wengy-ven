@@ -1,21 +1,17 @@
-const EventEmitter = require('events').EventEmitter;
+const { EventEmitter } = require('events');
 
 /**
  * Class representing an EventEmitter
  * @extends EventEmitter
  */
 class Superfeedr extends EventEmitter {
-
   /**
    * Check for a valid superfeedr object
    * @param {object} msg
    * @see https://documentation.superfeedr.com/schema.html
    */
   checkMessage(msg) {
-    return msg.status &&
-      msg.status.code &&
-      msg.status.http &&
-      msg.status.feed;
+    return msg.status && msg.status.code && msg.status.http && msg.status.feed;
   }
 
   /**
@@ -23,9 +19,12 @@ class Superfeedr extends EventEmitter {
    * @param {object} msg - Message to emit
    */
   proccessMessage(msg) {
-    this.emit('newFeed', msg);
-  }
+    if (msg.status.feed.startsWith('https://medium.com')) {
+      return this.emit('newBlogEntry');
+    }
 
+    this.emit('newGithubRelease', msg);
+  }
 }
 
 module.exports = Superfeedr;
