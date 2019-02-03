@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 4.0.1 (2019-02-26)
+
+### Arreglado
+
+- Saludos a nuevos (ex)miembros
+
 ## 4.0.0 (2019-02-23)
 
 ### Agregado

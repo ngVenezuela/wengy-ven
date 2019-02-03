@@ -73,7 +73,7 @@ const verifyCode = async (bot, msg) => {
   const chatId = msg.chat.id;
   const chatInfo = await bot.getChat(chatId);
 
-  if (chatInfo.type === 'group') {
+  if (['supergroup', 'group'].includes(chatInfo.type)) {
     if (!Object.prototype.hasOwnProperty.call(msg, 'entities')) {
       return;
     }

@@ -4,8 +4,12 @@ const { forwardMessage } = require('bot-api-overrides');
 const verifyUrls = async (bot, msg) => {
   const chatId = msg.chat.id;
   const chatInfo = await bot.getChat(chatId);
+  const {
+    type,
+    all_members_are_administrators: allMembersAreAdministrators,
+  } = chatInfo;
 
-  if (chatInfo.type === 'group') {
+  if (['group', 'supergroup'].includes(type) && !allMembersAreAdministrators) {
     const urlEntities = msg.entities
       ? msg.entities.filter(entity => entity.type === 'url')
       : [];
