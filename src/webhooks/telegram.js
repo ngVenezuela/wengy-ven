@@ -22,13 +22,18 @@ class TelegramBot extends NodeTelegramBotApi {
    * @see https://core.telegram.org/bots/api#update
    */
   checkMessage(msg) {
-    return msg.message ||
+    return (
+      msg.update_id ||
+      msg.message ||
       msg.edited_message ||
       msg.channel_post ||
       msg.edited_channel_post ||
       msg.inline_query ||
       msg.chosen_inline_result ||
-      msg.callback_query;
+      msg.callback_query ||
+      msg.shipping_query ||
+      msg.pre_checkout_query
+    );
   }
 
   /**

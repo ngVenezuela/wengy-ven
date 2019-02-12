@@ -5,9 +5,10 @@ const express = require('express');
  * Class representing
  * bot/telegram-bot and
  * events/superfeedr
+ * This exists to provide a same endpoint for both
+ * telegram and superfeedr, and future integrations
  */
 class BotServer {
-
   /**
    * Creates an instance for
    * bot/telegram-bot and events/superfeedr
@@ -25,9 +26,9 @@ class BotServer {
 
     // We are receiving updates at the route below!
     app.post(path, (req, res) => {
-      this.webhooks.forEach(webhook =>
-        webhook.checkMessage(req.body) &&
-        webhook.proccessMessage(req.body)
+      this.webhooks.forEach(
+        webhook =>
+          webhook.checkMessage(req.body) && webhook.proccessMessage(req.body)
       );
 
       res.sendStatus(200).end();
@@ -44,9 +45,7 @@ class BotServer {
    * @param {object} webhook
    */
   static isWebHook(webhook) {
-    return webhook &&
-      webhook.checkMessage &&
-      webhook.proccessMessage;
+    return webhook && webhook.checkMessage && webhook.proccessMessage;
   }
 
   /**
