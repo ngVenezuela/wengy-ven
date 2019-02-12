@@ -39,14 +39,14 @@ jobs:
     machine: true
     steps:
       - run: echo "About to deploy staging env"
-      - run: echo now -t ${NOW_TOKEN} -A now-staging.json -T "ngvenezuela"
+      - run: echo now -d -t "${NOW_TOKEN}" -A now-staging.json -T "ngvenezuela"
       - run: echo "Deployed to now server"
 
   deploy-prod:
     machine: true
     steps:
       - run: echo "About to deploy production env"
-      - run: echo now -t ${NOW_TOKEN} -T "ngvenezuela"
+      - run: echo now -d -t "${NOW_TOKEN}" -T "ngvenezuela"
       - run: echo "Deployed to now server"
 
 workflows:
@@ -59,7 +59,7 @@ workflows:
             - build
           filters:
             branches:
-              only: develop
+              only: ngve-actualizar-dialogflow
       - deploy-prod:
           requires:
             - build
