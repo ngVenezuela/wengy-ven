@@ -59,7 +59,7 @@ workflows:
             - build
           filters:
             branches:
-              only: ngve-actualizar-dialogflow
+              only: develop
       - deploy-prod:
           requires:
             - build
