@@ -49,7 +49,7 @@
 
 Te invitamos a leer el documento [CONTRIBUTING](.github/CONTRIBUTING.md) para conocer todos los detalle de nuestro código de conducta y el proceso para enviarnos _Pull Requests_.
 
-### Versión 4 en adelante:
+#### Versión 4 en adelante:
 
 Para configurar tu ambiente de desarrollo, te invitamos a leer las siguientes instrucciones: [https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-wengy-ven-v4-en-adelante](https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-wengy-ven-v4-en-adelante)
 
