@@ -7,10 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:10.12
-
-      # Specify service dependencies here if necessary
-      - image: circleci/redis:5.0.0
+      - image: circleci/node:8.15
 
     working_directory: ~/repo
 
@@ -18,10 +15,6 @@ jobs:
       - run: echo "About to checkout project"
       - checkout
       - run: echo "Project checked out successfully"
-
-      - run: echo "About to copy config file"
-      - run: cp config/config.sample.js config/config.js
-      - run: echo "Config copied successfully"
 
       # Download and cache dependencies
       - restore_cache:
@@ -33,33 +26,28 @@ jobs:
       - run: echo "About to install npm dependencies"
       - run: npm install
       - run: echo "npm dependencies were successfully installed"
+      - run: echo "About to install global dependencies"
+      - run: sudo npm install --unsafe-perm -g now
+      - run: echo "Global dependencies were successfully installed"
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: echo "About to run tests"
-      - run: npm run test
-      - run: echo "Tests completed successfully"
-
-      - run: echo "About to run linter"
-      - run: npm run lint
-      - run: echo "Lint completed successfully"
-
   deploy-stage:
     machine: true
     steps:
-      - run: echo "About to connect to remote server"
-      - run: echo ssh -v ${DROPLET_USER}@${DROPLET_IP} STAGING_MODE=1 ./wengy-ven-deployer.sh
-      - run: echo "Disconnected from server"
+      - run: echo "About to deploy staging env"
+      - run: echo now -t ${NOW_TOKEN} -A now-staging.json -T "ngvenezuela"
+      - run: echo "Deployed to now server"
 
   deploy-prod:
     machine: true
     steps:
-      - run: echo "About to connect to remote server"
-      - run: echo ssh -v ${DROPLET_USER}@${DROPLET_IP} STAGING_MODE=0 ./wengy-ven-deployer.sh
-      - run: echo "Disconnected from server"
+      - run: echo "About to deploy production env"
+      - run: echo now -t ${NOW_TOKEN} -T "ngvenezuela"
+      - run: echo "Deployed to now server"
 
 workflows:
   version: 2

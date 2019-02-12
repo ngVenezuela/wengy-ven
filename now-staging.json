@@ -1,0 +1,23 @@
+{
+  "name": "wengy-ven-staging",
+  "alias": "wengy-ven--staging.now.sh",
+  "env": {
+    "NTBA_FIX_319": "1",
+    "APP_URL": "@app-url-staging",
+    "APP_PORT": "@app-port",
+    "DIALOGFLOW_CLIENT_ACCESS_TOKEN": "@dialogflow-client-access-token",
+    "GITHUB_ACCESS_TOKEN": "@github-access-token",
+    "SENTRY_DSN": "@sentryio-dns-staging",
+    "TELEGRAM_BOT_TOKEN": "@telegram-bot-token-staging",
+    "BOT_USERNAME": "LeoTestsBot",
+    "NODE_ENV": "staging"
+  },
+  "version": 1,
+  "public": true,
+  "scale": {
+    "sfo1": {
+      "min": 1,
+      "max": 1
+    }
+  }
+}

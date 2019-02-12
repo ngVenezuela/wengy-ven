@@ -1,0 +1,23 @@
+{
+  "name": "wengy-ven",
+  "alias": "wengy-ven--production.now.sh",
+  "env": {
+    "NTBA_FIX_319": "1",
+    "APP_URL": "@app-url",
+    "APP_PORT": "@app-port",
+    "DIALOGFLOW_CLIENT_ACCESS_TOKEN": "@dialogflow-client-access-token",
+    "GITHUB_ACCESS_TOKEN": "@github-access-token",
+    "SENTRY_DSN": "@sentryio-dns",
+    "TELEGRAM_BOT_TOKEN": "@telegram-bot-token",
+    "BOT_USERNAME": "WengyBot",
+    "NODE_ENV": "production"
+  },
+  "version": 1,
+  "public": true,
+  "scale": {
+    "sfo1": {
+      "min": 1,
+      "max": 1
+    }
+  }
+}
