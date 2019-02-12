@@ -24,7 +24,10 @@ Sentry.init({ dsn: SENTRY_DSN });
 initializeBot = async () => {
   if (NODE_ENV === 'development') {
     const url = await ngrok.connect(APP_PORT);
-    // when in development, put the value of url in your environment value APP_URL
+    console.log(
+      `use this url in your webhhoks along with the token. example: ${url}/MY_SECRET_TOKEN: `,
+      url
+    );
     telegramBot.setWebHook(`${url}/${TELEGRAM_BOT_TOKEN}`);
   } else {
     telegramBot.setWebHook(`${APP_URL}/${TELEGRAM_BOT_TOKEN}`);
