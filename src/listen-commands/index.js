@@ -1,3 +1,5 @@
+const Sentry = require('@sentry/node');
+
 const { sayHello, sayGoodbye } = require('./greetings');
 const { sendGroupId } = require('./development-tools');
 const { sendOpenVeGithubLink } = require('./community');

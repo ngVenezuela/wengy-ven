@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const Sentry = require('@sentry/node');
 
 const { gistCreated, gistRecommendation } = require('config/messages');
 const { sendMessage } = require('bot-api-overrides');

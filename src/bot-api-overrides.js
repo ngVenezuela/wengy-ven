@@ -1,3 +1,5 @@
+const Sentry = require('@sentry/node');
+
 const forwardMessage = (bot, chatId, fromChatId, messageId, options = {}) => {
   try {
     bot.sendChatAction(chatId, 'typing');
