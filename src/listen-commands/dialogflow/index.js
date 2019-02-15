@@ -1,5 +1,7 @@
 const { Buffer } = require('buffer');
 const dialogflow = require('dialogflow');
+const Sentry = require('@sentry/node');
+
 const { sendMessage } = require('bot-api-overrides');
 
 const {
