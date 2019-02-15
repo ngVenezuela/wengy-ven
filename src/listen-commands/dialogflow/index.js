@@ -1,3 +1,4 @@
+const { Buffer } = require('buffer');
 const dialogflow = require('dialogflow');
 const { sendMessage } = require('bot-api-overrides');
 
@@ -6,6 +7,7 @@ const {
   DIALOGFLOW_PRIVATE_KEY,
   DIALOGFLOW_PROJECT_ID,
   BOT_USERNAME,
+  NODE_ENV,
 } = process.env;
 
 /**
@@ -47,9 +49,13 @@ const query = async (bot, queryString, msg) => {
       DIALOGFLOW_PRIVATE_KEY &&
       DIALOGFLOW_PROJECT_ID
     ) {
+      const privateKey =
+        NODE_ENV === 'development'
+          ? DIALOGFLOW_PRIVATE_KEY
+          : Buffer.from(DIALOGFLOW_PRIVATE_KEY, 'base64').toString();
       const config = {
         credentials: {
-          private_key: DIALOGFLOW_PRIVATE_KEY,
+          private_key: privateKey,
           client_email: DIALOGFLOW_CLIENT_EMAIL,
         },
       };
