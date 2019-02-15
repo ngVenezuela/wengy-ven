@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 4.1.0 (2019-02-09)
+
+### Modificado
+
+- Migración de api de dialogflow de v1 a v2
+
 ## 4.0.0 (2019-02-09)
 
 ### Agregado

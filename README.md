@@ -35,7 +35,7 @@
 * Se sigue el feed del blog oficial de *ngVenezuela*, y cuando hay nuevas entradas se publica en el grupo el enlace con la nueva entrada con el nombre del autor. Esto se hace a través de [Superfeedr](https://superfeedr.com).
 
     ![](http://i.imgur.com/L8zBF8T.png)
-* Si se le hace una mención al bot o se le responde a un mensaje, se evaluará la expresión a través de [api.ai](https://api.ai/) y se le responderá siempre y cuando se le haya entrenado según el mensaje que se le escribió.
+* Si se le hace una mención al bot o se le responde a un mensaje, se evaluará la expresión a través de [https://dialogflow.com](https://https://dialogflow.com/) y se le responderá siempre y cuando se le haya entrenado según el mensaje que se le escribió.
 
     ![](http://i.imgur.com/7E6IlLo.png)
 * Se le hace un seguimiento a la cuenta oficial de twitter de *ngVenezuela*, y cualquier tuit o RT que se haga desde esa cuenta, se muestra un enlace al grupo.

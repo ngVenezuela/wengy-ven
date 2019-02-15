@@ -1,7 +1,12 @@
-const fetch = require('node-fetch');
+const dialogflow = require('dialogflow');
 const { sendMessage } = require('bot-api-overrides');
 
-const { DIALOGFLOW_CLIENT_ACCESS_TOKEN, BOT_USERNAME } = process.env;
+const {
+  DIALOGFLOW_CLIENT_EMAIL,
+  DIALOGFLOW_PRIVATE_KEY,
+  DIALOGFLOW_PROJECT_ID,
+  BOT_USERNAME,
+} = process.env;
 
 /**
  * Verify that dialogflow has a valid
@@ -9,10 +14,7 @@ const { DIALOGFLOW_CLIENT_ACCESS_TOKEN, BOT_USERNAME } = process.env;
  * @param {object} response
  */
 const dialogFlowHasResponse = response =>
-  response.result &&
-  response.result.fulfillment &&
-  response.result.fulfillment.messages.length > 0 &&
-  response.result.fulfillment.messages[0].speech !== '';
+  response.queryResult && response.queryResult.fulfillmentText !== '';
 
 /**
  * Verify that the message is a reply to the bot itself
@@ -33,39 +35,43 @@ const botWasMentioned = (entities, text) =>
   text.includes(`@${BOT_USERNAME}`);
 
 /**
- * Makes a http request to api.ai with a query
+ * Makes a http request to dialogflow with a query
  * @param {object} bot
  * @param {string} queryString
  * @param {object} msg
  */
-const query = (bot, queryString, msg) => {
-  if (DIALOGFLOW_CLIENT_ACCESS_TOKEN) {
-    fetch('https://api.api.ai/v1/query?v=20150910', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${DIALOGFLOW_CLIENT_ACCESS_TOKEN}`,
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify({
-        lang: 'es',
-        sessionId: msg.from.id,
-        query: queryString,
-      }),
-    })
-      .then(response => response.json())
-      .then(response => {
-        if (dialogFlowHasResponse(response)) {
-          sendMessage(
-            bot,
-            msg.chat.id,
-            response.result.fulfillment.messages[0].speech,
-            { reply_to_message_id: msg.message_id }
-          );
-        }
-      })
-      .catch(error => {
-        Sentry.captureException(error);
-      });
+const query = async (bot, queryString, msg) => {
+  try {
+    if (DIALOGFLOW_CLIENT_EMAIL && DIALOGFLOW_PRIVATE_KEY) {
+      const config = {
+        credentials: {
+          private_key: DIALOGFLOW_PRIVATE_KEY,
+          client_email: DIALOGFLOW_CLIENT_EMAIL,
+        },
+      };
+      const sessionClient = new dialogflow.SessionsClient(config);
+      const sessionPath = sessionClient.sessionPath(
+        DIALOGFLOW_PROJECT_ID,
+        `${msg.from.id}`
+      );
+      const request = {
+        session: sessionPath,
+        queryInput: {
+          text: {
+            text: queryString,
+            languageCode: 'es',
+          },
+        },
+      };
+      const [response] = await sessionClient.detectIntent(request);
+      if (dialogFlowHasResponse(response)) {
+        sendMessage(bot, msg.chat.id, response.queryResult.fulfillmentText, {
+          reply_to_message_id: msg.message_id,
+        });
+      }
+    }
+  } catch (error) {
+    Sentry.captureException(error);
   }
 };
 
