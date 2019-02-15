@@ -42,7 +42,11 @@ const botWasMentioned = (entities, text) =>
  */
 const query = async (bot, queryString, msg) => {
   try {
-    if (DIALOGFLOW_CLIENT_EMAIL && DIALOGFLOW_PRIVATE_KEY) {
+    if (
+      DIALOGFLOW_CLIENT_EMAIL &&
+      DIALOGFLOW_PRIVATE_KEY &&
+      DIALOGFLOW_PROJECT_ID
+    ) {
       const config = {
         credentials: {
           private_key: DIALOGFLOW_PRIVATE_KEY,
