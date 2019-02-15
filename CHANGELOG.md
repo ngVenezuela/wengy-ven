@@ -1,6 +1,12 @@
 ## [Unreleased]
 
-## 4.1.0 (2019-02-09)
+## 4.1.1 (2019-02-15)
+
+### Eliminado
+
+- Dependencia de nodemon
+
+## 4.1.0 (2019-02-15)
 
 ### Modificado
 
