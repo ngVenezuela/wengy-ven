@@ -27,7 +27,7 @@ jobs:
       - run: npm install
       - run: echo "npm dependencies were successfully installed"
       - run: echo "About to install global dependencies"
-      - run: sudo npm install --unsafe-perm -g now
+      - run: sudo npm install --unsafe-perm -g now@canary
       - run: echo "Global dependencies were successfully installed"
 
       - save_cache:
