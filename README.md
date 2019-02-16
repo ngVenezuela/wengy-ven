@@ -1,4 +1,4 @@
-![Test status](https://circleci.com/gh/ngVenezuela/wengy-ven/tree/develop.svg?style=shield&circle-token=:circle-token)
+![Test status](https://img.shields.io/travis/ngVenezuela/wengy-ven.svg?style=popout)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ngVenezuela/wengy-ven/develop/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/ngVenezuela/wengy-ven.svg)](https://github.com/ngVenezuela/wengy-ven/network)
 

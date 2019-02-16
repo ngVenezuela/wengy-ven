@@ -1,5 +1,5 @@
 {
-  "name": "wengy-ven-staging",
+  "name": "wengy-ven",
   "alias": "wengy-ven--staging.now.sh",
   "env": {
     "NTBA_FIX_319": "1",

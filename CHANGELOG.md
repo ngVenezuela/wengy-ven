@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 4.1.3 (2019-02-16)
+
+### Modificado
+
+- Cambio de circleci a travisci
+
 ## 4.1.2 (2019-02-15)
 
 ### Corregido
