@@ -25,7 +25,7 @@ initializeBot = async () => {
   if (NODE_ENV === 'development') {
     const url = await ngrok.connect(APP_PORT);
     console.log(
-      `use this url in your webhooks along with the token. example: ${url}/MY_SECRET_TOKEN: `
+      `use this url in your webhooks along with the token: ${url}/${TELEGRAM_BOT_TOKEN}`
     );
     telegramBot.setWebHook(`${url}/${TELEGRAM_BOT_TOKEN}`);
   } else {
