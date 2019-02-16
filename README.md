@@ -1,4 +1,4 @@
-![Test status](https://circleci.com/gh/ngVenezuela/wengy-ven/tree/develop.svg?style=shield&circle-token=:circle-token)
+![Test status](https://img.shields.io/travis/ngVenezuela/wengy-ven.svg?style=popout)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ngVenezuela/wengy-ven/develop/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/ngVenezuela/wengy-ven.svg)](https://github.com/ngVenezuela/wengy-ven/network)
 
@@ -41,7 +41,7 @@
 * Se le hace un seguimiento a la cuenta oficial de twitter de *ngVenezuela*, y cualquier tuit o RT que se haga desde esa cuenta, se muestra un enlace al grupo.
 
     ![](http://i.imgur.com/Z42qTXp.png)
-* Cualquier _push_ a la rama **master**, genera un despliegue automático con [CircleCI](https://circleci.com/), dado que no fallen las pruebas ([Jest](https://facebook.github.io/jest/)).
+* Cualquier _push_ a la rama **master**, genera un despliegue automático con [Travis CI](https://travis-ci.org/)
     
     ![](http://i.imgur.com/sbTnKsF.png)
 
