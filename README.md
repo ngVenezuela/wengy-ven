@@ -41,7 +41,7 @@
 * Se le hace un seguimiento a la cuenta oficial de twitter de *ngVenezuela*, y cualquier tuit o RT que se haga desde esa cuenta, se muestra un enlace al grupo.
 
     ![](http://i.imgur.com/Z42qTXp.png)
-* Cualquier _push_ a la rama **master**, genera un despliegue automático con [CircleCI](https://circleci.com/), dado que no fallen las pruebas ([Jest](https://facebook.github.io/jest/)).
+* Cualquier _push_ a la rama **master**, genera un despliegue automático con [Travis CI](https://travis-ci.org/)
     
     ![](http://i.imgur.com/sbTnKsF.png)
 
