@@ -1,6 +1,8 @@
+const { MAIN_GROUP_ID, ADMIN_GROUP_ID } = process.env;
+
 module.exports = {
-  mainGroupId: '-165387746',
-  adminGroupId: '-322716629',
+  mainGroupId: MAIN_GROUP_ID,
+  adminGroupId: ADMIN_GROUP_ID,
   whiteListedDomains: [
     'https://github.com',
     'https://medium.com',
