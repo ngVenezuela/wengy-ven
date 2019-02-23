@@ -58,5 +58,4 @@ process.on('SIGUSR2', () => {
 
 process.on('uncaughtException', error => {
   Sentry.captureException(error);
-  throw new Error(error);
 });
