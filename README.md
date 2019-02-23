@@ -1,4 +1,4 @@
-![Test status](https://circleci.com/gh/ngVenezuela/wengy-ven/tree/develop.svg?style=shield&circle-token=:circle-token)
+![Test status](https://img.shields.io/travis/ngVenezuela/wengy-ven.svg?style=popout)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ngVenezuela/wengy-ven/develop/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/ngVenezuela/wengy-ven.svg)](https://github.com/ngVenezuela/wengy-ven/network)
 
@@ -8,7 +8,7 @@
 
 ## Características
 
-* Comandos (se utiliza [redis](https://github.com/NodeRedis/node_redis) para evitar el abuso de estos):
+* Comandos:
   * /github - muestra un enlace para este repo.
 
     ![](http://i.imgur.com/yt4gq19.png)
@@ -35,13 +35,13 @@
 * Se sigue el feed del blog oficial de *ngVenezuela*, y cuando hay nuevas entradas se publica en el grupo el enlace con la nueva entrada con el nombre del autor. Esto se hace a través de [Superfeedr](https://superfeedr.com).
 
     ![](http://i.imgur.com/L8zBF8T.png)
-* Si se le hace una mención al bot o se le responde a un mensaje, se evaluará la expresión a través de [api.ai](https://api.ai/) y se le responderá siempre y cuando se le haya entrenado según el mensaje que se le escribió.
+* Si se le hace una mención al bot o se le responde a un mensaje, se evaluará la expresión a través de [https://dialogflow.com](https://https://dialogflow.com/) y se le responderá siempre y cuando se le haya entrenado según el mensaje que se le escribió.
 
     ![](http://i.imgur.com/7E6IlLo.png)
 * Se le hace un seguimiento a la cuenta oficial de twitter de *ngVenezuela*, y cualquier tuit o RT que se haga desde esa cuenta, se muestra un enlace al grupo.
 
     ![](http://i.imgur.com/Z42qTXp.png)
-* Cualquier _push_ a la rama **master**, genera un despliegue automático con [CircleCI](https://circleci.com/), dado que no fallen las pruebas ([Jest](https://facebook.github.io/jest/)) ni el linter ([ESLint](http://eslint.org/)).
+* Cualquier _push_ a la rama **master**, genera un despliegue automático con [Travis CI](https://travis-ci.org/)
     
     ![](http://i.imgur.com/sbTnKsF.png)
 
@@ -49,15 +49,15 @@
 
 Te invitamos a leer el documento [CONTRIBUTING](.github/CONTRIBUTING.md) para conocer todos los detalle de nuestro código de conducta y el proceso para enviarnos _Pull Requests_.
 
+#### Versión 4 en adelante:
+
+Para configurar tu ambiente de desarrollo, te invitamos a leer las siguientes instrucciones: [https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-wengy-ven-v4-en-adelante](https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-wengy-ven-v4-en-adelante)
+
+
+#### Versión 3:
+
+
 Para configurar tu ambiente de desarrollo, te invitamos a leer las siguientes instrucciones: [https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-el-proyecto](https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-el-proyecto)
-
-## Corriendo el 'linter'
-
-Para ejecutar el 'linter' (para guías de estilo), utilizamos la de [airbnb](https://github.com/airbnb/javascript), simplemente ejecutamos el siguiente comando:
-
-```bash
-$ npm run lint
-```
 
 ## Corriendo los tests
 

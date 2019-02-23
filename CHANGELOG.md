@@ -1,5 +1,39 @@
 ## [Unreleased]
 
+## 4.1.3 (2019-02-16)
+
+### Modificado
+
+- Cambio de circleci a travisci
+
+## 4.1.2 (2019-02-15)
+
+### Corregido
+
+- Corrección de errores de dependencia
+
+## 4.1.1 (2019-02-15)
+
+### Eliminado
+
+- Dependencia de nodemon
+
+## 4.1.0 (2019-02-15)
+
+### Modificado
+
+- Migración de api de dialogflow de v1 a v2
+
+## 4.0.0 (2019-02-09)
+
+### Agregado
+
+- Soporte para zeit/now.
+
+### Actualizado
+
+- Dependencias
+
 ## 3.3.3 (2018-10-27)
 
 ### Actualizado
