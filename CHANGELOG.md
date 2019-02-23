@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 4.1.4 (2019-02-22)
+
+### Modificado
+
+- Se cambió cross-env de devDependency a dependency
+
 ## 4.1.3 (2019-02-16)
 
 ### Modificado
