@@ -18,7 +18,11 @@ const formatName = (firstName, userName) =>
 const sayHello = async (bot, msg) => {
   const chatId = msg.chat.id;
   const chatInfo = await bot.getChat(chatId);
-  if (chatInfo.type === 'group') {
+  const {
+    type,
+    all_members_are_administrators: allMembersAreAdministrators,
+  } = chatInfo;
+  if (['supergroup', 'group'].includes(type) && !allMembersAreAdministrators) {
     msg.new_chat_members.forEach(({ first_name, username }) => {
       const message = welcome.replace(
         '#{name}',
@@ -41,7 +45,11 @@ const sayGoodbye = async (bot, msg) => {
   const chatId = msg.chat.id;
   const chatInfo = await bot.getChat(chatId);
   const { first_name: firstName, username } = msg.left_chat_member;
-  if (chatInfo.type === 'group') {
+  const {
+    type,
+    all_members_are_administrators: allMembersAreAdministrators,
+  } = chatInfo;
+  if (['supergroup', 'group'].includes(type) && !allMembersAreAdministrators) {
     sendMessage(
       bot,
       msg.chat.id,
