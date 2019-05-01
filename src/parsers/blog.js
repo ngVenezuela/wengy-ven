@@ -3,9 +3,8 @@ const { newBlogPost } = require('config/messages');
 const { sendMessage } = require('bot-api-overrides');
 
 const handleBlogEntry = (bot, body) => {
-  const items = body.items;
-  if (items) {
-    items.forEach(article => {
+  if (body && body.items) {
+    body.items.forEach(article => {
       sendMessage(
         bot,
         mainGroupId,
