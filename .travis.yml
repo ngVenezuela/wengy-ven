@@ -8,12 +8,12 @@ before_install:
   - npm install -g now@canary
 deploy:
   - provider: script
-    script: now -t $NOW_TOKEN -S ngvenezuela -A now-staging.json && now target --staging -t $NOW_TOKEN -S ngvenezuela -A now-staging.json -y && now rm wengy-ven -t $NOW_TOKEN -S ngvenezuela --safe -y
+    script: now -t $NOW_TOKEN -T ngvenezuela -A now-staging.json && now alias -t $NOW_TOKEN -T ngvenezuela -A now-staging.json -y && now rm wengy-ven -t $NOW_TOKEN -T ngvenezuela --safe -y
     skip_cleanup: true
     on:
       branch: develop
   - provider: script
-    script: now -t $NOW_TOKEN -S ngvenezuela && now target --production -t $NOW_TOKEN -S ngvenezuela -y && now rm wengy-ven -t $NOW_TOKEN -S ngvenezuela --safe -y
+    script: now -t $NOW_TOKEN -T ngvenezuela && now alias -t $NOW_TOKEN -T ngvenezuela -y && now rm wengy-ven -t $NOW_TOKEN -T ngvenezuela --safe -y
     skip_cleanup: true
     on:
       branch: master
