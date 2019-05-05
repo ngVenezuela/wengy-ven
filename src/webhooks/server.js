@@ -24,11 +24,20 @@ class BotServer {
     // parse the updates to JSON
     app.use(bodyParser.json());
 
+    // If a webhook has a verify url, we receive it here
+    app.get(path, (req, res) => {
+      this.webhooks.forEach(
+        webhook =>
+          typeof webhook.verifyMessage === 'function' &&
+          webhook.verifyMessage(req, res)
+      );
+    });
+
     // We are receiving updates at the route below!
     app.post(path, (req, res) => {
       this.webhooks.forEach(
         webhook =>
-          webhook.checkMessage(req.body) && webhook.proccessMessage(req.body)
+          webhook.checkMessage(req.body) && webhook.processMessage(req.body)
       );
 
       res.sendStatus(200).end();
@@ -45,7 +54,11 @@ class BotServer {
    * @param {object} webhook
    */
   static isWebHook(webhook) {
-    return webhook && webhook.checkMessage && webhook.proccessMessage;
+    return (
+      webhook &&
+      typeof webhook.checkMessage === 'function' &&
+      typeof webhook.processMessage === 'function'
+    );
   }
 
   /**

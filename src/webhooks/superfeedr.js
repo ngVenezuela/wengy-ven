@@ -18,7 +18,7 @@ class Superfeedr extends EventEmitter {
    * Emit message to subscribers
    * @param {object} msg - Message to emit
    */
-  proccessMessage(msg) {
+  processMessage(msg) {
     if (msg.status.feed.startsWith('https://medium.com')) {
       return this.emit('newBlogEntry');
     }

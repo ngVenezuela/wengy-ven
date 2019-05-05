@@ -32,7 +32,8 @@ class TelegramBot extends NodeTelegramBotApi {
       msg.chosen_inline_result ||
       msg.callback_query ||
       msg.shipping_query ||
-      msg.pre_checkout_query
+      msg.pre_checkout_query ||
+      msg.poll
     );
   }
 
@@ -40,7 +41,7 @@ class TelegramBot extends NodeTelegramBotApi {
    * Give message to processUpdate parent method
    * @param {object} msg - Message to process
    */
-  proccessMessage(msg) {
+  processMessage(msg) {
     this.processUpdate(msg);
   }
 }
