@@ -15,7 +15,7 @@
     "NTBA_FIX_319": "1",
     "SENTRY_DSN": "@sentryio-dns-staging",
     "TELEGRAM_BOT_TOKEN": "@telegram-bot-token-staging",
-    "TWITTER_CONSUMER_SECRET": "@twitter-consumer-secret-staging"
+    "TWITTER_CONSUMER_SECRET": "@twitter-consumer-secret"
   },
   "version": 1,
   "public": true,
