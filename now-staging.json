@@ -14,7 +14,8 @@
     "NODE_ENV": "staging",
     "NTBA_FIX_319": "1",
     "SENTRY_DSN": "@sentryio-dns-staging",
-    "TELEGRAM_BOT_TOKEN": "@telegram-bot-token-staging"
+    "TELEGRAM_BOT_TOKEN": "@telegram-bot-token-staging",
+    "TWITTER_CONSUMER_SECRET": "@twitter-consumer-secret-staging"
   },
   "version": 1,
   "public": true,

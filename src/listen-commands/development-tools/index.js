@@ -8,10 +8,13 @@ const sendGroupId = async (bot, msg) => {
   const chatId = msg.chat.id;
   const chatInfo = await bot.getChat(chatId);
 
-  if (['group', 'supergroup'].includes(chatInfo.type)) {
+  if (chatInfo.type === 'private') {
     bot.sendMessage(
       chatId,
-      `Tú variable \`mainGroupId/adminGroupId\` es: ${chatInfo.id}`
+      `Tú variable \`mainGroupId/adminGroupId\` es: ${chatInfo.id}`,
+      {
+        parse_mode: 'Markdown',
+      }
     );
   }
 };

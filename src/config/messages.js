@@ -35,7 +35,7 @@ const messages = {
   newBlogPost: '*#{author}* ha agregado una nueva entrada al blog titulada: '.concat(
     '*#{title}* y está disponible en: #{link}'
   ),
-  newTweet: '#{hashtagMessage} \u{1F426}\n'.concat(
+  newTweet: '#ngVenezuelaTweet \u{1F426}\n'.concat(
     '#{tweetText}\n',
     '----\n',
     'Puedes ver el Tweet aquí: #{tweetUrl}'

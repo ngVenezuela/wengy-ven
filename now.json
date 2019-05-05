@@ -14,7 +14,8 @@
     "NODE_ENV": "production",
     "NTBA_FIX_319": "1",
     "SENTRY_DSN": "@sentryio-dns",
-    "TELEGRAM_BOT_TOKEN": "@telegram-bot-token"
+    "TELEGRAM_BOT_TOKEN": "@telegram-bot-token",
+    "TWITTER_CONSUMER_SECRET": "@twitter-consumer-secret"
   },
   "version": 1,
   "public": true,

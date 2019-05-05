@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 4.1.0 (2019-05-04)
+
+### Agregado
+
+- Habilitada de nuevo la funcionalidad de twitter
+
 ## 4.0.3 (2019-05-01)
 
 ### Actualizado
