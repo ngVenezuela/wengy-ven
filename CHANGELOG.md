@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 4.1.1 (2019-06-10)
+
+### Actualizado
+
+- Dependencias
+
 ## 4.1.0 (2019-05-04)
 
 ### Agregado
