@@ -1,6 +1,6 @@
 const { welcome, goodBye } = require('config/messages');
 const { sendMessage } = require('bot-api-overrides');
-
+const { chatType } = require('listen-commands/admin');
 /**
  * Returns username or first name of the user
  * @param {string} firstName
@@ -16,13 +16,8 @@ const formatName = (firstName, userName) =>
  * @param {object} msg
  */
 const sayHello = async (bot, msg) => {
-  const chatId = msg.chat.id;
-  const chatInfo = await bot.getChat(chatId);
-  const {
-    type,
-    all_members_are_administrators: allMembersAreAdministrators,
-  } = chatInfo;
-  if (['supergroup', 'group'].includes(type) && !allMembersAreAdministrators) {
+  const type = await chatType(bot, msg);
+  if (type === 'main') {
     msg.new_chat_members.forEach(({ first_name, username }) => {
       const message = welcome.replace(
         '#{name}',
@@ -42,19 +37,13 @@ const sayHello = async (bot, msg) => {
  * @param {object} msg
  */
 const sayGoodbye = async (bot, msg) => {
-  const chatId = msg.chat.id;
-  const chatInfo = await bot.getChat(chatId);
-  const { first_name: firstName, username } = msg.left_chat_member;
   const {
-    type,
-    all_members_are_administrators: allMembersAreAdministrators,
-  } = chatInfo;
-  if (['supergroup', 'group'].includes(type) && !allMembersAreAdministrators) {
-    sendMessage(
-      bot,
-      msg.chat.id,
-      goodBye.replace('#{name}', formatName(firstName, username))
-    );
+    left_chat_member: { first_name: firstName },
+    chat: { id: chatId },
+  } = msg;
+  const type = await chatType(bot, msg);
+  if (type === 'main') {
+    sendMessage(bot, chatId, goodBye.replace('#{name}', firstName));
   }
 };
 

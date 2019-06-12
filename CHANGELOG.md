@@ -1,5 +1,12 @@
 ## [Unreleased]
 
+## 4.2.0 (2019-06-12)
+
+### Arreglado
+
+- Mensaje de despedida a usuario cuando deja el grupo solo funcionaba en grupo de admins
+- Reenvío de enlaces al grupo de admins que eran compartidos en el mismo grupo no debían enviarse
+
 ## 4.1.1 (2019-06-11)
 
 ### Actualizado

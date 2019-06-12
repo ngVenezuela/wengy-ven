@@ -1,14 +1,16 @@
 /**
- * Send group or supergroup's Id.
+ * Send main or admin's group id.
  * This will be used in config/telegram.js
  * @param {object} bot
  * @param {object} msg
  */
 const sendGroupId = async (bot, msg) => {
-  const chatId = msg.chat.id;
+  const {
+    chat: { id: chatId },
+  } = msg;
   const chatInfo = await bot.getChat(chatId);
 
-  if (chatInfo.type === 'private') {
+  if (['group', 'supergroup'].includes(chatInfo.type)) {
     bot.sendMessage(
       chatId,
       `Tú variable \`mainGroupId/adminGroupId\` es: ${chatInfo.id}`,
