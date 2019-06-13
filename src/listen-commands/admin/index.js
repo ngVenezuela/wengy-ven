@@ -1,15 +1,29 @@
-const { whiteListedDomains, adminGroupId } = require('config/telegram');
+const {
+  whiteListedDomains,
+  mainGroupId,
+  adminGroupId,
+} = require('config/telegram');
 const { forwardMessage } = require('bot-api-overrides');
 
-const verifyUrls = async (bot, msg) => {
-  const chatId = msg.chat.id;
-  const chatInfo = await bot.getChat(chatId);
+const chatType = async (bot, msg) => {
   const {
-    type,
-    all_members_are_administrators: allMembersAreAdministrators,
-  } = chatInfo;
+    chat: { id },
+  } = msg;
+  const { id: chatId } = await bot.getChat(id);
 
-  if (['group', 'supergroup'].includes(type) && !allMembersAreAdministrators) {
+  if (chatId.toString() === mainGroupId) {
+    return 'main';
+  } else if (chatId.toString() === adminGroupId) {
+    return 'admin';
+  }
+
+  return 'private';
+};
+
+const verifyUrls = async (bot, msg) => {
+  const type = await chatType(bot, msg);
+
+  if (type === 'main') {
     const urlEntities = msg.entities
       ? msg.entities.filter(entity => entity.type === 'url')
       : [];
@@ -34,5 +48,6 @@ const verifyUrls = async (bot, msg) => {
 };
 
 module.exports = {
+  chatType,
   verifyUrls,
 };

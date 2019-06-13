@@ -3,6 +3,7 @@ const Sentry = require('@sentry/node');
 
 const { gistCreated, gistRecommendation } = require('config/messages');
 const { sendMessage } = require('bot-api-overrides');
+const { chatType } = require('listen-commands/admin');
 
 const { GITHUB_ACCESS_TOKEN } = process.env;
 const MAX_LENGTH_GIST_TEXT = 200;
@@ -70,10 +71,9 @@ const sendGist = (bot, msg, text = '') => {
  * @param {object} msg
  */
 const verifyCode = async (bot, msg) => {
-  const chatId = msg.chat.id;
-  const chatInfo = await bot.getChat(chatId);
+  const type = await chatType(bot, msg);
 
-  if (['supergroup', 'group'].includes(chatInfo.type)) {
+  if (['main', 'admin'].includes(type)) {
     if (!Object.prototype.hasOwnProperty.call(msg, 'entities')) {
       return;
     }

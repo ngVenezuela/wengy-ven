@@ -65,5 +65,8 @@ process.on('SIGUSR2', () => {
 });
 
 process.on('uncaughtException', error => {
+  if (NODE_ENV === 'development') {
+    console.log('error: ', error);
+  }
   Sentry.captureException(error);
 });
