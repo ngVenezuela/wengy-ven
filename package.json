@@ -23,21 +23,21 @@
   },
   "homepage": "https://github.com/ngVenezuela/wengy-ven#readme",
   "dependencies": {
-    "@sentry/node": "^5.6.2",
+    "@sentry/node": "^5.13.1",
     "body-parser": "^1.19.0",
-    "cron": "^1.7.1",
-    "cross-env": "^5.2.0",
+    "cron": "^1.8.2",
+    "cross-env": "^5.2.1",
     "dialogflow": "^0.8.2",
-    "dotenv": "^8.1.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "ngrok": "^3.2.5",
+    "ngrok": "^3.2.7",
     "node-fetch": "^2.6.0",
     "node-telegram-bot-api": "^0.30.0"
   },
   "devDependencies": {
-    "husky": "^3.0.4",
-    "lint-staged": "^9.2.3",
-    "prettier": "^1.18.2"
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1"
   },
   "husky": {
     "hooks": {
