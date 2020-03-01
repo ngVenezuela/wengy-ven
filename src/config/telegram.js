@@ -35,7 +35,7 @@ module.exports = {
     },
     {
       name: 'blog',
-      feed: 'https://medium.com/feed/ngvenezuela',
+      feed: 'https://dev.to/feed/ngvenezuela',
     },
   ],
 };
