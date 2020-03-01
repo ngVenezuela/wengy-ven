@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 4.2.3 (2020-02-29)
+
+### Actualizado
+
+- Dependencias y url del blog
+
 ## 4.2.2 (2019-08-19)
 
 ### Actualizado
