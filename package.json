@@ -1,10 +1,11 @@
 {
   "name": "wengy-ven",
   "version": "0.0.0",
-  "description": "Official telegram bot for the ng-Venezuela community",
-  "main": "src/index.js",
+  "description": "Official telegram bot for the ngVenezuela community",
   "scripts": {
-    "start": "cross-env NODE_PATH=src node src/index.js"
+    "dev-server": "node dev-telegram-server.js",
+    "vercel": "vercel dev",
+    "start": "run-p -l vercel dev-server"
   },
   "repository": {
     "type": "git",
@@ -23,21 +24,18 @@
   },
   "homepage": "https://github.com/ngVenezuela/wengy-ven#readme",
   "dependencies": {
-    "@sentry/node": "^5.13.1",
-    "body-parser": "^1.19.0",
-    "cron": "^1.8.2",
-    "cross-env": "^5.2.1",
-    "dialogflow": "^0.8.2",
+    "@google-cloud/dialogflow": "next",
+    "@sentry/node": "^5.15.5",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "ngrok": "^3.2.7",
-    "node-fetch": "^2.6.0",
-    "node-telegram-bot-api": "^0.30.0"
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "husky": "^3.1.0",
     "lint-staged": "^9.5.0",
-    "prettier": "^1.19.1"
+    "ngrok": "^3.2.7",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
+    "vercel": "^19.0.1"
   },
   "husky": {
     "hooks": {

@@ -6,32 +6,6 @@ const messages = {
   ),
   goodBye:
     '¡Nos vemos pronto #{name}! Esperamos NO verte por el grupo de React Venezuela',
-  goodMornings: {
-    mondays: [
-      'Buenos días comunidad, ¡Que tengan un excelente inicio de semana! \u{1F60E}',
-    ],
-    fridays: [
-      'Buenos días. Recuerden que los viernes no se hacen deploy \u{1F601}',
-      'Buenos días. ¡Hoy es viernes y el hardware lo sabe!',
-      'Buenos días comunidad. Feliz viernes',
-      'Buenos días. Hoy cualquier bug es un feature después de las 4pm',
-    ],
-    generic: [
-      'Buenos días...¿tomaron café? \u{2615}',
-      'Buenos días. Recuerden que detrás de una persona exitosa '.concat(
-        'está una gran cantidad de café \u{2615}'
-      ),
-      'Buenos días. Keep calm and drink \u{2615}',
-      'Buenos días \u{1F601}\u{2615}',
-      'Buenos días',
-      'Buenos días a todos',
-      'Buenos días comunidad',
-      'Buenos días #ngPanas',
-      'Buenos días comunidad, Y como dice @cesarfrick: ¡A trabajar, '.concat(
-        'vagos! Que los yates de sus jefes no se pagan solos'
-      ),
-    ],
-  },
   newBlogPost: '*#{author}* ha agregado una nueva entrada al blog titulada: '.concat(
     '*#{title}* y está disponible en: #{link}'
   ),
@@ -51,4 +25,4 @@ const messages = {
     'Utiliza el comando /gist _codigo_ para generar un gist en github',
 };
 
-module.exports = messages;
+export default messages;

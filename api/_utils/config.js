@@ -1,8 +1,4 @@
-const { MAIN_GROUP_ID, ADMIN_GROUP_ID } = process.env;
-
-module.exports = {
-  mainGroupId: MAIN_GROUP_ID,
-  adminGroupId: ADMIN_GROUP_ID,
+const config = {
   whiteListedDomains: [
     'https://github.com',
     'https://medium.com',
@@ -39,3 +35,6 @@ module.exports = {
     },
   ],
 };
+
+export default config;
+

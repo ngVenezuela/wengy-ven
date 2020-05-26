@@ -22,16 +22,14 @@
 * Se saluda a los nuevos miembros que entran al grupo, y también a los que se van.
 
   ![](http://i.imgur.com/tk7Qct5.png)
-* Da los buenos días a las 9 AM (hora venezuela)
-  
-  ![](http://i.imgur.com/Hhk3B6T.png)
-* En caso de que el usuario coloque un código formateado entre ```, si es mayor a 200 caracteres se le sugiere que utilice el comando /gist, de lo contrario, crea un gist automáticamente. Esto se hace a través de la [API de github](https://developer.github.com/v3/)
+
+* En caso de que el usuario coloque un código formateado entre ```, si es mayor a 400 caracteres se le sugiere que utilice el comando /gist, de lo contrario, crea un gist automáticamente. Esto se hace a través de la [API de github](https://developer.github.com/v3/)
 
   ![](http://i.imgur.com/96xk4tV.png)
-* Se siguen varios repos relacionados a Angular/AngularJS, cuando hay un nuevo release de los mismos, se informa mediante un mensaje al grupo mencionando la versión y un enlace al CHANGELOG.md o al repo en caso de que no tenga changelog. Esto se hace a través de [Superfeedr](https://superfeedr.com).
+* Se siguen varios repos relacionados a Angular/AngularJS, cuando hay un nuevo release de los mismos, se informa mediante un mensaje al grupo mencionando la versión y un enlace al CHANGELOG.md o al repo en caso de que no tenga changelog. Esto se hace a través de [Zapier](https://https://zapier.com).
 
   ![](http://i.imgur.com/1SpTTIE.png)
-* Se sigue el feed del blog oficial de *ngVenezuela*, y cuando hay nuevas entradas se publica en el grupo el enlace con la nueva entrada con el nombre del autor. Esto se hace a través de [Superfeedr](https://superfeedr.com).
+* Se sigue el feed del blog oficial de *ngVenezuela*, y cuando hay nuevas entradas se publica en el grupo el enlace con la nueva entrada con el nombre del autor. Esto se hace a través de [Zapier](https://https://zapier.com).
 
   ![](http://i.imgur.com/L8zBF8T.png)
 * Si se le hace una mención al bot o se le responde a un mensaje, se evaluará la expresión a través de [https://dialogflow.com](https://https://dialogflow.com/) y se le responderá siempre y cuando se le haya entrenado según el mensaje que se le escribió.
@@ -40,22 +38,12 @@
 * Se le hace un seguimiento a la cuenta oficial de twitter de *ngVenezuela*, y cualquier tuit o RT que se haga desde esa cuenta, se muestra un enlace al grupo.
 
   ![](http://i.imgur.com/Z42qTXp.png)
-* Cualquier _push_ a la rama **master**, genera un despliegue automático con [Travis CI](https://travis-ci.org/)
-    
-  ![](http://i.imgur.com/sbTnKsF.png)
 
 ## Contribuyendo
 
 Te invitamos a leer el documento [CONTRIBUTING](.github/CONTRIBUTING.md) para conocer todos los detalle de nuestro código de conducta y el proceso para enviarnos _Pull Requests_.
 
-#### Versión 4 en adelante:
-
-Para configurar tu ambiente de desarrollo, te invitamos a leer las siguientes instrucciones: [https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-wengy-ven-v4-en-adelante](https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-wengy-ven-v4-en-adelante)
-
-
-#### Versión 3:
-
-Para configurar tu ambiente de desarrollo, te invitamos a leer las siguientes instrucciones: [https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-el-proyecto](https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-el-proyecto)
+Para configurar tu ambiente de desarrollo, te invitamos a leer las siguientes instrucciones: [https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-wengy-ven](https://github.com/ngVenezuela/wengy-ven/wiki/Instrucciones-para-colaborar-con-wengy-ven)
 
 ## Corriendo los tests
 
