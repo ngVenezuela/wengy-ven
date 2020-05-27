@@ -1,6 +1,5 @@
 {
   "scope": "ngvenezuela",
   "version": 2,
-  "public": false,
-  "regions": ["all"]
+  "public": false
 }
