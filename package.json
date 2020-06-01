@@ -27,7 +27,8 @@
     "@google-cloud/dialogflow": "next",
     "@sentry/node": "^5.15.5",
     "dotenv": "^8.2.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "twitter-autohook": "^1.7.1"
   },
   "devDependencies": {
     "husky": "^3.1.0",

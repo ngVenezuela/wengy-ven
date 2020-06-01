@@ -24,6 +24,6 @@ export default async(request, response) => {
   } catch (error) {
     Sentry.captureException(error);
 
-    response.status(400);
+    response.status(400).send('not ok');
   }
 };
