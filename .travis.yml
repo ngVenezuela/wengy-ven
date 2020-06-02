@@ -8,7 +8,7 @@ before_install:
   - npm install -g vercel
 deploy:
   - provider: script
-    script: vercel --prod --token $VERCEL_TOKEN
+    script: vercel --prod --confirm --token $VERCEL_TOKEN
     skip_cleanup: true
     on:
       branch: master
