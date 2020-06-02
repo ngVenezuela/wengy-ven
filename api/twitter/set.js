@@ -27,7 +27,7 @@ export default async(request, response) => {
       });
 
       await webhook.removeWebhooks();
-      await webhook.setWebhook(`${APP_URL}/api/twitter/update`);
+      await webhook.start(`${APP_URL}/api/twitter/update`);
       await webhook.subscribe({
         oauth_token: TWITTER_ACCESS_TOKEN,
         oauth_token_secret: TWITTER_ACCESS_TOKEN_SECRET,
