@@ -33,13 +33,13 @@ const handleTweets = async(tweets = []) => {
 /**
  * @description Used to verify that the request comes from Twitter
  * @see https://github.com/twitterdev/autohook/blob/eac07b9c0bdb8fe3fad375ce5349b0c4c6d1e128/index.js#L78
- * @param {Object} header
+ * @param {Object} headers
  * @param {string} body
  */
-const validateSignature = (header, body) => {
+const validateSignature = (headers, body) => {
   const signatureHeaderName = 'x-twitter-webhooks-signature';
 
-  if (typeof header[signatureHeaderName] === 'undefined') {
+  if (typeof headers[signatureHeaderName] === 'undefined') {
     throw new TypeError(`validateSignature: header ${signatureHeaderName} not found`);
   }
 
@@ -49,7 +49,7 @@ const validateSignature = (header, body) => {
     .digest('base64');
 
   return crypto.timingSafeEqual(
-    Buffer.from(header[signatureHeaderName]),
+    Buffer.from(headers[signatureHeaderName]),
     Buffer.from(signature)
   );
 }
