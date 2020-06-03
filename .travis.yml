@@ -7,12 +7,10 @@ cache:
 before_deploy:
   - npm install -g vercel
 deploy:
+  skip_cleanup: true
   - provider: script
     script: vercel --prod --confirm --token $VERCEL_TOKEN
     on:
       branch: master
 after_deploy:
-  - provider: script
-    script: node scripts/update-hooks.js
-    on:
-      branch: master
+  - node scripts/update-hooks.js
