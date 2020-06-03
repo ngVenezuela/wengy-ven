@@ -84,6 +84,12 @@ const getRawBody = (readable) => {
 
 export default async(request, response) => {
   try {
+    /*
+      There was a problem when validating the header signature in a get request,
+      therefore, we are not validating that here. The problem is related to the
+      order of the query arguments being reversed in vercel, but not with a local
+      environment (ngrok).
+    */
     if (request.method === 'GET') {
       const crcToken = request.query.crc_token;
 
