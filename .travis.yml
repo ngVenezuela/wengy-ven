@@ -14,6 +14,6 @@ deploy:
       branch: master
 after_deploy:
   - provider: script
-    script: APP_URL=$APP_URL SENTRY_DSN=$SENTRY_DSN TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN TWITTER_CONSUMER_KEY=$TWITTER_CONSUMER_KEY node update-hooks.js
+    script: cd $TRAVIS_BUILD_DIR && APP_URL=$APP_URL SENTRY_DSN=$SENTRY_DSN TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN TWITTER_CONSUMER_KEY=$TWITTER_CONSUMER_KEY node update-hooks.js
     on:
       branch: master
