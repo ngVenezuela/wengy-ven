@@ -91,7 +91,7 @@ const getRawBody = (readable) => {
 };
 
 export default async(request, response) => {
-  console.time('ms-update-test');
+  console.log('request.url', request.url);
   try {
     if (request.method === 'GET') {
       if (validateSignature(request.headers, url.parse(request.url).query)) {
@@ -132,7 +132,5 @@ export default async(request, response) => {
     }
 
     response.status(400).send('not ok');
-  } finally {
-    console.timeEnd('ms-update-test');
   }
 };
