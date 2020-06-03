@@ -4,7 +4,7 @@ const config = {
     'https://medium.com',
     'https://twitter.com',
   ],
-  feeds: [
+  githubFeeds: [
     {
       name: 'angular',
       repo: 'angular/angular',
@@ -28,12 +28,14 @@ const config = {
       repo: 'ngVenezuela/wengy-ven',
       hasChangelog: true,
       feed: 'https://github.com/ngVenezuela/wengy-ven/releases.atom',
-    },
+    }
+  ],
+  blogFeeds: [
     {
-      name: 'blog',
+      name: 'Blog oficial de ngvenezuela',
       feed: 'https://dev.to/feed/ngvenezuela',
     },
-  ],
+  ]
 };
 
 export default config;
