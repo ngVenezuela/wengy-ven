@@ -9,11 +9,10 @@ before_deploy:
 deploy:
   - provider: script
     script: vercel --prod --confirm --token $VERCEL_TOKEN
-    skip_cleanup: true
     on:
       branch: master
 after_deploy:
   - provider: script
-    script: cd $TRAVIS_BUILD_DIR && APP_URL=$APP_URL SENTRY_DSN=$SENTRY_DSN TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN TWITTER_CONSUMER_KEY=$TWITTER_CONSUMER_KEY node update-hooks.js
+    script: node scripts/update-hooks.js
     on:
       branch: master
