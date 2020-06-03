@@ -1,6 +1,5 @@
 import crypto from 'crypto';
 import { Buffer } from 'buffer';
-import url from 'url';
 import * as Sentry from '@sentry/node';
 
 import { sendMessage } from '../_utils/telegram/bot-methods';
@@ -37,8 +36,6 @@ const handleTweets = async(tweets = []) => {
  * @param {string} body
  */
 const validateSignature = (headers, body) => {
-  console.log('headers: ', headers);
-  console.log('body: ', body);
   const signatureHeaderName = 'x-twitter-webhooks-signature';
 
   if (typeof headers[signatureHeaderName] === 'undefined') {
@@ -49,16 +46,11 @@ const validateSignature = (headers, body) => {
     .createHmac('sha256', TWITTER_CONSUMER_SECRET)
     .update(body)
     .digest('base64');
-  console.log('signature: ', signature);
 
-  const isValid = crypto.timingSafeEqual(
+  return crypto.timingSafeEqual(
     Buffer.from(headers[signatureHeaderName]),
     Buffer.from(signature)
   );
-  console.log('headers[signatureHeaderName]: ', headers[signatureHeaderName]);
-  console.log('isValid: ', isValid);
-
-  return isValid;
 }
 
 /**
@@ -97,7 +89,6 @@ export default async(request, response) => {
 
       if (crcToken) {
         const hash = getChallengeResponse(crcToken);
-        console.log('hash: ', hash);
 
         response.status(200).json({
           response_token: `sha256=${hash}`,
