@@ -91,24 +91,19 @@ const getRawBody = (readable) => {
 };
 
 export default async(request, response) => {
-  console.log('request.url', request.url);
   try {
     if (request.method === 'GET') {
-      if (validateSignature(request.headers, url.parse(request.url).query)) {
-        const crcToken = request.query.crc_token;
+      const crcToken = request.query.crc_token;
 
-        if (crcToken) {
-          const hash = getChallengeResponse(crcToken);
-          console.log('hash: ', hash);
+      if (crcToken) {
+        const hash = getChallengeResponse(crcToken);
+        console.log('hash: ', hash);
 
-          response.status(200).json({
-            response_token: `sha256=${hash}`,
-          });
-        } else {
-          response.status(400).send('crc_token missing from request');
-        }
+        response.status(200).json({
+          response_token: `sha256=${hash}`,
+        });
       } else {
-        response.status(400).send('signature is not valid');
+        response.status(400).send('crc_token missing from request');
       }
     } else if (request.method === 'POST') {
       const rawBody = await getRawBody(request);
