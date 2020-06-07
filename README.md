@@ -1,6 +1,6 @@
 ![Test status](https://img.shields.io/travis/ngVenezuela/wengy-ven.svg?style=popout)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ngVenezuela/wengy-ven/develop/LICENSE)
-[![GitHub forks](https://img.shields.io/github/forks/ngVenezuela/wengy-ven.svg)](https://github.com/ngVenezuela/wengy-ven/network)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 # Wengy-ven
 
