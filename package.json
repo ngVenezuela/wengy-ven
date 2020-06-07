@@ -25,7 +25,7 @@
   "homepage": "https://github.com/ngVenezuela/wengy-ven#readme",
   "dependencies": {
     "@google-cloud/dialogflow": "next",
-    "@sentry/node": "^5.16.0",
+    "@sentry/node": "^5.16.1",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.0",
     "twitter-autohook": "^1.7.1"
@@ -36,6 +36,7 @@
     "ngrok": "^3.2.7",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
+    "semantic-release": "^17.0.8",
     "vercel": "^19.0.1"
   },
   "husky": {
@@ -47,6 +48,17 @@
     "src/**/*.js": [
       "prettier --single-quote --trailing-comma es5 --write",
       "git add"
+    ]
+  },
+  "release": {
+    "plugins": [
+      ["@semantic-release/commit-analyzer", {
+        "releaseRules": [
+          {"type": "chore", "release": "patch"}
+        ]
+      }],
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/git"
     ]
   }
 }

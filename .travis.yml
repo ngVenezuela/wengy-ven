@@ -5,11 +5,17 @@ cache:
   directories:
     - node_modules
 before_deploy:
-  - npm install -g vercel
+  - npm install -g vercel @semantic-release/git semantic-release@17
 deploy:
-  provider: script
-  script: vercel --prod --confirm --token $VERCEL_TOKEN
+  - provider: script
+  script:
+    - vercel --prod --confirm --token $VERCEL_TOKEN
   skip_cleanup: true
+  on:
+    branch: master
+  -provider: script
+  script:
+   - semantic-release
   on:
     branch: master
 after_deploy:
