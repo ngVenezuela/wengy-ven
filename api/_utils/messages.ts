@@ -1,4 +1,4 @@
-const messages = {
+const messages: {[index: string]:any} = {
   welcome: 'Hola #{name}, ¡Bienvenid@ a ngVenezuela!. Te invitamos a '.concat(
     'seguirnos en twitter como [@ngVenezuela](https://twitter.com/ngVenezuela) ',
     'y a mirar nuestra comunidad en Github: https://github.com/ngvenezuela.\n\n',

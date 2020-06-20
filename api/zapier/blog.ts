@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/node';
+import { NowRequest, NowResponse } from '@vercel/node';
 
 import config from '../_utils/config';
 import messages from '../_utils/messages';
@@ -9,25 +10,27 @@ const { MAIN_GROUP_ID, SENTRY_DSN, NODE_ENV } = process.env;
 
 Sentry.init({ dsn: SENTRY_DSN });
 
-/**
- *
- * @param {Object} feed
- * @param {string} feed.permalinkUrl
- * @param {string} feed.title
- * @param {Object} feed.actor
- * @param {string} feed.actor.displayName
- */
-const handleBlogFeed = async(feed) => {
-  await sendMessage({
-    chatId: MAIN_GROUP_ID,
-    text: messages.newBlogPost
-      .replace('#{author}', feed.actor.displayName)
-      .replace('#{link}', feed.permalinkUrl)
-      .replace('#{title}', feed.title),
-  });
+interface BlogFeed {
+  actor: {
+    displayName: string;
+  };
+  permalinkUrl: string;
+  title: string;
 };
 
-export default async(request, response) => {
+const handleBlogFeed = async(feed: BlogFeed) => {
+  if (MAIN_GROUP_ID) {
+    await sendMessage({
+      chatId: Number(MAIN_GROUP_ID),
+      text: messages.newBlogPost
+        .replace('#{author}', feed.actor.displayName)
+        .replace('#{link}', feed.permalinkUrl)
+        .replace('#{title}', feed.title),
+    });
+  }
+};
+
+export default async(request: NowRequest, response: NowResponse) => {
   try {
     if (isBasicAuthValid(request.headers.authorization)) {
       const updatedFeed = request.body.feed;

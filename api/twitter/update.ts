@@ -1,26 +1,37 @@
 import crypto from 'crypto';
 import { Buffer } from 'buffer';
 import * as Sentry from '@sentry/node';
+import { NowRequest, NowResponse } from '@vercel/node';
 
 import { sendMessage } from '../_utils/telegram/bot-methods';
 import messages from '../_utils/messages';
 
 const { TWITTER_CONSUMER_SECRET, MAIN_GROUP_ID, NODE_ENV, SENTRY_DSN } = process.env;
 
+interface TweetInterface {
+  in_reply_to_status_id: number;
+  in_reply_to_user_id: number;
+  id_str: string;
+  text: string;
+  user: {
+    screen_name: string;
+  };
+};
+
 Sentry.init({ dsn: SENTRY_DSN });
 
-const isReply = tweet =>
+const isReply = (tweet: TweetInterface) =>
   tweet.in_reply_to_status_id || tweet.in_reply_to_user_id;
 
-const handleTweets = async(tweets = []) => {
+const handleTweets = async(tweets: TweetInterface[] = []) => {
   for(const tweet of tweets) {
-    if (!isReply(tweet)) {
+    if (MAIN_GROUP_ID && !isReply(tweet)) {
       const tweetUrl = `https://twitter.com/${tweet.user.screen_name}/status/${
         tweet.id_str
       }`;
 
       await sendMessage({
-        chatId: MAIN_GROUP_ID,
+        chatId: Number(MAIN_GROUP_ID),
         text: messages.newTweet
           .replace('#{tweetText}', tweet.text)
           .replace('#{tweetUrl}', tweetUrl),
@@ -32,10 +43,8 @@ const handleTweets = async(tweets = []) => {
 /**
  * @description Used to verify that the request comes from Twitter
  * @see https://github.com/twitterdev/autohook/blob/eac07b9c0bdb8fe3fad375ce5349b0c4c6d1e128/index.js#L78
- * @param {Object} headers
- * @param {string} body
  */
-const validateSignature = (headers, body) => {
+const validateSignature = (headers: {[index: string]:any}, body: Buffer) => {
   const signatureHeaderName = 'x-twitter-webhooks-signature';
 
   if (typeof headers[signatureHeaderName] === 'undefined') {
@@ -43,7 +52,7 @@ const validateSignature = (headers, body) => {
   }
 
   const signature = 'sha256=' + crypto
-    .createHmac('sha256', TWITTER_CONSUMER_SECRET)
+    .createHmac('sha256', TWITTER_CONSUMER_SECRET ?? '')
     .update(body)
     .digest('base64');
 
@@ -51,21 +60,20 @@ const validateSignature = (headers, body) => {
     Buffer.from(headers[signatureHeaderName]),
     Buffer.from(signature)
   );
-}
+};
 
 /**
  * Generate hash to validate twitter webhook
- * @param {string} crcToken
  * @see https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/guides/securing-webhooks.html
  */
-const getChallengeResponse = (crcToken) =>
+const getChallengeResponse = (crcToken: string) =>
   crypto
-    .createHmac('sha256', TWITTER_CONSUMER_SECRET)
+    .createHmac('sha256', TWITTER_CONSUMER_SECRET ?? '')
     .update(crcToken)
     .digest('base64');
 
-const getRawBody = (readable) => {
-  let chunks = [];
+const getRawBody = (readable: NowRequest): Promise<Buffer> => {
+  let chunks: any[] = [];
   let bytes = 0;
 
   return new Promise((resolve, reject) => {
@@ -82,7 +90,7 @@ const getRawBody = (readable) => {
   });
 };
 
-export default async(request, response) => {
+export default async(request: NowRequest, response: NowResponse) => {
   try {
     /*
       There was a problem when validating the header signature in a get request,
@@ -91,7 +99,7 @@ export default async(request, response) => {
       environment (ngrok).
     */
     if (request.method === 'GET') {
-      const crcToken = request.query.crc_token;
+      const crcToken = request.query.crc_token.toString();
 
       if (crcToken) {
         const hash = getChallengeResponse(crcToken);

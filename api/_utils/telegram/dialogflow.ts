@@ -1,6 +1,7 @@
 import dialogflow from '@google-cloud/dialogflow';
 
 import { sendMessage } from './bot-methods';
+import { Message, Entity } from './interfaces';
 
 const {
   BOT_USERNAME,
@@ -9,56 +10,30 @@ const {
   DIALOGFLOW_PROJECT_ID,
 } = process.env;
 
-/**
- * Verify that dialogflow has a valid
- * response to the query
- * @param {object} response
- */
-const isResponseFullfilled = response =>
-  response.queryResult && response.queryResult.fulfillmentText !== '';
+const isBotReply = (message: Message) =>
+  message.reply_to_message?.from?.username === BOT_USERNAME;
 
-/**
- * Verify that the message is a reply to the bot itself
- * @param {object} message
- */
-const isBotReply = message =>
-  Object.prototype.hasOwnProperty.call(message, 'reply_to_message') &&
-  message.reply_to_message.from.username === BOT_USERNAME;
-
-/**
- * Verify that the bot was mentioned in a text
- * @param {array} entities
- * @param {string} text
- */
-const wasBotMentioned = (entities, text) =>
-  entities &&
+const wasBotMentioned = (entities: Entity[], text: string) =>
   entities.find(entity => entity.type === 'mention') &&
   text.includes(`@${BOT_USERNAME}`);
 
-/**
- * Method that returns a text depending if it's a reply/mention/private message
- * @param {object} message
- */
-const getTextResponse = message => {
-  if (wasBotMentioned(message.entities, message.text)) {
+const getTextResponse = (message: Message) => {
+  if (message.entities && message.text && wasBotMentioned(message.entities, message.text)) {
     return message.text.replace(`@${BOT_USERNAME}`, '');
   } else if (isBotReply(message) || message.chat.type === 'private') {
     return message.text;
   }
 };
 
-/**
- * Makes a http request to dialogflow with a query
- * @param {object} message
- */
-const query = async(message) => {
+const query = async(message: Message) => {
   const text = getTextResponse(message);
 
   if (
     DIALOGFLOW_CLIENT_EMAIL &&
     DIALOGFLOW_PRIVATE_KEY &&
-    DIALOGFLOW_PROJECT_ID
-    ) {
+    DIALOGFLOW_PROJECT_ID &&
+    message.from
+  ) {
     const privateKeyWithActualNewLines = DIALOGFLOW_PRIVATE_KEY.replace(/\\n/g, '\n')
 
     const config = {
@@ -70,7 +45,7 @@ const query = async(message) => {
     const sessionClient = new dialogflow.SessionsClient(config);
     const sessionPath = sessionClient.projectAgentSessionPath(
       DIALOGFLOW_PROJECT_ID,
-      message.from.id
+      message.from.id.toString()
     );
 
     const request = {
@@ -84,7 +59,7 @@ const query = async(message) => {
     };
     const [response] = await sessionClient.detectIntent(request);
 
-    if (isResponseFullfilled(response)) {
+    if (response.queryResult && response.queryResult.fulfillmentText) {
       await sendMessage({
         chatId: message.chat.id,
         text: response.queryResult.fulfillmentText,
@@ -94,15 +69,12 @@ const query = async(message) => {
   }
 };
 
-/**
- * Verify that is not a command and that
- * the bot has something to respond
- * @param {object} message
- */
-export const verifyResponse = async(message) => {
-  const isNotACommand = !/^\//.test(message.text);
+export const verifyResponse = async(message: Message) => {
+  if (message.text) {
+    const isNotACommand = !/^\//.test(message.text);
 
-  if (isNotACommand) {
-    await query(message);
+    if (isNotACommand) {
+      await query(message);
+    }
   }
 };

@@ -1,5 +1,7 @@
 import * as Sentry from '@sentry/node';
+//@ts-ignore
 import { Autohook } from 'twitter-autohook';
+import { NowRequest, NowResponse } from '@vercel/node'
 
 const {
   TWITTER_ACCESS_TOKEN,
@@ -15,7 +17,7 @@ const {
 Sentry.init({ dsn: SENTRY_DSN });
 
 /* used to activate webhook whenever we change the APP_URL OR env variables have been compromised */
-export default async(request, response) => {
+export default async(request: NowRequest, response: NowResponse) => {
   try {
     if (request.query.consumerKey === TWITTER_CONSUMER_KEY) {
       const webhook = new Autohook({

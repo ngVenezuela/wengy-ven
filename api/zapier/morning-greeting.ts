@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/node';
+import { NowRequest, NowResponse } from '@vercel/node';
 
 import messages from '../_utils/messages';
 import isBasicAuthValid from '../_utils/zapier-auth';
@@ -8,27 +9,16 @@ const { MAIN_GROUP_ID, SENTRY_DSN, NODE_ENV } = process.env;
 
 Sentry.init({ dsn: SENTRY_DSN });
 
-/**
- * Generate random Integer with values with range: min-max
- * @param {number} min - Min value
- * @param {number} max - Max value
- * @return {number} Random Integer value
- */
-const generateRandomBetween = (min, max) =>
+const generateRandomBetween = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
-/**
- * Get morning message depending
- * on what day of the week it is
- * @return {string}
- */
 const getMorningMessage = () => {
   const { goodMornings } = messages;
 
   const now = new Date();
   const weekday = now.getDay();
 
-  const weekDays = {
+  const weekDays: {[index: number]: string} = {
     0: 'generic',
     1: 'mondays',
     2: 'generic',
@@ -46,12 +36,14 @@ const getMorningMessage = () => {
   return goodMornings[weekDays[weekday]][randomIndex];
 };
 
-export default async(request, response) => {
+export default async(request: NowRequest, response: NowResponse) => {
   try {
     if (isBasicAuthValid(request.headers.authorization)) {
       const text = getMorningMessage();
 
-      await sendMessage({ chatId: MAIN_GROUP_ID, text });
+      if (MAIN_GROUP_ID) {
+        await sendMessage({ chatId: Number(MAIN_GROUP_ID), text });
+      }
 
       response.status(200).send('ok')
     } else {

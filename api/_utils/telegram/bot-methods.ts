@@ -1,9 +1,28 @@
 import fetch from 'node-fetch';
 
+import { Chat, Message } from './interfaces';
+
 const { TELEGRAM_BOT_TOKEN } = process.env;
 const TELEGRAM_BASE_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/`;
 
-const sendTypingAction = async(chatId) => {
+interface ForwardMessageProps {
+  chatId: Chat['id'];
+  fromChatId: Chat['id'];
+  messageId: Message['message_id'];
+  disableNotification?: boolean;
+};
+
+interface SendMessageProps {
+  chatId: Chat['id'];
+  text: Message['text']
+  disableNotification?: boolean;
+  disableWebPagePreview?: boolean;
+  parseMode?: string;
+  replyMarkup?: object;
+  replyToMessageId?: Message['message_id'];
+};
+
+const sendTypingAction = async(chatId: string | number) => {
   await fetch(`${TELEGRAM_BASE_URL}sendChatAction?chat_id=${chatId}&action=typing`);
 };
 
@@ -12,7 +31,7 @@ export const forwardMessage = async({
   fromChatId: from_chat_id,
   messageId: message_id,
   disableNotification: disable_notification = false,
-}) => {
+}: ForwardMessageProps) => {
   await sendTypingAction(chat_id);
 
   await fetch(`${TELEGRAM_BASE_URL}forwardMessage`, {
@@ -37,7 +56,7 @@ export const sendMessage = async({
   parseMode: parse_mode = 'Markdown',
   replyMarkup: reply_markup,
   replyToMessageId: reply_to_message_id,
-}) => {
+}: SendMessageProps) => {
   await sendTypingAction(chat_id);
 
   await fetch(`${TELEGRAM_BASE_URL}sendMessage`, {

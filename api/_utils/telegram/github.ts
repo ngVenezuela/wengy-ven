@@ -3,34 +3,32 @@ import fetch from 'node-fetch';
 import messages from '../messages';
 import { sendMessage } from './bot-methods';
 import { getChatType } from './admin';
+import { Message } from './interfaces';
 
 const { GITHUB_ACCESS_TOKEN } = process.env;
 const MAX_LENGTH_GIST_TEXT = 400;
 
-/**
- * Send wengy's github repo link
- * @param {number|string} chatId
- */
-export const sendCommunityRepo = async(chatId) =>
+export const sendCommunityRepo = async(chatId: number) =>
   await sendMessage({
     chatId,
     text: 'https://github.com/ngVenezuela/wengy-ven'
   });
 
-/**
- * Check gist considerations.
- * It may send a message or it may
- * send the gist directly
- * @param {object} message
- * @param {string} code
- */
-export const sendGist = async(message, code) => {
+export const sendGist = async(message: Message, code: string) => {
   if (code === '') {
     return;
   }
 
+  if (!message.from) {
+    return;
+  }
+
   const chatId = message.chat.id;
-  const { firstName = '', lastName = '', username = '' } = message.from;
+  const {
+    first_name: firstName = '',
+    last_name: lastName = '',
+    username = ''
+  } = message.from;
   const fullName =
     firstName === '' && lastName === '' ? '' : `${firstName} ${lastName} `;
   const user = username === '' ? '' : `(@${username})`;
@@ -66,16 +64,10 @@ export const sendGist = async(message, code) => {
   });
 };
 
-/**
- * Check if entity of message
- * is a code (eg. ```Hello world```)
- * @param {object} message
- */
-export const verifyCode = async (message) => {
-  /* update getChatType, no need to do a http request */
+export const verifyCode = async (message: Message) => {
   const type = await getChatType(message);
 
-  if (type === 'main') {
+  if (type === 'main' && message.entities && message.text) {
     if (!Object.prototype.hasOwnProperty.call(message, 'entities')) {
       return;
     }
@@ -91,7 +83,7 @@ export const verifyCode = async (message) => {
         replyToMessageId: message.message_id,
       });
     } else {
-      await sendGist(message);
+      await sendGist(message, message.text);
     }
   }
 };
