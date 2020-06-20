@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const Sentry = require('@sentry/node');
 
+/* This is executed in a CI environment, so, we have to update travis-ci env variables for this to work */
 const { APP_URL, SENTRY_DNS, TELEGRAM_BOT_TOKEN, TWITTER_CONSUMER_KEY } = process.env;
 
 Sentry.init({ dsn: SENTRY_DNS });
