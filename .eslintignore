@@ -1,0 +1,5 @@
+node_modules
+.now
+.github
+.env
+.eslintrc.js

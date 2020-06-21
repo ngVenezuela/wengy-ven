@@ -5,7 +5,7 @@ const { ZAPIER_BASIC_AUTH_USERNAME, ZAPIER_BASIC_AUTH_PASSWORD } = process.env;
 const isBasicAuthValid = (authorizationHeader = '') => {
   const token = authorizationHeader.split(/\s+/).pop() || '';
 
-  const auth = new Buffer.from(token, 'base64').toString();
+  const auth = Buffer.from(token, 'base64').toString();
   const parts = auth.split(/:/);
 
   const username = parts[0];

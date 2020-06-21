@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Official telegram bot for the ngVenezuela community",
   "scripts": {
-    "dev-server": "node dev-telegram-server.js",
+    "dev-server": "node scripts/dev-telegram-server.js",
     "vercel": "vercel dev",
     "start": "run-p -l vercel dev-server"
   },
@@ -25,19 +25,29 @@
   "homepage": "https://github.com/ngVenezuela/wengy-ven#readme",
   "dependencies": {
     "@google-cloud/dialogflow": "next",
-    "@sentry/node": "^5.16.1",
+    "@sentry/node": "^5.17.0",
+    "@vercel/node": "^1.7.1",
     "dotenv": "^8.2.0",
+    "ngrok": "^3.2.7",
     "node-fetch": "^2.6.0",
     "twitter-autohook": "^1.7.1"
   },
   "devDependencies": {
+    "@types/node": "^14.0.13",
+    "@types/node-fetch": "^2.5.7",
+    "@typescript-eslint/eslint-plugin": "^3.3.0",
+    "@typescript-eslint/parser": "^3.3.0",
+    "eslint": "7.2.0",
+    "eslint-config-airbnb-typescript": "^8.0.2",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.21.2",
     "husky": "^3.1.0",
     "lint-staged": "^9.5.0",
-    "ngrok": "^3.2.7",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "semantic-release": "^17.0.8",
-    "vercel": "^19.0.1"
+    "typescript": "^3.9.5",
+    "vercel": "^19.1.1"
   },
   "husky": {
     "hooks": {
@@ -45,18 +55,25 @@
     }
   },
   "lint-staged": {
-    "src/**/*.js": [
-      "prettier --single-quote --trailing-comma es5 --write",
+    "*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write",
       "git add"
     ]
   },
   "release": {
     "plugins": [
-      ["@semantic-release/commit-analyzer", {
-        "releaseRules": [
-          {"type": "chore", "release": "patch"}
-        ]
-      }],
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "releaseRules": [
+            {
+              "type": "chore",
+              "release": "patch"
+            }
+          ]
+        }
+      ],
       "@semantic-release/release-notes-generator",
       "@semantic-release/github"
     ]
