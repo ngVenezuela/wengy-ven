@@ -1,31 +1,38 @@
-import dialogflow from '@google-cloud/dialogflow';
+import dialogflow from "@google-cloud/dialogflow";
 
-import { sendMessage } from './bot-methods';
-import { Message, Entity } from './interfaces';
+import { sendMessage } from "./bot-methods";
+import { Message, Entity } from "./interfaces";
 
 const {
   BOT_USERNAME,
   DIALOGFLOW_CLIENT_EMAIL,
   DIALOGFLOW_PRIVATE_KEY,
-  DIALOGFLOW_PROJECT_ID,
+  DIALOGFLOW_PROJECT_ID
 } = process.env;
 
 const isBotReply = (message: Message) =>
   message.reply_to_message?.from?.username === BOT_USERNAME;
 
 const wasBotMentioned = (entities: Entity[], text: string) =>
-  entities.find(entity => entity.type === 'mention') &&
+  entities.find(entity => entity.type === "mention") &&
   text.includes(`@${BOT_USERNAME}`);
 
 const getTextResponse = (message: Message) => {
-  if (message.entities && message.text && wasBotMentioned(message.entities, message.text)) {
-    return message.text.replace(`@${BOT_USERNAME}`, '');
-  } else if (isBotReply(message) || message.chat.type === 'private') {
+  if (
+    message.entities &&
+    message.text &&
+    wasBotMentioned(message.entities, message.text)
+  ) {
+    return message.text.replace(`@${BOT_USERNAME}`, "");
+  }
+  if (isBotReply(message) || message.chat.type === "private") {
     return message.text;
   }
+
+  return "";
 };
 
-const query = async(message: Message) => {
+const query = async (message: Message) => {
   const text = getTextResponse(message);
 
   if (
@@ -34,13 +41,16 @@ const query = async(message: Message) => {
     DIALOGFLOW_PROJECT_ID &&
     message.from
   ) {
-    const privateKeyWithActualNewLines = DIALOGFLOW_PRIVATE_KEY.replace(/\\n/g, '\n')
+    const privateKeyWithActualNewLines = DIALOGFLOW_PRIVATE_KEY.replace(
+      /\\n/g,
+      "\n"
+    );
 
     const config = {
       credentials: {
         private_key: privateKeyWithActualNewLines,
-        client_email: DIALOGFLOW_CLIENT_EMAIL,
-      },
+        client_email: DIALOGFLOW_CLIENT_EMAIL
+      }
     };
     const sessionClient = new dialogflow.SessionsClient(config);
     const sessionPath = sessionClient.projectAgentSessionPath(
@@ -53,9 +63,9 @@ const query = async(message: Message) => {
       queryInput: {
         text: {
           text,
-          languageCode: 'es',
-        },
-      },
+          languageCode: "es"
+        }
+      }
     };
     const [response] = await sessionClient.detectIntent(request);
 
@@ -63,13 +73,13 @@ const query = async(message: Message) => {
       await sendMessage({
         chatId: message.chat.id,
         text: response.queryResult.fulfillmentText,
-        replyToMessageId: message.message_id,
+        replyToMessageId: message.message_id
       });
     }
   }
 };
 
-export const verifyResponse = async(message: Message) => {
+const verifyResponse = async (message: Message) => {
   if (message.text) {
     const isNotACommand = !/^\//.test(message.text);
 
@@ -78,3 +88,5 @@ export const verifyResponse = async(message: Message) => {
     }
   }
 };
+
+export default verifyResponse;

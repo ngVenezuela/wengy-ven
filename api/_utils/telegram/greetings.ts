@@ -1,42 +1,44 @@
-import messages from '../messages';
-import { sendMessage } from './bot-methods';
-import { getChatType } from './admin';
-import { Message } from './interfaces';
+import messages from "../messages";
+import { sendMessage } from "./bot-methods";
+import { getChatType } from "./admin";
+import { Message } from "./interfaces";
 
 const formatName = (firstName: string, userName: string) =>
-  userName ? '@'.concat(userName) : firstName;
+  userName ? "@".concat(userName) : firstName;
 
-export const sayHello = async(message: Message) => {
+export const sayHello = async (message: Message) => {
   const type = await getChatType(message);
 
-  if (message.new_chat_members && type === 'main') {
-    message.new_chat_members.forEach(async({ first_name: firstName, username = '' }) => {
-      const text = messages.welcome.replace(
-        '#{name}',
-        formatName(firstName, username)
-      );
+  if (message.new_chat_members && type === "main") {
+    message.new_chat_members.forEach(
+      async ({ first_name: firstName, username = "" }) => {
+        const text = messages.welcome.replace(
+          "#{name}",
+          formatName(firstName, username)
+        );
 
-      await sendMessage({
-        chatId: message.chat.id,
-        text,
-        replyToMessageId: message.message_id,
-      });
-    });
+        await sendMessage({
+          chatId: message.chat.id,
+          text,
+          replyToMessageId: message.message_id
+        });
+      }
+    );
   }
 };
 
-export const sayGoodbye = async(message: Message) => {
+export const sayGoodbye = async (message: Message) => {
   if (message.left_chat_member) {
     const {
       left_chat_member: { first_name: firstName },
-      chat: { id: chatId },
+      chat: { id: chatId }
     } = message;
     const type = await getChatType(message);
 
-    if (type === 'main') {
+    if (type === "main") {
       await sendMessage({
         chatId,
-        text: messages.goodBye.replace('#{name}', firstName),
+        text: messages.goodBye.replace("#{name}", firstName)
       });
     }
   }
