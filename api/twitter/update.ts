@@ -13,25 +13,31 @@ const {
   SENTRY_DSN
 } = process.env;
 
+// taken from https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object
 interface TweetInterface {
   in_reply_to_status_id: number;
-  in_reply_to_user_id: number;
   id_str: string;
   text: string;
   user: {
     screen_name: string;
   };
+  retweeted_status: {
+    text: string;
+  };
 }
 
 Sentry.init({ dsn: SENTRY_DSN });
 
-const isReply = (tweet: TweetInterface) =>
-  tweet.in_reply_to_status_id || tweet.in_reply_to_user_id;
+const isReply = (tweet: TweetInterface): boolean =>
+  tweet.in_reply_to_status_id !== undefined;
+
+const isRt = (tweet: TweetInterface): boolean =>
+  tweet.retweeted_status !== undefined;
 
 const handleTweets = async (tweets: TweetInterface[] = []) => {
   const promises: Promise<void>[] = [];
   tweets.forEach(tweet => {
-    if (MAIN_GROUP_ID && !isReply(tweet)) {
+    if (MAIN_GROUP_ID && !isReply(tweet) && !isRt(tweet)) {
       const tweetUrl = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
 
       const promise = sendMessage({
