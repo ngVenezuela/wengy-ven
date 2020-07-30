@@ -68,6 +68,10 @@
             {
               "type": "chore",
               "release": "patch"
+            },
+            {
+              "type": "fix",
+              "release": "patch"
             }
           ]
         }
