@@ -1,8 +1,10 @@
 import { Buffer } from 'buffer';
 
-const { ZAPIER_BASIC_AUTH_USERNAME, ZAPIER_BASIC_AUTH_PASSWORD } = process.env;
-
-const isBasicAuthValid = (authorizationHeader = '') => {
+const isBasicAuthValid = (
+  authorizationHeader: string,
+  matchingUsername: string,
+  matchingPassword: string,
+): boolean => {
   const token = authorizationHeader.split(/\s+/).pop() || '';
 
   const auth = Buffer.from(token, 'base64').toString();
@@ -11,7 +13,9 @@ const isBasicAuthValid = (authorizationHeader = '') => {
   const username = parts[0];
   const password = parts[1];
 
-  return username === ZAPIER_BASIC_AUTH_USERNAME && password === ZAPIER_BASIC_AUTH_PASSWORD
+  return (
+    username === matchingUsername && password === matchingPassword
+  );
 };
 
 export default isBasicAuthValid;

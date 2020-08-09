@@ -15,6 +15,12 @@ module.exports = {
     node: true
   },
   rules: {
-    "no-console": "off"
+    "no-console": "off",
+    "@typescript-eslint/ban-ts-comment": [
+      2,
+      {
+        "ts-ignore": "allow-with-description"
+      }
+    ]
   }
 };
