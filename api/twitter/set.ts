@@ -1,8 +1,7 @@
-import * as Sentry from "@sentry/node";
-// twitter-autohook does not have types
-// @ts-ignore
-import { Autohook } from "twitter-autohook";
-import { NowRequest, NowResponse } from "@vercel/node";
+import * as Sentry from '@sentry/node';
+// @ts-ignore: twitter-autohook does not have types
+import { Autohook } from 'twitter-autohook';
+import { NowRequest, NowResponse } from '@vercel/node';
 
 const {
   TWITTER_ACCESS_TOKEN,
@@ -12,7 +11,7 @@ const {
   TWITTER_WEBHOOK_ENV,
   SENTRY_DSN,
   APP_URL,
-  NODE_ENV
+  NODE_ENV,
 } = process.env;
 
 Sentry.init({ dsn: SENTRY_DSN });
@@ -26,27 +25,27 @@ export default async (request: NowRequest, response: NowResponse) => {
         token_secret: TWITTER_ACCESS_TOKEN_SECRET,
         consumer_key: TWITTER_CONSUMER_KEY,
         consumer_secret: TWITTER_CONSUMER_SECRET,
-        env: TWITTER_WEBHOOK_ENV
+        env: TWITTER_WEBHOOK_ENV,
       });
 
       await webhook.removeWebhooks();
       await webhook.start(`${APP_URL}/api/twitter/update`);
       await webhook.subscribe({
         oauth_token: TWITTER_ACCESS_TOKEN,
-        oauth_token_secret: TWITTER_ACCESS_TOKEN_SECRET
+        oauth_token_secret: TWITTER_ACCESS_TOKEN_SECRET,
       });
 
-      response.status(200).send("ok");
+      response.status(200).send('ok');
     } else {
-      response.status(401).send("Unauthorized");
+      response.status(401).send('Unauthorized');
     }
   } catch (error) {
-    if (NODE_ENV === "development") {
+    if (NODE_ENV === 'development') {
       console.error(error);
     } else {
       Sentry.captureException(error);
     }
 
-    response.status(400).send("not ok");
+    response.status(400).send('not ok');
   }
 };

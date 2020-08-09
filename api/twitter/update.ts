@@ -5,6 +5,7 @@ import { NowRequest, NowResponse } from '@vercel/node';
 
 import { sendMessage } from '../_utils/telegram/bot-methods';
 import messages from '../_utils/messages';
+import getRawBody from '../_utils/http';
 
 const {
   TWITTER_CONSUMER_SECRET,
@@ -24,6 +25,7 @@ interface TweetInterface {
   retweeted_status: {
     text: string;
   };
+  is_quote_status: boolean;
 }
 
 Sentry.init({ dsn: SENTRY_DSN });
@@ -34,10 +36,17 @@ const isReply = (tweet: TweetInterface): boolean =>
 const isRt = (tweet: TweetInterface): boolean =>
   tweet.retweeted_status !== undefined;
 
+const isQuote = (tweet: TweetInterface): boolean =>
+  tweet.is_quote_status;
+
+const isNewTweet = (tweet: TweetInterface) =>
+  !isReply(tweet) && !isRt(tweet) && !isQuote(tweet);
+
 const handleTweets = async (tweets: TweetInterface[] = []) => {
   const promises: Promise<void>[] = [];
+
   tweets.forEach(tweet => {
-    if (MAIN_GROUP_ID && !isReply(tweet) && !isRt(tweet)) {
+    if (MAIN_GROUP_ID && isNewTweet(tweet)) {
       const tweetUrl = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
 
       const promise = sendMessage({
@@ -90,24 +99,6 @@ const getChallengeResponse = (crcToken: string) =>
     .createHmac('sha256', TWITTER_CONSUMER_SECRET ?? '')
     .update(crcToken)
     .digest('base64');
-
-const getRawBody = (readable: NowRequest): Promise<Buffer> => {
-  const chunks: any[] = [];
-  let bytes = 0;
-
-  return new Promise((resolve, reject) => {
-    readable.on('error', reject);
-
-    readable.on('data', chunk => {
-      chunks.push(chunk);
-      bytes += chunk.length;
-    });
-
-    readable.on('end', () => {
-      resolve(Buffer.concat(chunks, bytes));
-    });
-  });
-};
 
 export default async (request: NowRequest, response: NowResponse) => {
   try {
