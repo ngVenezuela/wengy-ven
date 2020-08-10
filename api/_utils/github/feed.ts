@@ -12,9 +12,10 @@ interface RepoConfig {
 const handleGithubFeed = async (
   repoConfig: RepoConfig,
   tags: string[],
-) => {
+): Promise<void> => {
   if (MAIN_GROUP_ID) {
     const promises: Promise<void>[] = [];
+    const repoMainUrl = repoConfig.feed.replace('releases.atom', '');
 
     tags.forEach(tag => {
       const promise = sendMessage({
@@ -25,7 +26,7 @@ const handleGithubFeed = async (
           .replace(
             '#{url}',
             repoConfig.hasChangelog
-              ? `https://github.com/${repoConfig.name}/blob/master/CHANGELOG.md`
+              ? `${repoMainUrl}blob/master/CHANGELOG.md`
               : `https://github.com/${repoConfig.name}/releases/tag/${tag}`,
           ),
       });
