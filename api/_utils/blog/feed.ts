@@ -15,7 +15,7 @@ interface BlogFeed {
  * TODO: for the ngVenezuela blog to work we have to wait until this is
  * closed: https://github.com/thepracticaldev/dev.to/issues/3363
  */
-const handleBlogFeed = async (feeds: BlogFeed[]) => {
+const handleBlogFeed = async (feeds: BlogFeed[]): Promise<void> => {
   if (MAIN_GROUP_ID) {
     const promises: Promise<void>[] = [];
 
