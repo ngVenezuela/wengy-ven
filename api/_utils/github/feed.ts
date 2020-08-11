@@ -11,13 +11,15 @@ interface RepoConfig {
 
 const handleGithubFeed = async (
   repoConfig: RepoConfig,
-  tags: string[],
+  urls: string[],
 ): Promise<void> => {
   if (MAIN_GROUP_ID) {
     const promises: Promise<void>[] = [];
     const repoMainUrl = repoConfig.feed.replace('releases.atom', '');
 
-    tags.forEach(tag => {
+    urls.forEach(url => {
+      const tag = url.match(/[\w.-]+$/gi)![0];
+
       const promise = sendMessage({
         chatId: Number(MAIN_GROUP_ID),
         text: messages.githubRelease
@@ -27,7 +29,7 @@ const handleGithubFeed = async (
             '#{url}',
             repoConfig.hasChangelog
               ? `${repoMainUrl}blob/master/CHANGELOG.md`
-              : `https://github.com/${repoConfig.name}/releases/tag/${tag}`,
+              : url,
           ),
       });
 

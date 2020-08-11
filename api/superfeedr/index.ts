@@ -14,7 +14,7 @@ Sentry.init({ dsn: SENTRY_DSN });
 
 // Taken from https://documentation.superfeedr.com/schema.html
 interface Item {
-  title: string;
+  permalinkUrl: string;
 }
 
 /**
@@ -56,12 +56,12 @@ export default async (request: NowRequest, response: NowResponse) => {
           const repoConfig = config.githubFeeds.find(
             ({ feed }) => feed === updatedFeed,
           );
-          const tags = request.body.items.map(
-            (item: Item) => item.title,
+          const urls = request.body.items.map(
+            (item: Item) => item.permalinkUrl,
           );
 
           if (repoConfig) {
-            await handleGithubFeed(repoConfig, tags);
+            await handleGithubFeed(repoConfig, urls);
           }
         } else {
           // If it isn't a github feed, it's a blog feed
