@@ -1,21 +1,23 @@
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
 
-import messages from "../messages";
-import { sendMessage } from "./bot-methods";
-import { getChatType } from "./admin";
-import { Message } from "./interfaces";
+import messages from '../messages';
+import { sendMessage } from './bot-methods';
+import { getChatType } from './admin';
+import { Message } from './interfaces';
 
 const { GITHUB_ACCESS_TOKEN } = process.env;
 const MAX_LENGTH_GIST_TEXT = 400;
 
-export const sendCommunityRepo = async (chatId: number) =>
+export const sendCommunityRepo = async (
+  chatId: number,
+): Promise<void> =>
   sendMessage({
     chatId,
-    text: "https://github.com/ngVenezuela/wengy-ven"
+    text: 'https://github.com/ngVenezuela/wengy-ven',
   });
 
 export const sendGist = async (message: Message, code: string) => {
-  if (code === "") {
+  if (code === '') {
     return;
   }
 
@@ -25,34 +27,36 @@ export const sendGist = async (message: Message, code: string) => {
 
   const chatId = message.chat.id;
   const {
-    first_name: firstName = "",
-    last_name: lastName = "",
-    username = ""
+    first_name: firstName = '',
+    last_name: lastName = '',
+    username = '',
   } = message.from;
   const fullName =
-    firstName === "" && lastName === "" ? "" : `${firstName} ${lastName} `;
-  const user = username === "" ? "" : `(@${username})`;
+    firstName === '' && lastName === ''
+      ? ''
+      : `${firstName} ${lastName} `;
+  const user = username === '' ? '' : `(@${username})`;
   const filename = `${new Date().toISOString()}.js`;
 
   const body = {
     description: messages.gistCreated
-      .replace("#{fullName}", fullName)
-      .replace("#{user}", user),
+      .replace('#{fullName}', fullName)
+      .replace('#{user}', user),
     public: true,
     files: {
       [filename]: {
-        content: code
-      }
-    }
+        content: code,
+      },
+    },
   };
 
-  const response = await fetch("https://api.github.com/gists", {
-    method: "POST",
+  const response = await fetch('https://api.github.com/gists', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      Authorization: `token ${GITHUB_ACCESS_TOKEN}`
+      'Content-Type': 'application/json; charset=utf-8',
+      Authorization: `token ${GITHUB_ACCESS_TOKEN}`,
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   });
   const jsonResponse = await response.json();
   const { html_url: link } = jsonResponse;
@@ -60,19 +64,19 @@ export const sendGist = async (message: Message, code: string) => {
   await sendMessage({
     chatId,
     text: link,
-    replyToMessageId: message.message_id
+    replyToMessageId: message.message_id,
   });
 };
 
 export const verifyCode = async (message: Message) => {
   const type = await getChatType(message);
 
-  if (type === "main" && message.entities && message.text) {
-    if (!Object.prototype.hasOwnProperty.call(message, "entities")) {
+  if (type === 'main' && message.entities && message.text) {
+    if (!Object.prototype.hasOwnProperty.call(message, 'entities')) {
       return;
     }
 
-    if (message.entities[0].type !== "pre") {
+    if (message.entities[0].type !== 'pre') {
       return;
     }
 
@@ -80,7 +84,7 @@ export const verifyCode = async (message: Message) => {
       await sendMessage({
         chatId: message.chat.id,
         text: messages.gistRecommendation,
-        replyToMessageId: message.message_id
+        replyToMessageId: message.message_id,
       });
     } else {
       await sendGist(message, message.text);

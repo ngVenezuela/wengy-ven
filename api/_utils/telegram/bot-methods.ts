@@ -1,30 +1,29 @@
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
 
-import { Chat, Message } from "./interfaces";
+import { Chat, Message } from './interfaces';
 
 const { TELEGRAM_BOT_TOKEN } = process.env;
 const TELEGRAM_BASE_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/`;
 
 interface ForwardMessageProps {
-  chatId: Chat["id"];
-  fromChatId: Chat["id"];
-  messageId: Message["message_id"];
+  chatId: Chat['id'];
+  fromChatId: Chat['id'];
+  messageId: Message['message_id'];
   disableNotification?: boolean;
 }
 
 interface SendMessageProps {
-  chatId: Chat["id"];
-  text: Message["text"];
+  chatId: Chat['id'];
+  text: Message['text'];
   disableNotification?: boolean;
   disableWebPagePreview?: boolean;
   parseMode?: string;
-  replyMarkup?: object;
-  replyToMessageId?: Message["message_id"];
+  replyToMessageId?: Message['message_id'];
 }
 
 const sendTypingAction = async (chatId: string | number) => {
   await fetch(
-    `${TELEGRAM_BASE_URL}sendChatAction?chat_id=${chatId}&action=typing`
+    `${TELEGRAM_BASE_URL}sendChatAction?chat_id=${chatId}&action=typing`,
   );
 };
 
@@ -32,21 +31,21 @@ export const forwardMessage = async ({
   chatId: chat_id,
   fromChatId: from_chat_id,
   messageId: message_id,
-  disableNotification: disable_notification = false
-}: ForwardMessageProps) => {
+  disableNotification: disable_notification = false,
+}: ForwardMessageProps): Promise<void> => {
   await sendTypingAction(chat_id);
 
   await fetch(`${TELEGRAM_BASE_URL}forwardMessage`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       message_id,
       chat_id,
       from_chat_id,
-      disable_notification
-    })
+      disable_notification,
+    }),
   });
 };
 
@@ -55,16 +54,15 @@ export const sendMessage = async ({
   text,
   disableNotification: disable_notification = false,
   disableWebPagePreview: disable_web_page_preview = false,
-  parseMode: parse_mode = "Markdown",
-  replyMarkup: reply_markup,
-  replyToMessageId: reply_to_message_id
-}: SendMessageProps) => {
+  parseMode: parse_mode = 'Markdown',
+  replyToMessageId: reply_to_message_id,
+}: SendMessageProps): Promise<void> => {
   await sendTypingAction(chat_id);
 
   await fetch(`${TELEGRAM_BASE_URL}sendMessage`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       chat_id,
@@ -73,7 +71,6 @@ export const sendMessage = async ({
       disable_web_page_preview,
       disable_notification,
       reply_to_message_id,
-      reply_markup
-    })
+    }),
   });
 };

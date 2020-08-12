@@ -1,7 +1,9 @@
-const fetch = require("node-fetch");
-const ngrok = require("ngrok");
+/* eslint-disable @typescript-eslint/no-var-requires */
 
-require("dotenv").config();
+const fetch = require('node-fetch');
+const ngrok = require('ngrok');
+
+require('dotenv').config();
 
 const { TELEGRAM_BOT_TOKEN, APP_PORT } = process.env;
 let url;
@@ -9,7 +11,7 @@ let url;
 (async () => {
   /* vercel uses port 3000 as default, make sure APP_PORT env variable is set to the same port */
   url = await ngrok.connect(APP_PORT);
-  console.log("Almost ready, proxy url: ", url);
+  console.log('Almost ready, proxy url: ', url);
 })();
 
 /**
@@ -21,11 +23,11 @@ const poll = async (offset = 0) => {
     const response = await fetch(
       `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates?offset=${offset}`,
       {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json"
-        }
-      }
+          'Content-Type': 'application/json',
+        },
+      },
     );
 
     const jsonResponse = await response.json();
@@ -37,12 +39,12 @@ const poll = async (offset = 0) => {
         const promise = fetch(
           `${url}/api/telegram/update?token=${TELEGRAM_BOT_TOKEN}`,
           {
-            method: "POST",
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json"
+              'Content-Type': 'application/json',
             },
-            body: JSON.stringify(result)
-          }
+            body: JSON.stringify(result),
+          },
         );
 
         promises.push(promise);
@@ -66,7 +68,7 @@ const poll = async (offset = 0) => {
       console.error(`Telegram error: ${jsonResponse.result}`);
     }
   } catch (error) {
-    console.error("An unexpected error ocurred: ", error);
+    console.error('An unexpected error ocurred: ', error);
   }
 };
 

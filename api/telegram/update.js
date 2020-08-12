@@ -1,7 +1,7 @@
-import * as Sentry from "@sentry/node";
+import * as Sentry from '@sentry/node';
 
-import handleListenCommands from "../_utils/telegram/commands";
-import handleListenEvents from "../_utils/telegram/events";
+import handleListenCommands from '../_utils/telegram/commands';
+import handleListenEvents from '../_utils/telegram/events';
 
 const { NODE_ENV, SENTRY_DSN, TELEGRAM_BOT_TOKEN } = process.env;
 
@@ -15,18 +15,18 @@ export default async (request, response) => {
       await handleListenEvents(message);
       await handleListenCommands(message);
 
-      response.status(200).send("ok");
+      response.status(200).send('ok');
     } else {
-      response.status(401).send("Unauthorized");
+      response.status(401).send('Unauthorized');
     }
   } catch (error) {
-    if (NODE_ENV === "development") {
+    if (NODE_ENV === 'development') {
       console.error(error);
     } else {
       Sentry.captureException(error);
     }
 
     /* keep telegram servers happy, error already reported */
-    response.status(200).send("ok");
+    response.status(200).send('ok');
   }
 };
