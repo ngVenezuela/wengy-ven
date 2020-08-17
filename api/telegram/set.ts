@@ -1,12 +1,13 @@
 import fetch from 'node-fetch';
 import * as Sentry from '@sentry/node';
+import { NowRequest, NowResponse } from '@vercel/node';
 
 const { TELEGRAM_BOT_TOKEN, APP_URL, SENTRY_DSN } = process.env;
 
 Sentry.init({ dsn: SENTRY_DSN });
 
 /* used to activate webhook whenever we change the APP_URL */
-export default async (request, response) => {
+export default async (request: NowRequest, response: NowResponse): Promise<void> => {
   try {
     if (request.query.token === TELEGRAM_BOT_TOKEN) {
       const fetchResponse = await fetch(

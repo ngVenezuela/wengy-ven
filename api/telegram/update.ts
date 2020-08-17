@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/node';
+import { NowRequest, NowResponse } from '@vercel/node';
 
 import handleListenCommands from '../_utils/telegram/commands';
 import handleListenEvents from '../_utils/telegram/events';
@@ -7,7 +8,7 @@ const { NODE_ENV, SENTRY_DSN, TELEGRAM_BOT_TOKEN } = process.env;
 
 Sentry.init({ dsn: SENTRY_DSN });
 
-export default async (request, response) => {
+export default async (request: NowRequest, response: NowResponse): Promise<void> => {
   try {
     if (request.query.token === TELEGRAM_BOT_TOKEN) {
       const { message } = request.body;

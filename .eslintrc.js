@@ -21,6 +21,7 @@ module.exports = {
       {
         "ts-ignore": "allow-with-description"
       }
-    ]
+    ],
+    'prettier/prettier': 0
   }
 };

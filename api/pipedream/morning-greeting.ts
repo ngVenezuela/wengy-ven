@@ -44,7 +44,7 @@ const getMorningMessage = () => {
   return goodMornings[weekDays[weekday]][randomIndex];
 };
 
-export default async (request: NowRequest, response: NowResponse) => {
+export default async (request: NowRequest, response: NowResponse): Promise<void> => {
   try {
     const matchingUsername = PIPEDREAM_USERNAME || '';
     const matchingPassword = PIPEDREAM_PASSWORD || '';

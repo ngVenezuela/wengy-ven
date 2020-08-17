@@ -16,7 +16,7 @@ export const sendCommunityRepo = async (
     text: 'https://github.com/ngVenezuela/wengy-ven',
   });
 
-export const sendGist = async (message: Message, code: string) => {
+export const sendGist = async (message: Message, code: string): Promise<void> => {
   if (code === '') {
     return;
   }
@@ -68,7 +68,7 @@ export const sendGist = async (message: Message, code: string) => {
   });
 };
 
-export const verifyCode = async (message: Message) => {
+export const verifyCode = async (message: Message): Promise<void> => {
   const type = await getChatType(message);
 
   if (type === 'main' && message.entities && message.text) {
