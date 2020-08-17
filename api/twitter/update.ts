@@ -100,7 +100,7 @@ const getChallengeResponse = (crcToken: string) =>
     .update(crcToken)
     .digest('base64');
 
-export default async (request: NowRequest, response: NowResponse) => {
+export default async (request: NowRequest, response: NowResponse): Promise<void> => {
   try {
     /*
       There was a problem when validating the header signature in a get request,

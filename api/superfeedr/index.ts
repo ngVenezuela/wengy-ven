@@ -44,7 +44,7 @@ const validateSignature = (
   );
 };
 
-export default async (request: NowRequest, response: NowResponse) => {
+export default async (request: NowRequest, response: NowResponse): Promise<void> => {
   try {
     if (request.method === 'POST') {
       const rawBody = await getRawBody(request);

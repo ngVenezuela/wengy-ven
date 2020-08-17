@@ -17,7 +17,7 @@ const {
 Sentry.init({ dsn: SENTRY_DSN });
 
 /* used to activate webhook whenever we change the APP_URL OR env variables have been compromised */
-export default async (request: NowRequest, response: NowResponse) => {
+export default async (request: NowRequest, response: NowResponse): Promise<void> => {
   try {
     if (request.query.consumerKey === TWITTER_CONSUMER_KEY) {
       const webhook = new Autohook({

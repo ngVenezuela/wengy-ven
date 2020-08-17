@@ -60,4 +60,5 @@ const config = {
   ],
 };
 
-export default config;
+/* we are requiring this in an env where import/export are not supported */
+module.exports = config;
