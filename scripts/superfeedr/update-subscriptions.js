@@ -3,7 +3,7 @@
 const Sentry = require('@sentry/node');
 const { Buffer } = require('buffer');
 
-const config = require('../api/_utils/config');
+const config = require('../../api/_utils/config');
 const Superfeedr = require('./SuperFeedr');
 
 /* This is executed in a CI environment, so,
