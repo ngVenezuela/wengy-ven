@@ -58,6 +58,7 @@ const config = {
       feed: 'https://blog.angular.io/feed',
     },
   ],
+  twitterHandle: 'ngVenezuela',
 };
 
 /* we are requiring this in an env where import/export are not supported */
