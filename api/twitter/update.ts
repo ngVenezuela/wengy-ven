@@ -6,6 +6,7 @@ import { NowRequest, NowResponse } from '@vercel/node';
 import { sendMessage } from '../_utils/telegram/bot-methods';
 import messages from '../_utils/messages';
 import getRawBody from '../_utils/http';
+import config from '../_utils/config';
 
 const {
   TWITTER_CONSUMER_SECRET,
@@ -39,14 +40,17 @@ const isRt = (tweet: TweetInterface): boolean =>
 const isQuote = (tweet: TweetInterface): boolean =>
   tweet.is_quote_status;
 
-const isNewTweet = (tweet: TweetInterface) =>
+const isNewTweet = (tweet: TweetInterface): boolean =>
   !isReply(tweet) && !isRt(tweet) && !isQuote(tweet);
+
+const isTweetFromUs = (tweet: TweetInterface): boolean =>
+  tweet.user.screen_name === config.twitterHandle;
 
 const handleTweets = async (tweets: TweetInterface[] = []) => {
   const promises: Promise<void>[] = [];
 
   tweets.forEach(tweet => {
-    if (MAIN_GROUP_ID && isNewTweet(tweet)) {
+    if (MAIN_GROUP_ID && isTweetFromUs(tweet) && isNewTweet(tweet)) {
       const tweetUrl = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
 
       const promise = sendMessage({

@@ -28,11 +28,6 @@ const config = {
         'https://github.com/NativeScript/NativeScript/releases.atom',
     },
     {
-      name: 'wengy-ven',
-      hasChangelog: true,
-      feed: 'https://github.com/ngVenezuela/wengy-ven/releases.atom',
-    },
-    {
       name: 'ngrx',
       hasChangelog: true,
       feed: 'https://github.com/ngrx/platform/releases.atom',
@@ -58,6 +53,7 @@ const config = {
       feed: 'https://blog.angular.io/feed',
     },
   ],
+  twitterHandle: 'ngVenezuela',
 };
 
 /* we are requiring this in an env where import/export are not supported */
