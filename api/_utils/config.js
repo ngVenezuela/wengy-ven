@@ -37,11 +37,6 @@ const config = {
       hasChangelog: false,
       feed: 'https://github.com/Microsoft/TypeScript/releases.atom',
     },
-    {
-      name: 'nx',
-      hasChangelog: false,
-      feed: 'https://github.com/nrwl/nx/releases.atom',
-    },
   ],
   blogFeeds: [
     {
